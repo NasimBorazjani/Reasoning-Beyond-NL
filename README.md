@@ -26,7 +26,7 @@ Models prompted with our Prolog in-context learning examples, using our neurosym
 
 | Model name         | GSM8k Dataset | 
 | ------------------ |---------------- | 
-| GPT4 + Prolog      |     94%         |     
+| GPT4 + Prolog      |     95.2%         |     
 | GPT3.5 + Prolog    |     80.4%       | 
 
 To reproduce these results and evaluate the models on the GSM8k dataset, using our neurosymbolic Prolog augmented approach, run:
