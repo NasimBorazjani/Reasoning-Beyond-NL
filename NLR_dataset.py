@@ -58,11 +58,11 @@ NLR_problems = {1:{"statement": "Out of a deck of 52 cards, some cards are lost.
                 55:{"statement": "In 'flip it' a player interacts with a 4x4 grid of discs with a black and a white side. Initially, all discs display their white side. In each round, the player chooses a specific coordinate on the grid and rolls an 8-sided dice to determine the number of adjacent discs to flip. The first disc to be flipped is the one directly above the selected grid, the flipping of the rest of the adjacent disks proceeds clockwise. If the selected grid is on the corner or edge of the grid with less than 8 neighbors, and the dice roll exceeds the number of neighboring discs, all neighboring discs are flipped. Determine how many discs will be showing their black side after four rounds, choosing to flip discs along the diagonal of the grid, starting from the top left disc (1, 1) and moving to the bottom right disc (4, 4) with dice rolls of 4, 7, 4, 3.", "type":"Algorithmic Instructions", "in_prompt": False, "answer": 8}}
 import json
 for item in NLR_problems.values():
-    item.pop('in prompt', None)
+    item.pop('in_prompt', None)
 
 # Writing the modified dictionary to a new JSON file
 with open('NLR_dataset.json', 'w') as json_file:
-    json.dump(NLR_problems, json_file, indent=2)
+    json.dump(NLR_problems, json_file, indent=4)
 
 
 def get_problems(problem_type):
