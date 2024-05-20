@@ -1,0 +1,703 @@
+ID: 23
+{'statement': 'Sarah has some red cubes, red spheres, blue cubes, and blue spheres in her bag. We know the total number of blue objects is 1 and half times the number of red objects. The number of blue spheres is 4 less than half the total number of red objects, and the number of red spheres is 6 less than half the total number of blue objects. And the number of blue cubes is 2 less than 3 times the number of red cubes. What’s the total number of objects in Sarah’s bag?', 'type': 'mwp', 'in_prompt': False, 'answer': 120}
+NOT repeated 
+problem(Total_number_of_objects):-
+{% The total number of blue objects is 1 and half times the number of red objects.
+Total_blue_objects = 1.5 * Total_red_objects,
+
+
+% The number of blue spheres is 4 less than half the total number of red objects.
+Blue_spheres = 0.5 * Total_red_objects - 4,
+
+
+% The number of red spheres is 6 less than half the total number of blue objects.
+Red_spheres = 0.5 * Total_blue_objects - 6,
+
+
+% The number of blue cubes is 2 less than 3 times the number of red cubes.
+Blue_cubes = 3 * Red_cubes - 2,
+
+
+% The total number of red objects is the sum of red cubes and red spheres.
+Total_red_objects = Red_cubes + Red_spheres,
+
+
+% The total number of blue objects is the sum of blue cubes and blue spheres.
+Total_blue_objects = Blue_cubes + Blue_spheres,
+
+
+% The total number of objects in Sarah’s bag is the sum of all red and blue objects.
+Total_number_of_objects = Total_red_objects + Total_blue_objects}.
+prolog run result: 120 problem answer: 120
+
+
+
+ID: 24
+{'statement': 'There are 3 rings all centered around the same point. The sum of circumference of the first and third rings, counting from the innermost ring out, is equal to twice the circumference of the second minus 2 pi. We also have a band with length 5 pi. We added 60% of this band to the circumference of the first ring and added half of the remaining part of the band to the second ring and the other half to the third ring. After this addition, the sum of the circumference of the first and second ring is 9 pi longer than the circumference of the third ring. Also, the sum of circumference of the third ring before and after adding the band is 2 pi shorter than twice the circumference of the first ring after addition plus the second ring circumference after adding the band. What was the sum of the radius of the 3 rings before adding the band? Pi is equal to 3 in this question.', 'type': 'mwp', 'in_prompt': False, 'answer': 23}
+NOT repeated 
+problem(Sum_radius_3_rings):-
+{% We have 3 rings all centered around the same point. Let's denote the radius of the first, second, and third rings as R1, R2, and R3 respectively. The circumference of a ring is 2 * pi * radius. Thus, the circumference of the first, second, and third rings are 2 * 3 * R1, 2 * 3 * R2, and 2 * 3 * R3 respectively.
+Circumference_ring1 = 2 * 3 * R1,
+Circumference_ring2 = 2 * 3 * R2,
+Circumference_ring3 = 2 * 3 * R3,
+
+
+% The sum of circumference of the first and third rings is equal to twice the circumference of the second minus 2 pi.
+Circumference_ring1 + Circumference_ring3 = 2 * Circumference_ring2 - 2 * 3,
+
+
+% We have a band with length 5 pi.
+Length_band = 5 * 3,
+
+
+% We added 60% of this band to the circumference of the first ring
+Added_to_ring1 = 0.6 * Length_band,
+Circumference_ring1_after_addition = Circumference_ring1 + Added_to_ring1,
+
+
+% We added half of the remaining part of the band to the second ring and the other half to the third ring.
+Remaining_band = Length_band - Added_to_ring1,
+Added_to_ring2 = 0.5 * Remaining_band,
+Added_to_ring3 = 0.5 * Remaining_band,
+Circumference_ring2_after_addition = Circumference_ring2 + Added_to_ring2,
+Circumference_ring3_after_addition = Circumference_ring3 + Added_to_ring3,
+
+
+% After this addition, the sum of the circumference of the first and second ring is 9 pi longer than the circumference of the third ring.
+Circumference_ring1_after_addition + Circumference_ring2_after_addition = Circumference_ring3_after_addition + 9 * 3,
+
+
+% The sum of circumference of the third ring before and after adding the band is 2 pi shorter than twice the circumference of the first ring after addition plus the second ring circumference after adding the band.
+Circumference_ring3 + Circumference_ring3_after_addition = 2 * Circumference_ring1_after_addition + Circumference_ring2_after_addition - 2 * 3,
+
+
+% The sum of the radius of the 3 rings before adding the band is
+Sum_radius_3_rings = R1 + R2 + R3}.
+prolog run result: 23 problem answer: 23
+
+
+
+ID: 25
+{'statement': 'Twelve of Anna’s friends want to pay an equal amount of money to buy her a violin. But 2 of her friends decided to not participate. Now each of her 10 friends have to pay X dollars more in order to buy her the violin. On the last day, one more of her friends decided not to contribute. Now if each of her 9 friends pay 2*X dollars more than the original amount each of the 12 friends agreed to contribute, then they would have $30 more than the pierce of the violin. How much is X?', 'type': 'mwp', 'in_prompt': False, 'answer': 10}
+NOT repeated 
+problem(X):-
+{% Twelve of Anna’s friends want to pay an equal amount of money to buy her a violin. Let's denote the price of the violin as Violin_price and the original amount each friend agreed to contribute as Original_contribution.
+Violin_price = 12 * Original_contribution,
+
+
+% But 2 of her friends decided to not participate. Now each of her 10 friends have to pay X dollars more in order to buy her the violin.
+Violin_price = 10 * (Original_contribution + X),
+
+
+% On the last day, one more of her friends decided not to contribute. Now if each of her 9 friends pay 2*X dollars more than the original amount each of the 12 friends agreed to contribute, then they would have $30 more than the price of the violin.
+Violin_price + 30 = 9 * (Original_contribution + 2*X)}.
+prolog run result: 10 problem answer: 10
+
+
+
+ID: 26
+{'statement': 'There’s an elementary school with 5 grades with a total of 700 students. We know that the size of the 5th grade is equal to the sum of the size of 2nd and 4th grades minus the size of 3rd grade. The number of 2nd graders is equal to twice the number of 1st graders minus the number of 4th graders. And the size of 3rd plus twice the size of 1st grades is equal to the size of 2nd plus twice the size of 4th grades. If we sum twice the number of 3rd graders, twice the number of 4th graders, and the number of 2nd graders we get the number of 5th graders plus twice the number of first graders. What is the sum of the size of the first, third, and fifth grades?', 'type': 'mwp', 'in_prompt': False, 'answer': 420}
+NOT repeated 
+problem(Sum_first_third_fifth_grades):-
+{% There are 5 grades in the school with a total of 700 students.
+Size_first_grade + Size_second_grade + Size_third_grade + Size_fourth_grade + Size_fifth_grade = 700,
+
+
+% The size of the 5th grade is equal to the sum of the size of 2nd and 4th grades minus the size of 3rd grade.
+Size_fifth_grade = Size_second_grade + Size_fourth_grade - Size_third_grade,
+
+
+% The number of 2nd graders is equal to twice the number of 1st graders minus the number of 4th graders.
+Size_second_grade = 2 * Size_first_grade - Size_fourth_grade,
+
+
+% The size of 3rd plus twice the size of 1st grades is equal to the size of 2nd plus twice the size of 4th grades.
+Size_third_grade + 2 * Size_first_grade = Size_second_grade + 2 * Size_fourth_grade,
+
+
+% If we sum twice the number of 3rd graders, twice the number of 4th graders, and the number of 2nd graders we get the number of 5th graders plus twice the number of first graders.
+2 * Size_third_grade + 2 * Size_fourth_grade + Size_second_grade = Size_fifth_grade + 2 * Size_first_grade,
+
+
+% The sum of the size of the first, third, and fifth grades is:
+Sum_first_third_fifth_grades = Size_first_grade + Size_third_grade + Size_fifth_grade}.
+prolog run result: 420 problem answer: 420
+
+
+
+ID: 27
+{'statement': 'A number of adults migrate to a new city. Everybody has a partner, and each couple lives in a household. After 5 years each couple has 3 kids. After another 5 years, the total population of the city increases by 40% from the newborns born in the past 5 years. Then a virus comes to the city and infects 30% of the adults, 20% of the young children (age 5 or above), and 60% of the newborns (age less than 5). 230 of the residents of this new city were not infected. What is the sum of the population of the children born in this city?', 'type': 'mwp', 'in_prompt': False, 'answer': 250}
+NOT repeated 
+problem(Sum_population_children):-
+{% A number of adults migrate to a new city. Everybody has a partner, and each couple lives in a household. Thus, the number of adults is twice the number of households.
+Number_of_adults = 2 * Number_of_households,
+
+
+% After 5 years each couple has 3 kids. Thus, the number of kids born after 5 years is 3 times the number of households.
+Number_of_kids_after_5_years = 3 * Number_of_households,
+
+
+% After another 5 years, the total population of the city increases by 40% from the newborns born in the past 5 years. Thus, the number of newborns is 40% of the total population of the city after 10 years.
+Number_of_newborns = 0.4 * (Number_of_adults + Number_of_kids_after_5_years + Number_of_newborns),
+
+
+% Then a virus comes to the city and infects 30% of the adults, 20% of the young children (age 5 or above), and 60% of the newborns (age less than 5).
+Number_of_infected_adults = 0.3 * Number_of_adults,
+Number_of_infected_kids_after_5_years = 0.2 * Number_of_kids_after_5_years,
+Number_of_infected_newborns = 0.6 * Number_of_newborns,
+
+
+% 230 of the residents of this new city were not infected. Thus, the total population of the city after 10 years is the sum of the number of infected people and the number of non-infected people.
+Number_of_adults + Number_of_kids_after_5_years + Number_of_newborns = Number_of_infected_adults + Number_of_infected_kids_after_5_years + Number_of_infected_newborns + 230,
+
+
+% The sum of the population of the children born in this city is the sum of the number of kids born after 5 years and the number of newborns.
+Sum_population_children = Number_of_kids_after_5_years + Number_of_newborns}.
+prolog run result: 21850r77 problem answer: 250
+
+
+
+ID: 27
+{'statement': 'A number of adults migrate to a new city. Everybody has a partner, and each couple lives in a household. After 5 years each couple has 3 kids. After another 5 years, the total population of the city increases by 40% from the newborns born in the past 5 years. Then a virus comes to the city and infects 30% of the adults, 20% of the young children (age 5 or above), and 60% of the newborns (age less than 5). 230 of the residents of this new city were not infected. What is the sum of the population of the children born in this city?', 'type': 'mwp', 'in_prompt': False, 'answer': 250}
+repeated: 1
+problem(Sum_population_children):-
+{% A number of adults migrate to a new city. Everybody has a partner, and each couple lives in a household. Thus, the number of adults is twice the number of households.
+Number_of_adults = 2 * Number_of_households,
+
+
+% After 5 years each couple has 3 kids. Thus, the number of children born in the first 5 years is 3 times the number of households.
+Number_of_children_first_5_years = 3 * Number_of_households,
+
+
+% After another 5 years, the total population of the city increases by 40% from the newborns born in the past 5 years. Thus, the number of newborns in the second 5 years is 40% of the total population of the city after the first 5 years.
+Number_of_newborns_second_5_years = 0.4 * (Number_of_adults + Number_of_children_first_5_years),
+
+
+% Then a virus comes to the city and infects 30% of the adults, 20% of the young children (age 5 or above), and 60% of the newborns (age less than 5).
+Number_of_infected_adults = 0.3 * Number_of_adults,
+Number_of_infected_children_first_5_years = 0.2 * Number_of_children_first_5_years,
+Number_of_infected_newborns_second_5_years = 0.6 * Number_of_newborns_second_5_years,
+
+
+% 230 of the residents of this new city were not infected. Thus, the total population of the city is the sum of the infected and not infected residents.
+Total_population = Number_of_infected_adults + Number_of_infected_children_first_5_years + Number_of_infected_newborns_second_5_years + 230,
+
+
+% The sum of the population of the children born in this city is the sum of the children born in the first 5 years and the newborns in the second 5 years.
+Sum_population_children = Number_of_children_first_5_years + Number_of_newborns_second_5_years}.
+prolog run result: _10784 problem answer: 250
+
+
+
+ID: 27
+{'statement': 'A number of adults migrate to a new city. Everybody has a partner, and each couple lives in a household. After 5 years each couple has 3 kids. After another 5 years, the total population of the city increases by 40% from the newborns born in the past 5 years. Then a virus comes to the city and infects 30% of the adults, 20% of the young children (age 5 or above), and 60% of the newborns (age less than 5). 230 of the residents of this new city were not infected. What is the sum of the population of the children born in this city?', 'type': 'mwp', 'in_prompt': False, 'answer': 250}
+repeated: 2
+problem(Sum_population_children):-
+{% A number of adults migrate to a new city. Everybody has a partner, and each couple lives in a household. Thus, the number of adults is twice the number of households.
+Number_of_adults = 2 * Number_of_households,
+
+
+% After 5 years each couple has 3 kids. Thus, the number of kids born after 5 years is 3 times the number of households.
+Number_of_kids_after_5_years = 3 * Number_of_households,
+
+
+% After another 5 years, the total population of the city increases by 40% from the newborns born in the past 5 years. Thus, the number of newborns is 40% of the total population of the city after 10 years.
+Number_of_newborns = 0.4 * (Number_of_adults + Number_of_kids_after_5_years + Number_of_newborns),
+
+
+% Then a virus comes to the city and infects 30% of the adults, 20% of the young children (age 5 or above), and 60% of the newborns (age less than 5).
+Number_of_infected_adults = 0.3 * Number_of_adults,
+Number_of_infected_kids_after_5_years = 0.2 * Number_of_kids_after_5_years,
+Number_of_infected_newborns = 0.6 * Number_of_newborns,
+
+
+% 230 of the residents of this new city were not infected. Thus, the total population of the city after 10 years minus the number of infected people equals 230.
+Number_of_adults + Number_of_kids_after_5_years + Number_of_newborns - Number_of_infected_adults - Number_of_infected_kids_after_5_years - Number_of_infected_newborns = 230,
+
+
+% The sum of the population of the children born in this city is the sum of the kids born after 5 years and the newborns.
+Sum_population_children = Number_of_kids_after_5_years + Number_of_newborns}.
+prolog run result: 21850r77 problem answer: 250
+
+
+
+ID: 27
+{'statement': 'A number of adults migrate to a new city. Everybody has a partner, and each couple lives in a household. After 5 years each couple has 3 kids. After another 5 years, the total population of the city increases by 40% from the newborns born in the past 5 years. Then a virus comes to the city and infects 30% of the adults, 20% of the young children (age 5 or above), and 60% of the newborns (age less than 5). 230 of the residents of this new city were not infected. What is the sum of the population of the children born in this city?', 'type': 'mwp', 'in_prompt': False, 'answer': 250}
+repeated: 3
+Corrected!!!!!
+problem(Sum_population_children):-
+{% A number of adults migrate to a new city. Everybody has a partner, and each couple lives in a household. Thus, the number of adults is twice the number of households.
+Number_of_adults = 2 * Number_of_households,
+
+
+% After 5 years each couple has 3 kids. Thus, the number of children born in the first 5 years is 3 times the number of households.
+Number_of_children_first_5_years = 3 * Number_of_households,
+
+
+% After another 5 years, the total population of the city increases by 40% from the newborns born in the past 5 years. Thus, the number of newborns in the second 5 years is 40% of the total population of the city after the first 5 years.
+Number_of_newborns_second_5_years = 0.4 * (Number_of_adults + Number_of_children_first_5_years),
+
+
+% Then a virus comes to the city and infects 30% of the adults, 20% of the young children (age 5 or above), and 60% of the newborns (age less than 5).
+Number_of_infected_adults = 0.3 * Number_of_adults,
+Number_of_infected_children_first_5_years = 0.2 * Number_of_children_first_5_years,
+Number_of_infected_newborns_second_5_years = 0.6 * Number_of_newborns_second_5_years,
+
+
+% The total number of infected people is the sum of the infected adults, infected children from the first 5 years, and infected newborns from the second 5 years.
+Total_number_of_infected_people = Number_of_infected_adults + Number_of_infected_children_first_5_years + Number_of_infected_newborns_second_5_years,
+
+
+% The total population of the city after 10 years is the sum of the adults, children from the first 5 years, and newborns from the second 5 years.
+Total_population_after_10_years = Number_of_adults + Number_of_children_first_5_years + Number_of_newborns_second_5_years,
+
+
+% 230 of the residents of this new city were not infected. Thus, the total number of infected people is the total population after 10 years minus 230.
+Total_number_of_infected_people = Total_population_after_10_years - 230,
+
+
+% The sum of the population of the children born in this city is the sum of the children from the first 5 years and the newborns from the second 5 years.
+Sum_population_children = Number_of_children_first_5_years + Number_of_newborns_second_5_years}.
+prolog run result: 250 problem answer: 250
+
+
+
+ID: 28
+{'statement': 'Alex has some potatoes, apples and onions for a total weight of 44 kg. The sum of the weight of potatoes and onions is 20 kg less than the weight of apples, and onions are equal to the weight of potatoes divided by 1/16 of the weight of apples. By how many kilos are apples heavier than potatoes?', 'type': 'mwp', 'in_prompt': False, 'answer': 24}
+NOT repeated 
+problem(Apples_heavier_than_potatoes):-
+{% Alex has some potatoes, apples and onions for a total weight of 44 kg.
+Weight_potatoes + Weight_apples + Weight_onions = 44,
+
+
+% The sum of the weight of potatoes and onions is 20 kg less than the weight of apples.
+Weight_potatoes + Weight_onions = Weight_apples - 20,
+
+
+% Onions are equal to the weight of potatoes divided by 1/16 of the weight of apples.
+Weight_onions = Weight_potatoes / (1/16 * Weight_apples),
+
+
+% The weight by which apples are heavier than potatoes is:
+Apples_heavier_than_potatoes = Weight_apples - Weight_potatoes}.
+prolog run result: 24 problem answer: 24
+
+
+
+ID: 29
+{'statement': "There are 4 brothers, John, Blake, Sam, and Frank. In three years, Sam will be twice as old as John, and Blake’s age will be equal to the age difference between Sam and Frank. In eight years, John's age would be twice Blake's age, and John would be 2 years younger than Frank’s current age. Also, the sum of Sam’s and Blake’s ages is 5 years less than the sum of John’s and Frank’s ages. What is the sum of the 4 brother’s ages right now?", 'type': 'mwp', 'in_prompt': False, 'answer': 63}
+NOT repeated 
+problem(Sum_4_brothers_ages):-
+{% In three years, Sam will be twice as old as John
+Sam_current_age + 3 = 2 * (John_current_age + 3),
+
+
+% In three years, Blake’s age will be equal to the age difference between Sam and Frank
+Blake_current_age + 3 = abs(Sam_current_age + 3 - (Frank_current_age + 3)),
+
+
+% In eight years, John's age would be twice Blake's age
+John_current_age + 8 = 2 * (Blake_current_age + 8),
+
+
+% In eight years, John would be 2 years younger than Frank’s current age
+John_current_age + 8 = Frank_current_age - 2,
+
+
+% The sum of Sam’s and Blake’s ages is 5 years less than the sum of John’s and Frank’s ages
+Sam_current_age + Blake_current_age = John_current_age + Frank_current_age - 5,
+
+
+% The sum of the 4 brother’s ages right now is
+Sum_4_brothers_ages = John_current_age + Blake_current_age + Sam_current_age + Frank_current_age}.
+prolog run result: 63 problem answer: 63
+
+
+
+ID: 30
+{'statement': 'Brad has a box of candy. There are only kit-kats, M&Ms, gummy bears, and Lindt chocolates in his box. He knows that all of the candies but 43 of them are kit-kats. All but 35 of them are Lindt chocolates, all but 39 of them are M&Ms, and all but 27 of them are gummy bears. What is the sum of the number of kit kats and gummy bears in his box?', 'type': 'mwp', 'in_prompt': False, 'answer': 26}
+NOT repeated 
+problem(Sum_kit_kats_gummy_bears):-
+{% Brad has a box of candy. There are only kit-kats, M&Ms, gummy bears, and Lindt chocolates in his box. 
+% He knows that all of the candies but 43 of them are kit-kats. 
+Number_of_kit_kats = Total_number_of_candies - 43,
+
+% All but 35 of them are Lindt chocolates
+Number_of_Lindt_chocolates = Total_number_of_candies - 35,
+
+% All but 39 of them are M&Ms
+Number_of_MMs = Total_number_of_candies - 39,
+
+% All but 27 of them are gummy bears
+Number_of_gummy_bears = Total_number_of_candies - 27,
+
+% Since all the candies are either kit-kats, M&Ms, gummy bears, or Lindt chocolates, the total number of candies equals the sum of these four types of candies.
+Total_number_of_candies = Number_of_kit_kats + Number_of_MMs + Number_of_gummy_bears + Number_of_Lindt_chocolates,
+
+% The sum of the number of kit kats and gummy bears in his box is
+Sum_kit_kats_gummy_bears = Number_of_kit_kats + Number_of_gummy_bears}.
+prolog run result: 26 problem answer: 26
+
+
+
+ID: 31
+{'statement': 'There are 2 fields in a town, field 1 and field 2. We know that the surface area of field 1 is 4 square meters larger than twice the surface area of field B. And the circumference of field 1 is 10 meters longer than the circumference of field 2. The width of field 1 is 2 meters longer than the width of field 2. The length of field 1 is 1 meter shorter than the sum of the width and length of field 2, And the width of field 1 is 1 meter shorter than the length of field 2. What is the sum of the surface area of the two fields?', 'type': 'mwp', 'in_prompt': False, 'answer': 88}
+NOT repeated 
+problem(Sum_surface_area):-
+{% The surface area of field 1 is 4 square meters larger than twice the surface area of field 2.
+Surface_area_field_1 = 2 * Surface_area_field_2 + 4,
+
+
+% The circumference of field 1 is 10 meters longer than the circumference of field 2.
+Circumference_field_1 = Circumference_field_2 + 10,
+
+
+% The width of field 1 is 2 meters longer than the width of field 2.
+Width_field_1 = Width_field_2 + 2,
+
+
+% The length of field 1 is 1 meter shorter than the sum of the width and length of field 2.
+Length_field_1 = Width_field_2 + Length_field_2 - 1,
+
+
+% The width of field 1 is 1 meter shorter than the length of field 2.
+Width_field_1 = Length_field_2 - 1,
+
+
+% The surface area of a field is the product of its length and width.
+Surface_area_field_1 = Length_field_1 * Width_field_1,
+Surface_area_field_2 = Length_field_2 * Width_field_2,
+
+
+% The circumference of a field is twice the sum of its length and width.
+Circumference_field_1 = 2 * (Length_field_1 + Width_field_1),
+Circumference_field_2 = 2 * (Length_field_2 + Width_field_2),
+
+
+% The sum of the surface area of the two fields is:
+Sum_surface_area = Surface_area_field_1 + Surface_area_field_2}.
+prolog run result: 88 problem answer: 88
+
+
+
+ID: 32
+{'statement': 'We have a column of 9 numbers. If i is the index of a number in the list, counting from 1, we know that the i+1st number plus i+2nd number minus ith number equals the i+3rd number for i greater than 0 and less than 7. If the 2nd number in the list is 6, the 8th number is 0, and the 5th number is 5, then what is the sum of all the numbers in the list?', 'type': 'mwp', 'in_prompt': False, 'answer': 37}
+NOT repeated 
+problem(Sum_of_all_numbers):-
+{% We have a column of 9 numbers. If i is the index of a number in the list, counting from 1, we know that the i+1st number plus i+2nd number minus ith number equals the i+3rd number for i greater than 0 and less than 7. Thus, starting from i = 1, we have:
+Second_number + Third_number - First_number = Fourth_number,
+Third_number + Fourth_number - Second_number = Fifth_number,
+Fourth_number + Fifth_number - Third_number = Sixth_number,
+Fifth_number + Sixth_number - Fourth_number = Seventh_number,
+Sixth_number + Seventh_number - Fifth_number = Eighth_number,
+Seventh_number + Eighth_number - Sixth_number = Ninth_number,
+
+
+Second_number = 6,
+Eighth_number = 0,
+Fifth_number = 5,
+
+
+% The sum of all the 9 numbers in the list is:
+Sum_of_all_numbers = First_number + Second_number + Third_number + Fourth_number + Fifth_number + Sixth_number + Seventh_number + Eighth_number + Ninth_number}.
+prolog run result: 37 problem answer: 37
+
+
+
+ID: 33
+{'statement': 'Alex has a backpack, a container, a book, and a lunch bag. We know that the weight of the book is 3 times the weight of the container. The sum of the weight of the backpack and the book is equal to the weight of the lunch bag. He moves his sandwich which weighs 2 lbs from his lunch box to his container. Now the weight of the lunchbox is 4 times the weight of the container. Also, the lunch box is now 2 lb heavier than the sum of the weight of the backpack and the weight of the container. What is the sum of the weight of his backpack, container, lunch bag, and container?', 'type': 'mwp', 'in_prompt': False, 'answer': 47}
+NOT repeated 
+problem(Sum_weights):-
+{% We know that the weight of the book is 3 times the weight of the container.
+Weight_book = 3 * Weight_container,
+
+
+% The sum of the weight of the backpack and the book is equal to the weight of the lunch bag.
+Weight_backpack + Weight_book = Weight_lunch_bag,
+
+
+% Alex moves his sandwich which weighs 2 lbs from his lunch box to his container. Now the weight of the lunchbox is 4 times the weight of the container.
+Weight_lunch_bag_after_moving_sandwich = Weight_lunch_bag - 2,
+Weight_container_after_moving_sandwich = Weight_container + 2,
+Weight_lunch_bag_after_moving_sandwich = 4 * Weight_container_after_moving_sandwich,
+
+
+% Also, the lunch box is now 2 lb heavier than the sum of the weight of the backpack and the weight of the container.
+Weight_lunch_bag_after_moving_sandwich = Weight_backpack + Weight_container_after_moving_sandwich + 2,
+
+
+% The sum of the weight of his backpack, container, lunch bag, and container is:
+Sum_weights = Weight_backpack + Weight_container_after_moving_sandwich + Weight_lunch_bag_after_moving_sandwich + Weight_book}.
+prolog run result: 47 problem answer: 47
+
+
+
+ID: 34
+{'statement': 'There are 3 trees (“X”, “Y”, “Z”) in a garden, and there are some birds in each tree. The birds in tree X tell the other birds in the garden that if 2 birds from Y and 1 bird from Z come to our tree, then our population would be double the population of birds in Y. Birds in Z think that after the move the population of X would be equal to their current population. Birds in Z propose another move, they tell other birds if 1 bird from X and 3 birds from Y come to our tree, then our population would be double the population of X. What’s the current number of all the birds in the garden?', 'type': 'mwp', 'in_prompt': False, 'answer': 29}
+NOT repeated 
+problem(Total_birds):-
+{% There are 3 trees (“X”, “Y”, “Z”) in a garden, and there are some birds in each tree.
+% The birds in tree X tell the other birds in the garden that if 2 birds from Y and 1 bird from Z come to our tree, then our population would be double the population of birds in Y.
+Birds_in_X + 2 + 1 = 2 * (Birds_in_Y - 2),
+
+
+% Birds in Z think that after the move the population of X would be equal to their current population.
+Birds_in_X + 2 + 1 = Birds_in_Z,
+
+
+% Birds in Z propose another move, they tell other birds if 1 bird from X and 3 birds from Y come to our tree, then our population would be double the population of X.
+Birds_in_Z + 1 + 3 = 2 * (Birds_in_X - 1),
+
+
+% The total number of birds in the garden is the sum of the birds in each tree.
+Total_birds = Birds_in_X + Birds_in_Y + Birds_in_Z}.
+prolog run result: 29 problem answer: 29
+
+
+
+ID: 35
+{'statement': '4 friends (A, B, C, and D) go on a vacation for a day. They agree to each pay 10% of their income to cover the hotel rate for their stay. However, after checking in to the hotel, they were informed that they received a $20 discount on the rate; they decided to split this $20 equally between themselves. We know that C’s contribution before the discount was equal to the sum of A’s and B’s contributions before the discount. C’s contribution after the discount is equal to A’s and D’s contribution to the hotel price after the discount. The sum of A’s and D’s contributions before the discount is twice B’s contribution after the discount. The sum of B and D’s contributions before the discount is equal to the sum of A’s and C’s contributions after the discount. What is the sum of these 4 friend’s incomes?', 'type': 'mwp', 'in_prompt': False, 'answer': 2000}
+NOT repeated 
+problem(Sum_4_friends_incomes):-
+{% 4 friends (A, B, C, and D) each pay 10% of their income to cover the hotel rate for their stay.
+A_contribution_before_discount = 0.1 * A_income,
+B_contribution_before_discount = 0.1 * B_income,
+C_contribution_before_discount = 0.1 * C_income,
+D_contribution_before_discount = 0.1 * D_income,
+
+
+% After checking in to the hotel, they received a $20 discount on the rate; they decided to split this $20 equally between themselves.
+A_contribution_after_discount = A_contribution_before_discount - 20/4,
+B_contribution_after_discount = B_contribution_before_discount - 20/4,
+C_contribution_after_discount = C_contribution_before_discount - 20/4,
+D_contribution_after_discount = D_contribution_before_discount - 20/4,
+
+
+% C’s contribution before the discount was equal to the sum of A’s and B’s contributions before the discount.
+C_contribution_before_discount = A_contribution_before_discount + B_contribution_before_discount,
+
+
+% C’s contribution after the discount is equal to A’s and D’s contribution to the hotel price after the discount.
+C_contribution_after_discount = A_contribution_after_discount + D_contribution_after_discount,
+
+
+% The sum of A’s and D’s contributions before the discount is twice B’s contribution after the discount.
+A_contribution_before_discount + D_contribution_before_discount = 2 * B_contribution_after_discount,
+
+
+% The sum of B and D’s contributions before the discount is equal to the sum of A’s and C’s contributions after the discount.
+B_contribution_before_discount + D_contribution_before_discount = A_contribution_after_discount + C_contribution_after_discount,
+
+
+% The sum of these 4 friend’s incomes is:
+Sum_4_friends_incomes = A_income + B_income + C_income + D_income}.
+prolog run result: 2000 problem answer: 2000
+
+
+
+ID: 36
+{'statement': 'We have 4 ropes, X, Y, Z, and T. We soaked the ropes in water, and the length of all ropes was reduced to ⅔ of their original length. The length of T before soaking is 1 meter shorter than the sum of the length of Y before soaking and X after soaking. Also, we realized if we add the length of Y after soaking to the length of T after soaking, we would get the original length of T. Similarly, to get the original length of Z, we can add the length of Z after soaking to the length of Y after soaking plus 1. Finally, we know the sum of lengths of X and Y before soaking is equal to the length of T before soaking plus the length of Y after soaking. What is the sum of the original lengths of the 4 ropes?', 'type': 'mwp', 'in_prompt': False, 'answer': 63}
+NOT repeated 
+problem(Sum_original_lengths):-
+{% We have 4 ropes, X, Y, Z, and T. We soaked the ropes in water, and the length of all ropes was reduced to ⅔ of their original length.
+Length_X_after_soaking = 2/3 * Length_X_before_soaking,
+Length_Y_after_soaking = 2/3 * Length_Y_before_soaking,
+Length_Z_after_soaking = 2/3 * Length_Z_before_soaking,
+Length_T_after_soaking = 2/3 * Length_T_before_soaking,
+
+
+% The length of T before soaking is 1 meter shorter than the sum of the length of Y before soaking and X after soaking.
+Length_T_before_soaking = Length_Y_before_soaking + Length_X_after_soaking - 1,
+
+
+% If we add the length of Y after soaking to the length of T after soaking, we would get the original length of T.
+Length_T_before_soaking = Length_Y_after_soaking + Length_T_after_soaking,
+
+
+% To get the original length of Z, we can add the length of Z after soaking to the length of Y after soaking plus 1.
+Length_Z_before_soaking = Length_Z_after_soaking + Length_Y_after_soaking + 1,
+
+
+% The sum of lengths of X and Y before soaking is equal to the length of T before soaking plus the length of Y after soaking.
+Length_X_before_soaking + Length_Y_before_soaking = Length_T_before_soaking + Length_Y_after_soaking,
+
+
+% The sum of the original lengths of the 4 ropes is:
+Sum_original_lengths = Length_X_before_soaking + Length_Y_before_soaking + Length_Z_before_soaking + Length_T_before_soaking}.
+prolog run result: 63 problem answer: 63
+
+
+
+ID: 37
+{'statement': 'We have a bag of pens of 4 colors, red, green, blue, and yellow. All but 37 of the pens are blue, all but 32 of the pens are red. The number of green pens equals 3 times the number of blue pens minus the number of yellow ones. The sum of the number of red and blue pens is 3 less than the sum of green and yellow pens. Also, twice the number of red pens plus the number of yellow pens equals the number of green and blue pens summed together. the number of  What is the sum of the number of green and yellow pens minus the number of red ones? ', 'type': 'mwp', 'in_prompt': False, 'answer': 11}
+NOT repeated 
+problem(Sum_green_yellow_minus_red):-
+{% All but 37 of the pens are blue, thus the number of blue pens is:
+Blue_pens = Total_pens - 37,
+
+
+% All but 32 of the pens are red. Thus, the number of red pens is:
+Red_pens = Total_pens - 32,
+
+
+% The number of green pens equals 3 times the number of blue pens minus the number of yellow ones.
+Green_pens = 3 * Blue_pens - Yellow_pens,
+
+
+% The sum of the number of red and blue pens is 3 less than the sum of green and yellow pens.
+Red_pens + Blue_pens = Green_pens + Yellow_pens - 3,
+
+
+% Twice the number of red pens plus the number of yellow pens equals the number of green and blue pens summed together.
+2 * Red_pens + Yellow_pens = Green_pens + Blue_pens,
+
+
+% The sum of the number of green and yellow pens minus the number of red ones is:
+Sum_green_yellow_minus_red = Green_pens + Yellow_pens - Red_pens}.
+prolog run result: 11 problem answer: 11
+
+
+
+ID: 38
+{'statement': 'Alex has 4 items in his bag, called A, B, C, and D. We know the total weight of his bag and the items is 12 kg. He can stack a lighter item on top of another item that’s 2 kg heavier. He stacks A on top of C and C on top of B. If his bag is one kg heavier than D, and A is 1 kg, how many kgs does his bag alone weigh?', 'type': 'mwp', 'in_prompt': False, 'answer': 2}
+NOT repeated 
+problem(Bag_weight):-
+{% Alex has 4 items in his bag, called A, B, C, and D. The total weight of his bag and the items is 12 kg.
+A_weight + B_weight + C_weight + D_weight + Bag_weight = 12,
+
+
+% He can stack a lighter item on top of another item that’s 2 kg heavier. He stacks A on top of C and C on top of B. Thus, we know that:
+C_weight = A_weight + 2,
+B_weight = C_weight + 2,
+
+
+% His bag is one kg heavier than D
+Bag_weight = D_weight + 1,
+
+
+% A is 1 kg
+A_weight = 1,
+
+
+% The weight of the bag alone is Bag_weight}.
+prolog run result: 1 ?-  problem answer: 2
+
+
+
+ID: 38
+{'statement': 'Alex has 4 items in his bag, called A, B, C, and D. We know the total weight of his bag and the items is 12 kg. He can stack a lighter item on top of another item that’s 2 kg heavier. He stacks A on top of C and C on top of B. If his bag is one kg heavier than D, and A is 1 kg, how many kgs does his bag alone weigh?', 'type': 'mwp', 'in_prompt': False, 'answer': 2}
+repeated: 1
+problem(Bag_weight):-
+{% Alex has 4 items in his bag, called A, B, C, and D. The total weight of his bag and the items is 12 kg.
+A_weight + B_weight + C_weight + D_weight + Bag_weight = 12,
+
+
+% He can stack a lighter item on top of another item that’s 2 kg heavier. He stacks A on top of C and C on top of B. Thus, we know that:
+C_weight = A_weight + 2,
+B_weight = C_weight + 2,
+
+
+% His bag is one kg heavier than D
+Bag_weight = D_weight + 1,
+
+
+% A is 1 kg
+A_weight = 1,
+
+
+% The weight of the bag alone is Bag_weight}.
+prolog run result: 1 ?-  problem answer: 2
+
+
+
+ID: 38
+{'statement': 'Alex has 4 items in his bag, called A, B, C, and D. We know the total weight of his bag and the items is 12 kg. He can stack a lighter item on top of another item that’s 2 kg heavier. He stacks A on top of C and C on top of B. If his bag is one kg heavier than D, and A is 1 kg, how many kgs does his bag alone weigh?', 'type': 'mwp', 'in_prompt': False, 'answer': 2}
+repeated: 2
+problem(Bag_weight):-
+{% Alex has 4 items in his bag, called A, B, C, and D. The total weight of his bag and the items is 12 kg.
+A_weight + B_weight + C_weight + D_weight + Bag_weight = 12,
+
+
+% He can stack a lighter item on top of another item that’s 2 kg heavier. He stacks A on top of C and C on top of B. Thus, we can deduce:
+C_weight = A_weight + 2,
+B_weight = C_weight + 2,
+
+
+% His bag is one kg heavier than D.
+Bag_weight = D_weight + 1,
+
+
+% A is 1 kg.
+A_weight = 1}
+prolog run result: None problem answer: 2
+
+
+
+ID: 38
+{'statement': 'Alex has 4 items in his bag, called A, B, C, and D. We know the total weight of his bag and the items is 12 kg. He can stack a lighter item on top of another item that’s 2 kg heavier. He stacks A on top of C and C on top of B. If his bag is one kg heavier than D, and A is 1 kg, how many kgs does his bag alone weigh?', 'type': 'mwp', 'in_prompt': False, 'answer': 2}
+repeated: 3
+Corrected!!!!!
+problem(Bag_weight):-
+{% Alex has 4 items in his bag, called A, B, C, and D. The total weight of his bag and the items is 12 kg.
+A_weight + B_weight + C_weight + D_weight + Bag_weight = 12,
+
+
+% He can stack a lighter item on top of another item that’s 2 kg heavier. He stacks A on top of C and C on top of B. Thus, we have:
+C_weight = A_weight + 2,
+B_weight = C_weight + 2,
+
+
+% His bag is one kg heavier than D
+Bag_weight = D_weight + 1,
+
+
+% A is 1 kg
+A_weight = 1,
+
+
+% The weight of the bag alone is:
+Bag_weight = Bag_weight}.
+prolog run result: 2 problem answer: 2
+
+
+--------------------------------------------------
+Incorrect formats
+
+
+
+--------------------------------------------------
+Incorrect ids
+
+
+--------------------------------------------------
+Number of max tries
+50
+--------------------------------------------------
+Number of times prolog didn't run after repeat max tries
+0
+--------------------------------------------------
+Problem ids that prolog didn't run after max tries
+[]
+--------------------------------------------------
+Problem number that got correct solution after many tries
+3
+--------------------------------------------------
+Problem number with incorrect solution after many tries
+0
+--------------------------------------------------
+Tempreture at the max repeat call number
+0.4
+
+
+--------------------------------------------------
+total number of calls to LLM
+22
+
+
+--------------------------------------------------
+stats
+16 out of 16 is correct.
+
+
+
+

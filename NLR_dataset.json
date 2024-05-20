@@ -1,0 +1,332 @@
+{
+  "1": {
+    "statement": "Out of a deck of 52 cards, some cards are lost. We know the number of lost cards is less than half of the deck. If we deal the remaining cards among 4 people, 3 cards remain. If we deal among three people, 2 cards remain, and if we deal among 5 people, 2 cards remain. How many cards are there in the deck?",
+    "type": "Constraint Satisfaction",
+    "in_prompt": true,
+    "answer": 47
+  },
+  "2": {
+    "statement": "A robot and 5 blocks are positioned on a 6x6 grid. The grid coordinates are given by the row number (counting from left to right, starting from 1) and the column number (counting from top to bottom, starting from 1). Each block occupies a single grid square, and multiple blocks can be stacked on top of each other. Block1 is located at (2, 3), Block2 at (4, 3), and Block3 at (2, 5). Block4 is in the same row as Block3 but with one column separating them. Block5 is in the same column as Block4, with one row separating it from Block1. The robot is in the 3rd column and begins moving from row 1 and stops moving at row 5. How many blocks will the robot move?",
+    "type": "Constraint Satisfaction",
+    "in_prompt": true,
+    "answer": 4
+  },
+  "3": {
+    "statement": "We are attempting to crack a safe with a 4-digit code. We have the following clues about the pin: The second digit from the right is not divisible by 2 and it\u2019s not divisible by 3. This digit is larger than two of the other digits in the pin. Also this digit is equal to the difference between two of the other digits in the pin. Each digit in the pin is unique. The 4-digit number is an odd number. And the sum of the first and third digits from the right is 15. What is this 4-digit number?",
+    "type": "Constraint Satisfaction",
+    "in_prompt": true,
+    "answer": 2679
+  },
+  "4": {
+    "statement": "In a street there\u2019s only a blue, a green, a red, and a yellow house. We don\u2019t know the order of the houses. One pet lives in each house; we know that there\u2019s only a rabbit, a lizard, a dog, and a cat living on this street. The green and red houses are neighbors, and the house with the rabbit and the  house with the lizard are next to each other, the blue house is the house after the house with the dog, and the cat lives in the blue house, and the red house is the first house. What\u2019s the index of the house with the dog in this street, counting from 1?",
+    "type": "Constraint Satisfaction",
+    "in_prompt": true,
+    "answer": 3
+  },
+  "5": {
+    "statement": "In the game of \u201c1 to 9\u201d there\u2019s a 4x4 grid of numbers, each of the four overlapping 3x3 subgrids of this grid  must be filled with numbers 1 through 9, with each number appearing only once in each of 3x3 subgrids. The task of the player is to reveal the masked numbers, represented as X below. If we are given the bard below what is the sum of numbers that are currently masked in the first and fourth row?\n\n7 6 X X\n4 1 5 9\nX 8 3 X\nX 2 X 6",
+    "type": "Constraint Satisfaction",
+    "in_prompt": true,
+    "answer": 22
+  },
+  "6": {
+    "statement": "Mock Sudoku' is a game that involves filling a 4x4 grid with any integer. The goal is to ensure that the sum of each row and column equals 10. There is no restriction on repeating integers. Additionally, the sum of the numbers in the top left 2x2 subgrid must be twice the number in grid(1, 1) (counting from 1 left to right, and top down), and the sum of numbers in the bottom left 2x2 subgrid must be twice the number in grid(3, 1). The final score of the grid is determined by adding the numbers in the two diagonals of the 4x4 grid. If grid(1, 1) = 6, grid(1,2) = 2, grid(1,3) = 3, grid(2,4) = 6, grid(3,1) = 4, grid(3,4) = 2, grid(4,2) = 6, and grid(4,3) = 2, what\u2019s the final score of this grid after filling in all of the grids based on the rules?",
+    "type": "Constraint Satisfaction",
+    "in_prompt": false,
+    "answer": 14
+  },
+  "7": {
+    "statement": "Alex has invented a new type of resistors and is building a system using these resistors. The formula for total resistance when two resistors are connected in parallel is R_result = R1 + R2, and when they are connected in series, it is R_result = R1 - R2, where R1 is the first resistor from left to right. He has 4 resistors: R1, R2, R3, and R4. All resistors have a positive resistance measured in Ohms. The resistances of R1 and R2 are equal, the resistance of R4 is between 18 and 25 Ohms, and R3 has the highest resistance. Alex first connects R1 and R2 in parallel to create System 1. He then connects System 1 and R3 in parallel to form System 2.  He finally connects system 2 to the left of R4 in series to create system 3. The measured resistance of System 3 is 23 Ohms. Given that the resistance of R3 is 20 Ohms, what is the resistance of R1?",
+    "type": "Constraint Satisfaction",
+    "in_prompt": false,
+    "answer": 11
+  },
+  "8": {
+    "statement": "We have a 5m x 5m grid with cubic blocks of 1m length placed on it. With some sensors around the grid we detected at least one block on grid (1, 1) (referring to the grid in the first row from left to right and first column from up down). The height of the stack of blocks on grid(1, 1) is less than 10m. This height is also twice the height of the stacks at positions (2, 1) and (2, 2). There is at least one block at position (3, 3), and the height of the stack at position (4, 4) is twice the height of the stack at (3, 3). The combined height of the stacks at positions (3, 3) and (4, 4) is less than the height at position (1, 1). A robot is placed at position (5, 5), where there are no blocks. The robot moves diagonally from its position, stopping at (1, 1), moving all blocks in its path. If the robot moves a total of 18 blocks, how many blocks were initially at position (4, 4)?",
+    "type": "Constraint Satisfaction",
+    "in_prompt": false,
+    "answer": 4
+  },
+  "9": {
+    "statement": "We have a 3x3 board of positive integers. The rule of this board is that all three numbers that are in a row or a column must be in order. This means either first < second < third number or first > second >  third number in each row or column. The numbers in the first row are Z, 2, 5, second row are 12, 9, Y and the third row are X, 12, 9, where X, Y, and Z are 3 unknown numbers. If Y is an even number and X is twice Y, then what is X + Y + Z?",
+    "type": "Constraint Satisfaction",
+    "in_prompt": false,
+    "answer": 25
+  },
+  "10": {
+    "statement": "I am a 4 digit number. My rightmost digit is not divisible by 2.  The sum of my digits is 20, and all my digits are in strictly decreasing order from left to right. Also at least one of my digits is 4 times one of my other digits, and the difference between my 2 middle digits is more than 3. What number am I?",
+    "type": "Constraint Satisfaction",
+    "in_prompt": false,
+    "answer": 9821
+  },
+  "11": {
+    "statement": "There are 5 baskets of candy, marked X, Y, Z, T, and E. X has 8 candies, Y has 5, Z has 23, T has 12, and E has 20 candies in it. Each basket belongs to Alice, Bobby, Charlie, Denise, or Eliot, and no two people share the same basket. If Bobby wants to split his candies between 5 people, he would have 3 candies remaining. Eliot has less candies than Alice, and Alice has more candies than Denise. Charlie can\u2019t split her candies equally between 4 people, and she has fewer candies than Eliot, but if she doubles the number of her candies then she would have more candies than Eliot. What would we get if we subtract the sum of the number of candies that Bobby and Charlie have from the sum of Eliot's and Alice\u2019s candies?",
+    "type": "Constraint Satisfaction",
+    "in_prompt": false,
+    "answer": 0
+  },
+  "12": {
+    "statement": "Birthdays of Andy, Blake, Conor, Danny, and Emma are on or between 11th and 15th of a month. No two people's birthdays are on the same date. We know that Emma was born 2 days before Andy, and Blake was born 2 days before Danny. Emma\u2019s birthday is before Blake\u2019s birthday, the number of days between Danny\u2019s birthday and Conor\u2019s birthday is less than the number of days between Blake\u2019s and Connor\u2019s birthday, and Connor is born after Danny. What is Andy's birth date minus Blake\u2019s birth date plus Conor\u2019s birth date?",
+    "type": "Constraint Satisfaction",
+    "in_prompt": false,
+    "answer": 16
+  },
+  "13": {
+    "statement": "We have a 4x4 grid of single digit numbers bigger than 0. We know that the numbers in a row must be bigger than or equal to the next number, starting from left to right or right to left. Similarly numbers in a column must be bigger than or equal to the next number, starting from top down or down up. However, the number in the two diagonals must be strictly increasing or decreasing. Below is the current state of the board. If a grid is marked as X, then the number in that position is masked, and it\u2019s our task to determine those numbers.\n\nX 2 2 4\nX X X 6\nX X 7 8\nX 5 9 X\n\nWhat is the sum of all the numbers in the board after determining all the numbers in the X positions?",
+    "type": "Constraint Satisfaction",
+    "in_prompt": false,
+    "answer": 63
+  },
+  "14": {
+    "statement": "There\u2019s a line to enter a cinema. There are 4 people between Bob and Alex. Chad\u2019s index in the line is 1 after Bob\u2019s, he\u2019s standing right behind Bob, considering the order of people left to right. Frank is right behind Alex. Sam is right in front of Bob. There are 2 people between Sam and Frank. If Bob is in the 7th person in the line, counting left to right, what is the number of Alex?",
+    "type": "Constraint Satisfaction",
+    "in_prompt": false,
+    "answer": 2
+  },
+  "15": {
+    "statement": "David has 2 rectangular books, book A and book B. He also has a thread and he realizes the length of his thread is equal to the height of book A plus the width of book A. He also notes that the length of the thread is equal to either the width of book A plus height of book B or height of book A plus width of book B. He knows the Height of book A is 12 cm, the width of book A is longer than the height of book B, and the surface area of book A is 96cm^2. The surface area of book A is also equal to the surface area of book B multiplied by 3. What's the length of Book B's height?",
+    "type": "Constraint Satisfaction",
+    "in_prompt": false,
+    "answer": 4
+  },
+  "16": {
+    "statement": "Sam is scheduling his boss\u2019s meetings. Each meeting is 1 hour long. Person C is scheduled right before person B, Person D is scheduled for the slot after Person A, and D\u2019s meeting is later than C\u2019s meeting time. Person A and person B\u2019s meeting times are 4 hours apart.If Person B is the 10th person to meet with Sam's boss today, what is Person A's position in the list of meetings for Sam's boss today?",
+    "type": "Constraint Satisfaction",
+    "in_prompt": false,
+    "answer": 14
+  },
+  "17": {
+    "statement": "We have a 4x4 grid of numbers greater than 1 and less than 13. We know that the numbers in a row, column, and the two diagonals must be consecutive, meaning either first > second > third> fourth or first < second < third < fourth in each row, column or diagonal. Below is the current state of the board. If a grid is marked as X, then the number in that position is masked, and it\u2019s our task to determine the number.\n\nX X 5 9\nX 4 8 X\n5 X 10 X\n6 8 X X\n\nWhat is the sum of all the numbers in the board after determining all the numbers in the X positions?",
+    "type": "Constraint Satisfaction",
+    "in_prompt": false,
+    "answer": 114
+  },
+  "18": {
+    "statement": "When I was half my current age, my father was 30. When I was \u2153 my current age, my mother was 25. And when I was \u2159 of my current age, my sister was 7. If the sum of my age, my sister\u2019s age, my father\u2019s age, and my mother\u2019s age is 116, then how old am I now?",
+    "type": "Math Word Problems",
+    "in_prompt": true,
+    "answer": 18
+  },
+  "19": {
+    "statement": "We have 200 apples that we splitted between 4 salespeople (called X, Y, Z, and T) to sell at a fair. The sum of apples we gave Y and Z is 10 less than the sum we gave to X and T. In the fair X and Z sold all their apples; Y had to throw out 10 of the apples we gave him, and T threw out 5. The sum of the number of apples that T and Y sold is 5 less than twice the number of apples Z sold. X and Y set the price of each of their apples equivalent to 1/10th the number of apples they were each given, in dollars. Z set the price of each of his apples equivalent to 1/8 times the number he received, and T\u2019s price for each apple was twice Z\u2019s price. And T\u2019s price for each apple is $3 more expensive than X\u2019s price. What is the total money that the 4 salespeople made from selling the apples in the fair?",
+    "type": "Math Word Problems",
+    "in_prompt": true,
+    "answer": 1240
+  },
+  "20": {
+    "statement": "We have a list of 8 numbers. If we subtract the number at index i+2  from the i_th number, we get the number at index i+1, for i less than 7 and greater than 0, indexing from 1. If the 3rd number in the list is -2 and the last number in the list is 41, then what is the sum of all numbers in this list?",
+    "type": "Math Word Problems",
+    "in_prompt": true,
+    "answer": 36
+  },
+  "21": {
+    "statement": "Alex, Sam, and Andy got some money as a Christmas gift. Alex deposits all of his money in a bank account with an interest rate of 20 percent for 2 years. Sam deposits his money in an account with the same interest rate, but he spends 40% of the total money he has in the account after one year and keeps the rest deposited in the bank for the 2nd year. Andy buys a laptop with some of his money for which he pays a deposit of $50, and a monthly payment of $10 for two years, and keeps the rest of the money for 2 years. By the end of the 2nd year, if Sam gives $72 to Alex, then they\u2019d have the same amount of money; this amount would be 3 times the amount Andy has after 2 years. Alex has 48 dollars more than twice the amount Andy has by the end of the 2nd year. What is the sum of their Christmas money in the beginning?",
+    "type": "Math Word Problems",
+    "in_prompt": true,
+    "answer": 1110
+  },
+  "22": {
+    "statement": "We have a 3x3 grid of numbers. We know that in each 2x2 subgrid of this grid, the sum of the two numbers in one diagonal equals the sum of the two other numbers in the other diagonal. We also know that the number at the center of the grid equals the number at the 3rd row and 3rd column of the grid (counting left to right, top down). Below is the grid that we have, our task is to determine the numbers in the locations marked as X\n\n3 X X\nX 7 9\n2 X X\n\nWhat is the sum of all the numbers marked as X on this grid?",
+    "type": "Math Word Problems",
+    "in_prompt": true,
+    "answer": 30
+  },
+  "23": {
+    "statement": "Sarah has some red cubes, red spheres, blue cubes, and blue spheres in her bag. We know the total number of blue objects is 1 and half times the number of red objects. The number of blue spheres is 4 less than half the total number of red objects, and the number of red spheres is 6 less than half the total number of blue objects. And the number of blue cubes is 2 less than 3 times the number of red cubes. What\u2019s the total number of objects in Sarah\u2019s bag?",
+    "type": "Math Word Problems",
+    "in_prompt": false,
+    "answer": 120
+  },
+  "24": {
+    "statement": "There are 3 rings all centered around the same point. The sum of circumference of the first and third rings, counting from the innermost ring out, is equal to twice the circumference of the second minus 2 pi. We also have a band with length 5 pi. We added 60% of this band to the circumference of the first ring and added half of the remaining part of the band to the second ring and the other half to the third ring. After this addition, the sum of the circumference of the first and second ring is 9 pi longer than the circumference of the third ring. Also, the sum of circumference of the third ring before and after adding the band is 2 pi shorter than twice the circumference of the first ring after addition plus the second ring circumference after adding the band. What was the sum of the radius of the 3 rings before adding the band? Pi is equal to 3 in this question.",
+    "type": "Math Word Problems",
+    "in_prompt": false,
+    "answer": 23
+  },
+  "25": {
+    "statement": "Twelve of Anna\u2019s friends want to pay an equal amount of money to buy her a violin. But 2 of her friends decided to not participate. Now each of her 10 friends have to pay X dollars more in order to buy her the violin. On the last day, one more of her friends decided not to contribute. Now if each of her 9 friends pay 2*X dollars more than the original amount each of the 12 friends agreed to contribute, then they would have $30 more than the pierce of the violin. How much is X?",
+    "type": "Math Word Problems",
+    "in_prompt": false,
+    "answer": 10
+  },
+  "26": {
+    "statement": "There\u2019s an elementary school with 5 grades with a total of 700 students. We know that the size of the 5th grade is equal to the sum of the size of 2nd and 4th grades minus the size of 3rd grade. The number of 2nd graders is equal to twice the number of 1st graders minus the number of 4th graders. And the size of 3rd plus twice the size of 1st grades is equal to the size of 2nd plus twice the size of 4th grades. If we sum twice the number of 3rd graders, twice the number of 4th graders, and the number of 2nd graders we get the number of 5th graders plus twice the number of first graders. What is the sum of the size of the first, third, and fifth grades?",
+    "type": "Math Word Problems",
+    "in_prompt": false,
+    "answer": 420
+  },
+  "27": {
+    "statement": "A number of adults migrate to a new city. Everybody has a partner, and each couple lives in a household. After 5 years each couple has 3 kids. After another 5 years, the total population of the city increases by 40% from the newborns born in the past 5 years. Then a virus comes to the city and infects 30% of the adults, 20% of the young children (age 5 or above), and 60% of the newborns (age less than 5). 230 of the residents of this new city were not infected. What is the sum of the population of the children born in this city?",
+    "type": "Math Word Problems",
+    "in_prompt": false,
+    "answer": 250
+  },
+  "28": {
+    "statement": "Alex has some potatoes, apples and onions for a total weight of 44 kg. The sum of the weight of potatoes and onions is 20 kg less than the weight of apples, and onions are equal to the weight of potatoes divided by 1/16 of the weight of apples. By how many kilos are apples heavier than potatoes?",
+    "type": "Math Word Problems",
+    "in_prompt": false,
+    "answer": 24
+  },
+  "29": {
+    "statement": "There are 4 brothers, John, Blake, Sam, and Frank. In three years, Sam will be twice as old as John, and Blake\u2019s age will be equal to the age difference between Sam and Frank. In eight years, John's age would be twice Blake's age, and John would be 2 years younger than Frank\u2019s current age. Also, the sum of Sam\u2019s and Blake\u2019s ages is 5 years less than the sum of John\u2019s and Frank\u2019s ages. What is the sum of the 4 brother\u2019s ages right now?",
+    "type": "Math Word Problems",
+    "in_prompt": false,
+    "answer": 63
+  },
+  "30": {
+    "statement": "Brad has a box of candy. There are only kit-kats, M&Ms, gummy bears, and Lindt chocolates in his box. He knows that all of the candies but 43 of them are kit-kats. All but 35 of them are Lindt chocolates, all but 39 of them are M&Ms, and all but 27 of them are gummy bears. What is the sum of the number of kit kats and gummy bears in his box?",
+    "type": "Math Word Problems",
+    "in_prompt": false,
+    "answer": 26
+  },
+  "31": {
+    "statement": "There are 2 fields in a town, field 1 and field 2. We know that the surface area of field 1 is 4 square meters larger than twice the surface area of field B. And the circumference of field 1 is 10 meters longer than the circumference of field 2. The width of field 1 is 2 meters longer than the width of field 2. The length of field 1 is 1 meter shorter than the sum of the width and length of field 2, And the width of field 1 is 1 meter shorter than the length of field 2. What is the sum of the surface area of the two fields?",
+    "type": "Math Word Problems",
+    "in_prompt": false,
+    "answer": 88
+  },
+  "32": {
+    "statement": "We have a column of 9 numbers. If i is the index of a number in the list, counting from 1, we know that the i+1st number plus i+2nd number minus ith number equals the i+3rd number for i greater than 0 and less than 7. If the 2nd number in the list is 6, the 8th number is 0, and the 5th number is 5, then what is the sum of all the numbers in the list?",
+    "type": "Math Word Problems",
+    "in_prompt": false,
+    "answer": 37
+  },
+  "33": {
+    "statement": "Alex has a backpack, a container, a book, and a lunch bag. We know that the weight of the book is 3 times the weight of the container. The sum of the weight of the backpack and the book is equal to the weight of the lunch bag. He moves his sandwich which weighs 2 lbs from his lunch box to his container. Now the weight of the lunchbox is 4 times the weight of the container. Also, the lunch box is now 2 lb heavier than the sum of the weight of the backpack and the weight of the container. What is the sum of the weight of his backpack, container, lunch bag, and container?",
+    "type": "Math Word Problems",
+    "in_prompt": false,
+    "answer": 47
+  },
+  "34": {
+    "statement": "There are 3 trees (\u201cX\u201d, \u201cY\u201d, \u201cZ\u201d) in a garden, and there are some birds in each tree. The birds in tree X tell the other birds in the garden that if 2 birds from Y and 1 bird from Z come to our tree, then our population would be double the population of birds in Y. Birds in Z think that after the move the population of X would be equal to their current population. Birds in Z propose another move, they tell other birds if 1 bird from X and 3 birds from Y come to our tree, then our population would be double the population of X. What\u2019s the current number of all the birds in the garden?",
+    "type": "Math Word Problems",
+    "in_prompt": false,
+    "answer": 29
+  },
+  "35": {
+    "statement": "4 friends (A, B, C, and D) go on a vacation for a day. They agree to each pay 10% of their income to cover the hotel rate for their stay. However, after checking in to the hotel, they were informed that they received a $20 discount on the rate; they decided to split this $20 equally between themselves. We know that C\u2019s contribution before the discount was equal to the sum of A\u2019s and B\u2019s contributions before the discount. C\u2019s contribution after the discount is equal to A\u2019s and D\u2019s contribution to the hotel price after the discount. The sum of A\u2019s and D\u2019s contributions before the discount is twice B\u2019s contribution after the discount. The sum of B and D\u2019s contributions before the discount is equal to the sum of A\u2019s and C\u2019s contributions after the discount. What is the sum of these 4 friend\u2019s incomes?",
+    "type": "Math Word Problems",
+    "in_prompt": false,
+    "answer": 2000
+  },
+  "36": {
+    "statement": "We have 4 ropes, X, Y, Z, and T. We soaked the ropes in water, and the length of all ropes was reduced to \u2154 of their original length. The length of T before soaking is 1 meter shorter than the sum of the length of Y before soaking and X after soaking. Also, we realized if we add the length of Y after soaking to the length of T after soaking, we would get the original length of T. Similarly, to get the original length of Z, we can add the length of Z after soaking to the length of Y after soaking plus 1. Finally, we know the sum of lengths of X and Y before soaking is equal to the length of T before soaking plus the length of Y after soaking. What is the sum of the original lengths of the 4 ropes?",
+    "type": "Math Word Problems",
+    "in_prompt": false,
+    "answer": 63
+  },
+  "37": {
+    "statement": "We have a bag of pens of 4 colors, red, green, blue, and yellow. All but 37 of the pens are blue, all but 32 of the pens are red. The number of green pens equals 3 times the number of blue pens minus the number of yellow ones. The sum of the number of red and blue pens is 3 less than the sum of green and yellow pens. Also, twice the number of red pens plus the number of yellow pens equals the number of green and blue pens summed together. the number of  What is the sum of the number of green and yellow pens minus the number of red ones? ",
+    "type": "Math Word Problems",
+    "in_prompt": false,
+    "answer": 11
+  },
+  "38": {
+    "statement": "Alex has 4 items in his bag, called A, B, C, and D. We know the total weight of his bag and the items is 12 kg. He can stack a lighter item on top of another item that\u2019s 2 kg heavier. He stacks A on top of C and C on top of B. If his bag is one kg heavier than D, and A is 1 kg, how many kgs does his bag alone weigh?",
+    "type": "Math Word Problems",
+    "in_prompt": false,
+    "answer": 2
+  },
+  "39": {
+    "statement": "In 'Match the Range', three players each have four numbered cards. Players take turns placing a card from their set on top of a center stack of cards. This card must match, be one higher, or one lower than the top card in the center stack. If a player has multiple valid cards, they choose the card with the highest number. If none are valid, the player must take the bottom card from the center stack. Player 1 has [4, 1, 8, 2], Player 2 has [3, 3, 9, 5], and Player 3 has [8, 9, 7, 6]. The center stack starts with a single 5 card. The game starts with Player 1's turn, followed by Player 2 and Player 3. What's the total sum of all player cards after Player 1's third turn?",
+    "type": "Algorithmic Instructions",
+    "in_prompt": true,
+    "answer": 44
+  },
+  "40": {
+    "statement": "Sam starts creating a bracelet with two beads marked 'S' and 'D', her initials, with the \u2018S\u2019 bead being the first one. She uses a coin flip to decide where to add unmarked beads. If the coin lands on heads, she splits the bead chain after 'S' and if it lands on tails, she splits the chain after 'D'. She adds three beads if the length of the shorter chain is odd (one at the beginning of the first segment and two to the end of the second segment), and adds eight unmarked beads if  the length of the shorter chain is even (two at both ends of each chain segment). If she flips heads, tails, heads, heads, how many unmarked beads are between 'S' and 'D' in the end?",
+    "type": "Algorithmic Instructions",
+    "in_prompt": true,
+    "answer": 8
+  },
+  "41": {
+    "statement": "There\u2019s a cinema with 12 seats organized in 3 rows and 4 columns. Due to covid there\u2019s a policy that a seat can be filled only if none of the seats right next to it in the same column or the same row are not filled. If we place a person in the seat in the second column of the first row and then start to fill the seats left to right, row by row, starting row with 1, how many people can be seated in the cinema in total?",
+    "type": "Algorithmic Instructions",
+    "in_prompt": true,
+    "answer": 6
+  },
+  "42": {
+    "statement": "In the game 'Twist It', players can push a rod right, left, or not at all. If both players push the rod in the same direction, it spins 60 degrees in that direction. If one player pushes the rod and the other doesn't, it spins 40 degrees in the direction of the push. If neither push, it stays still. If the players push in opposite directions, the rod bends 20 degrees total symmetrically at the center. The rod starts parallel to the x-axis. In rounds 1-5, Player 1's moves are: no push, right, no push, right, left. Player 2 rolls a dice and pushes left if it lands on 5 or a number divisible by 3, otherwise right. His rolls are 2, 6, 5, 3, 5. What's the total absolute (ignoring the direction) angle change at each rod end?",
+    "type": "Algorithmic Instructions",
+    "in_prompt": true,
+    "answer": 120
+  },
+  "43": {
+    "statement": "A 100m x 100m field has 4 wind blowers at the midpoint of each edge, facing the center. The blowers on opposite sides neutralize each other. There\u2019s an object placed at the field\u2019s center which moves at 2 m/s in the Y direction when the north or south blower is activated and 3m/s in the X direction when the east or west one is activated. At time 0s (s indicating seconds), the north and south blowers are switched on. At 10s, the south blower is turned off and the east one is turned on. At 25s, the north blower is switched off.  At 30s, the east wind blower is switched off and the south one is switched on for a second time. The west blower is activated from 30s to 55s. The south blower is turned off at 70s. What is the object's distance from its starting position at 71s, as a rounded number?",
+    "type": "Algorithmic Instructions",
+    "in_prompt": true,
+    "answer": 52
+  },
+  "44": {
+    "statement": "A scientist has a device that takes a quadrilateral shaped piece of fabric and stretches the top edge by 1%, the sides by 2%, and the bottom edge by 3%. He puts a square fabric with a side length of 5m in it and performs the following actions: stretch, rotate 90 degrees clockwise, stretch, rotate 90 degrees counterclockwise, stretch, rotate 180 degrees, stretch. What is the difference between the length of the longest and shortest sides after these actions? Round the answer to 2 decimal points.",
+    "type": "Algorithmic Instructions",
+    "in_prompt": false,
+    "answer": 0.11
+  },
+  "45": {
+    "statement": "Alex is playing Hexascratch, a game with a hexagon that has two black sides and four gray sides. The hexagon is initially oriented so the top side is the black, and the 5th side (counting clockwise) is black. Alex can do three actions: Action-right rotates the hexagon clockwise by 120 degrees (2 sides) and scratches the top side after the rotation; Action-left turns hexagon by 60 degrees counterclockwise and then scratches the bottom side; Action-180 which rotates the hexagon by 180 degrees (3 sides) and scratches the sides on the top and bottom. Alex performs the following actions: Action-right, Action-left, Action-right, Action-180. What is the number of scratches on the black sides minus the number on the gray sides?",
+    "type": "Algorithmic Instructions",
+    "in_prompt": false,
+    "answer": -1
+  },
+  "46": {
+    "statement": "In the game of 'Stack it', two rods hold weights of 1,2,3,4,5 kg. A \u201cmove\u201d involves transferring the top weight from the heavier rod to the lighter one. In each round, we roll a 3-sided dice (with numbers 1 to 3) to determine the number of \u201cmoves\u201d per round. After each round, a 1 kg weight is added to the lighter rod. The weight of the rods is recalculated after each move in a round. Initially, the first rod holds 1, 5, 3 kg, top to bottom, and the second holds 4, 2 kg. If the dice rolls are 2, 1, 3, 1 in the first four rounds, what is the sum of the weights on the heavier rod after the fourth round?",
+    "type": "Algorithmic Instructions",
+    "in_prompt": false,
+    "answer": 10
+  },
+  "47": {
+    "statement": "Sarah has a chain of 5 magnetic beads, with the middle bead being the only one with a scratch. She plays a game where she rolls a dice to get a number, N. She then disconnects the magnetic beads at the Nth index, counting from 0 left to right, and adds a total of 4 beads to the two segments, one bead to the front and back of each of the two resulting segments. Sarah reverses the order of the two resulting segments (second segmnet added to the front of the first) before reconnecting them into a single chain. If she rolls 4, 4, 3, 2, in four rounds of playing this game, then what is the position of the scratched bead counting from 0 from left to right?",
+    "type": "Algorithmic Instructions",
+    "in_prompt": false,
+    "answer": 19
+  },
+  "48": {
+    "statement": "In 'Sum It Up, 10 squares in a row each contain a number. A queue of numbers, the waitlist, is used to replace the first squares with number 0, the target square. If the waitlist number equals the sum of the numbers before and after the target square, or if the waitlist number matches the number before target square, then the numbers in all three squares (the target square and the squares before and after it) become zero. Otherwise, the round ends with the waitlist number replacing the 0 in the target square. The initial square numbers are 1, 2, 3, 0, 4, 0, -1, -1, 0, 0, and the waitlist numbers are 7, 2, 6, 2, 2. What's the sum of the numbers in the 10 squares after the waitlist is empty?",
+    "type": "Algorithmic Instructions",
+    "in_prompt": false,
+    "answer": 5
+  },
+  "49": {
+    "statement": "In the game of \u201cthe special 3\u201d, we are given 10 numbers. Our task is to count the number of times that 3 numbers that come after each other in this line are strictly increasing or decreasing (either first number < second number < third number or first number > second number > third number ), and either the difference between the first and third number is less than 5 and more than 3 or the middle number is divisible by 3. Whenever a sequence of 3 numbers meets the criteria, we add 1 to all the numbers that come after the third number in the line before checking the next 3 numbers. What is the sum of the count of special 3s and all of the numbers in the final list after the last check for the following list: 3, 5, 7, 8, 10, 12, 8, 6, 3, 2?",
+    "type": "Algorithmic Instructions",
+    "in_prompt": false,
+    "answer": 238
+  },
+  "50": {
+    "statement": "In Monopoly in a Circle, the board is a circle with 4 quarters that spins clockwise. Players draw a card each round dictating their actions. Initially, player A has $20 and is sitting in front of quarter 1, B has $70 and is in front of quarter 2, C has $40 sitting in front of quarter 3, and D has $25, sitting in front of quarter 4. Each quarter holds $100. The game starts with A, followed by B, C, and D.  If in rounds 1 to 4, A draws \u201cTake 20% of your quarter's money, spin the board 90 degrees\u201d, B draws \u201cspin the board by 180 degrees, give 50% of your money to the quarter in front of you\u201d, C draws \u201ctake 10% of your quarter\u2019s money, spin the board by 90 degrees\u201d, and D draws \u201cTake 30% of your quarter\u2019s money, do not spin the board\u201d, then what's the difference between the total players' money and the total quarters' money after 4 rounds?",
+    "type": "Algorithmic Instructions",
+    "in_prompt": false,
+    "answer": -28
+  },
+  "51": {
+    "statement": "In 'Pass it', a 4-player card game, players draw straws each round and the one with the shortest straw starts a round of passing cards. Each person passes their 2 lowest cards to the next player. A round continues until the first player who drew the shortest straw receives 2 cards. If players A, B, C, D  (they pass the cards in the same order) have cards 1, 8, 3, 9; 10, 6, 4, 7; 8, 5, 2, 9; and 5, 6, 3, 10 respectively, and D, B, D draw the shortest straw in rounds 1-3, what's the sum of C's cards after round 3?",
+    "type": "Algorithmic Instructions",
+    "in_prompt": false,
+    "answer": 28
+  },
+  "52": {
+    "statement": "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with the sum of the 2 numbers modulo 10. If none of the merging conditions hold, then a 0 is added as a padding between the two numbers. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 4 (counting from 0), then right at 5, left at 4, right at 6, right at 3, and finally right at 4, what's the final list length plus the sum of its numbers?",
+    "type": "Algorithmic Instructions",
+    "in_prompt": false,
+    "answer": 35
+  },
+  "53": {
+    "statement": "We have a square metal plate divided into four equal subsquares, each colored differently. The plate is oriented such that the top left subsquare is red, and moving clockwise, the subsquares are blue, orange, and purple. An artist begins by rotating the plate 180 degrees clockwise, then he adds three designs to the top right subsquare and two to the bottom left subsquare. Next, he flips the plate around the top left bottom right diagonal of the square and adds five designs to the top right subsquare. He then rotates the plate 90 degrees counterclockwise, flips it around in the same way, and adds four designs to each of the two subsquares at the bottom. What is the total number of designs on the red and blue subsquares subtracted from the total number of designs on the orange and purple subsquares?",
+    "type": "Algorithmic Instructions",
+    "in_prompt": false,
+    "answer": -4
+  },
+  "54": {
+    "statement": "In the 'split and merge' game, we start with a list of numbers. Each round, we generate two random numbers within the range of the list's length which serve as indices to split the list into three sublists. Then we sort the 2 outer sublists (the first and last) by their sums, add 1 to the start of the smaller sum sublist, and -1 to the start of the larger one. Then we merge the sublists in the following order: Outer sublist with larger sum, middle sublist, outer sublist with smaller sum. Given the list is 5, 8, 3, 1, 2, 1, 4, 6, 6, 9 and the random numbers for four rounds of splits are (3, 7), (7, 11), (4, 11), (4, 9), what is the sum of the first 12 numbers in the final list?",
+    "type": "Algorithmic Instructions",
+    "in_prompt": false,
+    "answer": 26
+  },
+  "55": {
+    "statement": "In 'flip it' a player interacts with a 4x4 grid of discs with a black and a white side. Initially, all discs display their white side. In each round, the player chooses a specific coordinate on the grid and rolls an 8-sided dice to determine the number of adjacent discs to flip. The first disc to be flipped is the one directly above the selected grid, the flipping of the rest of the adjacent disks proceeds clockwise. If the selected grid is on the corner or edge of the grid with less than 8 neighbors, and the dice roll exceeds the number of neighboring discs, all neighboring discs are flipped. Determine how many discs will be showing their black side after four rounds, choosing to flip discs along the diagonal of the grid, starting from the top left disc (1, 1) and moving to the bottom right disc (4, 4) with dice rolls of 4, 7, 4, 3.",
+    "type": "Algorithmic Instructions",
+    "in_prompt": false,
+    "answer": 8
+  }
+}

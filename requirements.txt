@@ -1,0 +1,5 @@
+openai
+pytholog 
+simplejson
+matplotlib
+numpy

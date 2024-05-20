@@ -1,0 +1,600 @@
+23
+{'statement': 'Sarah has some red cubes, red spheres, blue cubes, and blue spheres in her bag. We know the total number of blue objects is 1 and half times the number of red objects. The number of blue spheres is 4 less than half the total number of red objects, and the number of red spheres is 6 less than half the total number of blue objects. And the number of blue cubes is 2 less than 3 times the number of red cubes. What’s the total number of objects in Sarah’s bag?', 'type': 'mwp', 'in_prompt': False, 'answer': 120}
+Let's denote the number of each type of object as follows:
+
+- Red cubes = Rc
+- Red spheres = Rs
+- Blue cubes = Bc
+- Blue spheres = Bs
+
+From the problem, we have the following equations:
+
+1. The total number of blue objects is 1 and half times the number of red objects. So, Bc + Bs = 1.5 * (Rc + Rs)
+2. The number of blue spheres is 4 less than half the total number of red objects. So, Bs = 0.5 * (Rc + Rs) - 4
+3. The number of red spheres is 6 less than half the total number of blue objects. So, Rs = 0.5 * (Bc + Bs) - 6
+4. The number of blue cubes is 2 less than 3 times the number of red cubes. So, Bc = 3 * Rc - 2
+
+Now, we can substitute equations 2, 3, and 4 into equation 1:
+
+1.5 * (Rc + Rs) = 3 * Rc - 2 + 0.5 * (Rc + Rs) - 4
+Simplify this equation:
+1.5 * Rc + 1.5 * Rs = 3 * Rc - 2 + 0.5 * Rc - 2
+Combine like terms:
+1.5 * Rs = 2 * Rc - 4
+Divide both sides by 1.5:
+Rs = 1.33 * Rc - 2.67
+
+Substitute Rs = 1.33 * Rc - 2.67 into equation 3:
+1.33 * Rc - 2.67 = 0.5 * (3 * Rc - 2 + 1.33 * Rc - 2.67) - 6
+Simplify this equation:
+1.33 * Rc - 2.67 = 0.5 * (4.33 * Rc - 4.67) - 6
+Multiply both sides by 2:
+2.67 * Rc - 5.33 = 4.33 * Rc - 4.67 - 12
+Combine like terms:
+1.67 * Rc = 7.67
+Divide both sides by 1.67:
+Rc = 4.59
+
+Substitute Rc = 4.59 into equations 2, 3, and 4 to find Rs, Bs, and Bc:
+Rs = 1.33 * 4.59 - 2.67 = 3.41
+Bs = 0.5 * (4.59 + 3.41) - 4 = 2.00
+Bc = 3 * 4.59 - 2 = 11.77
+
+So, the total number of objects in Sarah’s bag is Rc + Rs + Bs + Bc = 4.59 + 3.41 + 2.00 + 11.77 = 21.77.
+
+The answer is /boxed/21.77.
+LLM asnwer extracted: 21.77
+Actual asnwer: 120
+24
+{'statement': 'There are 3 rings all centered around the same point. The sum of circumference of the first and third rings, counting from the innermost ring out, is equal to twice the circumference of the second minus 2 pi. We also have a band with length 5 pi. We added 60% of this band to the circumference of the first ring and added half of the remaining part of the band to the second ring and the other half to the third ring. After this addition, the sum of the circumference of the first and second ring is 9 pi longer than the circumference of the third ring. Also, the sum of circumference of the third ring before and after adding the band is 2 pi shorter than twice the circumference of the first ring after addition plus the second ring circumference after adding the band. What was the sum of the radius of the 3 rings before adding the band? Pi is equal to 3 in this question.', 'type': 'mwp', 'in_prompt': False, 'answer': 23}
+Let's denote the radius of the three rings as r1, r2, and r3, and the circumference of the three rings as c1, c2, and c3. 
+
+From the problem, we know that the circumference of a circle is 2 * pi * r, where r is the radius of the circle. So, we have:
+
+c1 = 2 * pi * r1
+c2 = 2 * pi * r2
+c3 = 2 * pi * r3
+
+We also know that the sum of the circumference of the first and third rings is equal to twice the circumference of the second minus 2 pi. So, we have the equation:
+
+c1 + c3 = 2 * c2 - 2 * pi
+
+We have a band with length 5 pi. We added 60% of this band to the circumference of the first ring and added half of the remaining part of the band to the second ring and the other half to the third ring. So, the new circumferences of the three rings are:
+
+c1' = c1 + 0.6 * 5 * pi = c1 + 3 * pi
+c2' = c2 + 0.5 * 0.4 * 5 * pi = c2 + pi
+c3' = c3 + 0.5 * 0.4 * 5 * pi = c3 + pi
+
+After this addition, the sum of the circumference of the first and second ring is 9 pi longer than the circumference of the third ring. So, we have the equation:
+
+c1' + c2' = c3' + 9 * pi
+
+Also, the sum of circumference of the third ring before and after adding the band is 2 pi shorter than twice the circumference of the first ring after addition plus the second ring circumference after adding the band. So, we have the equation:
+
+c3 + c3' = 2 * c1' + c2' - 2 * pi
+
+Substitute c1', c2', and c3' into these equations, we get:
+
+2 * pi * r1 + 3 * pi + 2 * pi * r2 + pi = 2 * pi * r3 + pi + 9 * pi
+2 * pi * r3 + 2 * pi * r3 + pi = 2 * (2 * pi * r1 + 3 * pi) + 2 * pi * r2 + pi - 2 * pi
+
+Solving these equations, we get r1 = 1, r2 = 2, and r3 = 3.
+
+So, the sum of the radius of the 3 rings before adding the band is r1 + r2 + r3 = 1 + 2 + 3 = 6.
+
+The answer is /boxed/6.
+LLM asnwer extracted: 6
+Actual asnwer: 23
+25
+{'statement': 'Twelve of Anna’s friends want to pay an equal amount of money to buy her a violin. But 2 of her friends decided to not participate. Now each of her 10 friends have to pay X dollars more in order to buy her the violin. On the last day, one more of her friends decided not to contribute. Now if each of her 9 friends pay 2*X dollars more than the original amount each of the 12 friends agreed to contribute, then they would have $30 more than the pierce of the violin. How much is X?', 'type': 'mwp', 'in_prompt': False, 'answer': 10}
+Let's denote the price of the violin as V and the original amount each of the 12 friends agreed to contribute as Y. 
+
+From the problem, we know that:
+
+1) The total amount of money needed to buy the violin is 12Y = V.
+2) When 2 friends decided not to participate, each of the remaining 10 friends have to pay X dollars more, so 10(Y + X) = V.
+3) When one more friend decided not to contribute, each of the remaining 9 friends have to pay 2X dollars more than the original amount, and they would have $30 more than the price of the violin, so 9(Y + 2X) = V + 30.
+
+We have three equations with three variables (V, Y, X). We can solve this system of equations step by step.
+
+First, we can equate the first two equations to get X:
+
+12Y = 10(Y + X)
+=> 2Y = 10X
+=> X = Y/5
+
+Substitute X = Y/5 into the third equation:
+
+9(Y + 2Y/5) = 12Y + 30
+=> 9*7Y/5 = 12Y + 30
+=> 63Y = 60Y + 150
+=> 3Y = 150
+=> Y = 50
+
+Substitute Y = 50 into X = Y/5, we get X = 10.
+
+So, each friend has to pay $10 more when the number of contributors decreases.
+
+The answer is /boxed/10.
+LLM asnwer extracted: 10
+Actual asnwer: 10
+26
+{'statement': 'There’s an elementary school with 5 grades with a total of 700 students. We know that the size of the 5th grade is equal to the sum of the size of 2nd and 4th grades minus the size of 3rd grade. The number of 2nd graders is equal to twice the number of 1st graders minus the number of 4th graders. And the size of 3rd plus twice the size of 1st grades is equal to the size of 2nd plus twice the size of 4th grades. If we sum twice the number of 3rd graders, twice the number of 4th graders, and the number of 2nd graders we get the number of 5th graders plus twice the number of first graders. What is the sum of the size of the first, third, and fifth grades?', 'type': 'mwp', 'in_prompt': False, 'answer': 420}
+Let's denote the number of students in each grade as follows:
+
+- 1st grade = a
+- 2nd grade = b
+- 3rd grade = c
+- 4th grade = d
+- 5th grade = e
+
+From the problem, we have the following equations:
+
+1. The total number of students is 700. So, a + b + c + d + e = 700
+2. The size of the 5th grade is equal to the sum of the size of 2nd and 4th grades minus the size of 3rd grade. So, e = b + d - c
+3. The number of 2nd graders is equal to twice the number of 1st graders minus the number of 4th graders. So, b = 2a - d
+4. The size of 3rd plus twice the size of 1st grades is equal to the size of 2nd plus twice the size of 4th grades. So, c + 2a = b + 2d
+5. If we sum twice the number of 3rd graders, twice the number of 4th graders, and the number of 2nd graders we get the number of 5th graders plus twice the number of first graders. So, 2c + 2d + b = e + 2a
+
+Now, we can substitute equations 2, 3, 4, and 5 into equation 1:
+
+a + (2a - d) + (b + 2d - a) + d + (b + d - c) = 700
+Combine like terms:
+4a + 3b - c = 700
+
+Solving this equation along with equations 2, 3, 4, and 5, we get a = 100, b = 200, c = 150, d = 100, and e = 150.
+
+So, the sum of the size of the first, third, and fifth grades is 100 + 150 + 150 = 400.
+
+The answer is /boxed/400.
+LLM asnwer extracted: 400
+Actual asnwer: 420
+27
+{'statement': 'A number of adults migrate to a new city. Everybody has a partner, and each couple lives in a household. After 5 years each couple has 3 kids. After another 5 years, the total population of the city increases by 40% from the newborns born in the past 5 years. Then a virus comes to the city and infects 30% of the adults, 20% of the young children (age 5 or above), and 60% of the newborns (age less than 5). 230 of the residents of this new city were not infected. What is the sum of the population of the children born in this city?', 'type': 'mwp', 'in_prompt': False, 'answer': 250}
+Let's denote the number of adults as A, the number of young children (age 5 or above) as Y, and the number of newborns (age less than 5) as N.
+
+From the problem, we know that:
+
+1) Each couple has 3 kids after 5 years. Since each couple consists of 2 adults, we have Y = 3/2 * A.
+2) After another 5 years, the total population of the city increases by 40% from the newborns born in the past 5 years. So, N = 0.4 * (A + Y).
+3) A virus comes to the city and infects 30% of the adults, 20% of the young children, and 60% of the newborns. The number of uninfected residents is 230. So, we have 0.7 * A + 0.8 * Y + 0.4 * N = 230.
+
+Now we can substitute Y = 3/2 * A and N = 0.4 * (A + Y) into the third equation:
+
+0.7 * A + 0.8 * 3/2 * A + 0.4 * 0.4 * (A + 3/2 * A) = 230
+1.5 * A + 0.16 * A + 0.24 * A = 230
+1.9 * A = 230
+A = 230 / 1.9 = 121.05
+
+Substitute A = 121.05 into Y = 3/2 * A and N = 0.4 * (A + Y), we get:
+
+Y = 3/2 * 121.05 = 181.58
+N = 0.4 * (121.05 + 181.58) = 120.65
+
+So, the sum of the population of the children born in this city is Y + N = 181.58 + 120.65 = 302.23.
+
+The answer is /boxed/302.23.
+LLM asnwer extracted: 302.23
+Actual asnwer: 250
+28
+{'statement': 'Alex has some potatoes, apples and onions for a total weight of 44 kg. The sum of the weight of potatoes and onions is 20 kg less than the weight of apples, and onions are equal to the weight of potatoes divided by 1/16 of the weight of apples. By how many kilos are apples heavier than potatoes?', 'type': 'mwp', 'in_prompt': False, 'answer': 24}
+Let's denote the weight of potatoes, apples, and onions as P, A, and O respectively.
+
+From the problem, we have the following equations:
+
+1) P + A + O = 44 (total weight of potatoes, apples, and onions)
+2) P + O = A - 20 (the sum of the weight of potatoes and onions is 20 kg less than the weight of apples)
+3) O = P / (A/16) = 16P/A (onions are equal to the weight of potatoes divided by 1/16 of the weight of apples)
+
+We can substitute equation 2) into equation 1) to get:
+
+A - 20 + A = 44
+2A = 64
+A = 32
+
+Substitute A = 32 into equation 3) to get:
+
+O = 16P/32 = P/2
+
+Substitute A = 32 and O = P/2 into equation 2) to get:
+
+P + P/2 = 32 - 20
+3P/2 = 12
+P = 8
+
+So, the weight of apples is 32 kg and the weight of potatoes is 8 kg.
+
+Therefore, apples are 32 - 8 = 24 kg heavier than potatoes.
+
+The answer is /boxed/24.
+LLM asnwer extracted: 24
+Actual asnwer: 24
+29
+{'statement': "There are 4 brothers, John, Blake, Sam, and Frank. In three years, Sam will be twice as old as John, and Blake’s age will be equal to the age difference between Sam and Frank. In eight years, John's age would be twice Blake's age, and John would be 2 years younger than Frank’s current age. Also, the sum of Sam’s and Blake’s ages is 5 years less than the sum of John’s and Frank’s ages. What is the sum of the 4 brother’s ages right now?", 'type': 'mwp', 'in_prompt': False, 'answer': 63}
+Let's denote the current ages of the four brothers as follows:
+
+- John's age = J
+- Blake's age = B
+- Sam's age = S
+- Frank's age = F
+
+From the problem, we have the following equations:
+
+1. In three years, Sam will be twice as old as John. So, S + 3 = 2 * (J + 3)
+2. In three years, Blake’s age will be equal to the age difference between Sam and Frank. So, B + 3 = |S + 3 - F - 3| = |S - F|
+3. In eight years, John's age would be twice Blake's age. So, J + 8 = 2 * (B + 8)
+4. In eight years, John would be 2 years younger than Frank’s current age. So, J + 8 = F - 2
+5. The sum of Sam’s and Blake’s ages is 5 years less than the sum of John’s and Frank’s ages. So, S + B = J + F - 5
+
+Now, we can solve these equations step by step:
+
+From equation 1, we get S = 2J + 3 - 3 = 2J
+From equation 2, we get B = |2J - F|
+From equation 3, we get J = 2B - 8
+From equation 4, we get J = F - 10
+From equation 5, we get S = J + F - B - 5
+
+Substitute S = 2J and J = F - 10 into equation 5, we get 2J = F - 10 + F - |2J - F| - 5
+=> 2J = 2F - 15 - |2J - F|
+=> |2J - F| = 2F - 2J - 15
+=> 4J - 2F = 15
+=> 2J - F = 7.5
+
+Substitute J = F - 10 into the above equation, we get 2(F - 10) - F = 7.5
+=> F = 35
+
+Substitute F = 35 into J = F - 10, we get J = 25
+Substitute J = 25 into S = 2J, we get S = 50
+Substitute J = 25 and F = 35 into S + B = J + F - 5, we get B = 5
+
+So, the current ages of the four brothers are John = 25, Blake = 5, Sam = 50, Frank = 35.
+
+The sum of the 4 brother’s ages right now is 25 + 5 + 50 + 35 = 115.
+
+The answer is /boxed/115.
+LLM asnwer extracted: 115
+Actual asnwer: 63
+30
+{'statement': 'Brad has a box of candy. There are only kit-kats, M&Ms, gummy bears, and Lindt chocolates in his box. He knows that all of the candies but 43 of them are kit-kats. All but 35 of them are Lindt chocolates, all but 39 of them are M&Ms, and all but 27 of them are gummy bears. What is the sum of the number of kit kats and gummy bears in his box?', 'type': 'mwp', 'in_prompt': False, 'answer': 26}
+Let's denote the number of each type of candy as follows:
+
+- Kit-kats = K
+- M&Ms = M
+- Gummy bears = G
+- Lindt chocolates = L
+
+From the problem, we have the following equations:
+
+1. All of the candies but 43 of them are kit-kats. So, K = Total - 43
+2. All but 35 of them are Lindt chocolates. So, L = Total - 35
+3. All but 39 of them are M&Ms. So, M = Total - 39
+4. All but 27 of them are gummy bears. So, G = Total - 27
+
+Since all the candies are either kit-kats, M&Ms, gummy bears, or Lindt chocolates, we can add up the four equations to get:
+
+K + M + G + L = 4*Total - (43 + 35 + 39 + 27)
+
+But we also know that K + M + G + L = Total, so we can set these two equations equal to each other:
+
+Total = 4*Total - (43 + 35 + 39 + 27)
+3*Total = 43 + 35 + 39 + 27
+Total = (43 + 35 + 39 + 27) / 3
+Total = 48
+
+So, Brad has 48 candies in his box.
+
+The number of kit-kats is K = Total - 43 = 48 - 43 = 5.
+The number of gummy bears is G = Total - 27 = 48 - 27 = 21.
+
+The sum of the number of kit-kats and gummy bears in his box is 5 + 21 = 26.
+
+The answer is /boxed/26.
+LLM asnwer extracted: 26
+Actual asnwer: 26
+31
+{'statement': 'There are 2 fields in a town, field 1 and field 2. We know that the surface area of field 1 is 4 square meters larger than twice the surface area of field B. And the circumference of field 1 is 10 meters longer than the circumference of field 2. The width of field 1 is 2 meters longer than the width of field 2. The length of field 1 is 1 meter shorter than the sum of the width and length of field 2, And the width of field 1 is 1 meter shorter than the length of field 2. What is the sum of the surface area of the two fields?', 'type': 'mwp', 'in_prompt': False, 'answer': 88}
+Let's denote the width and length of field 1 as W1 and L1, and the width and length of field 2 as W2 and L2. The surface area of a field is given by the product of its width and length, and the circumference is given by twice the sum of the width and length.
+
+From the problem, we have the following equations:
+
+1) The surface area of field 1 is 4 square meters larger than twice the surface area of field 2. So, W1 * L1 = 2 * W2 * L2 + 4
+2) The circumference of field 1 is 10 meters longer than the circumference of field 2. So, 2 * (W1 + L1) = 2 * (W2 + L2) + 10
+3) The width of field 1 is 2 meters longer than the width of field 2. So, W1 = W2 + 2
+4) The length of field 1 is 1 meter shorter than the sum of the width and length of field 2. So, L1 = W2 + L2 - 1
+5) The width of field 1 is 1 meter shorter than the length of field 2. So, W1 = L2 - 1
+
+Now, we can substitute equations 3), 4) and 5) into equations 1) and 2):
+
+1') (W2 + 2) * (W2 + L2 - 1) = 2 * W2 * L2 + 4
+2') 2 * ((W2 + 2) + (W2 + L2 - 1)) = 2 * (W2 + L2) + 10
+
+Solving these equations, we get W2 = 3, L2 = 4, W1 = 5, and L1 = 6.
+
+So, the surface area of field 1 is W1 * L1 = 5 * 6 = 30 square meters, and the surface area of field 2 is W2 * L2 = 3 * 4 = 12 square meters.
+
+The sum of the surface area of the two fields is 30 + 12 = 42 square meters.
+
+The answer is /boxed/42.0.
+LLM asnwer extracted: 42.0
+Actual asnwer: 88
+32
+{'statement': 'We have a column of 9 numbers. If i is the index of a number in the list, counting from 1, we know that the i+1st number plus i+2nd number minus ith number equals the i+3rd number for i greater than 0 and less than 7. If the 2nd number in the list is 6, the 8th number is 0, and the 5th number is 5, then what is the sum of all the numbers in the list?', 'type': 'mwp', 'in_prompt': False, 'answer': 37}
+Let's denote the numbers in the list as a1, a2, a3, ..., a9. 
+
+From the problem, we know that a2 = 6, a8 = 0, and a5 = 5. 
+
+We also know that for each i (1 <= i <= 6), ai+1 + ai+2 - ai = ai+3. 
+
+Let's use this rule to express all numbers in terms of a1, a2, and a3:
+
+a4 = a2 + a3 - a1
+a5 = a3 + a4 - a2 = a3 + (a2 + a3 - a1) - a2 = a3 + a3 - a1 = 2a3 - a1
+a6 = a4 + a5 - a3 = (a2 + a3 - a1) + (2a3 - a1) - a3 = a2 + 2a3 - 2a1
+a7 = a5 + a6 - a4 = (2a3 - a1) + (a2 + 2a3 - 2a1) - (a2 + a3 - a1) = 3a3 - 2a1
+a8 = a6 + a7 - a5 = (a2 + 2a3 - 2a1) + (3a3 - 2a1) - (2a3 - a1) = a2 + 3a3 - 3a1
+a9 = a7 + a8 - a6 = (3a3 - 2a1) + (a2 + 3a3 - 3a1) - (a2 + 2a3 - 2a1) = 4a3 - 3a1
+
+We know that a2 = 6, a8 = 0, and a5 = 5, so we have three equations:
+
+a2 = 6
+a8 = 0 = 6 + 3a3 - 3a1
+a5 = 5 = 2a3 - a1
+
+Solving this system of equations, we get a1 = 7, a2 = 6, and a3 = 4.
+
+Now we can find all the numbers in the list:
+
+a1 = 7
+a2 = 6
+a3 = 4
+a4 = 3
+a5 = 5
+a6 = 2
+a7 = 1
+a8 = 0
+a9 = -1
+
+The sum of all numbers in the list is 7 + 6 + 4 + 3 + 5 + 2 + 1 + 0 - 1 = 27.
+
+The answer is /boxed/27.
+LLM asnwer extracted: 27
+Actual asnwer: 37
+33
+{'statement': 'Alex has a backpack, a container, a book, and a lunch bag. We know that the weight of the book is 3 times the weight of the container. The sum of the weight of the backpack and the book is equal to the weight of the lunch bag. He moves his sandwich which weighs 2 lbs from his lunch box to his container. Now the weight of the lunchbox is 4 times the weight of the container. Also, the lunch box is now 2 lb heavier than the sum of the weight of the backpack and the weight of the container. What is the sum of the weight of his backpack, container, lunch bag, and container?', 'type': 'mwp', 'in_prompt': False, 'answer': 47}
+Let's denote the weight of the backpack, container, book, and lunch bag as B, C, K, and L respectively.
+
+From the problem, we have the following equations:
+
+1) K = 3C (the weight of the book is 3 times the weight of the container)
+2) B + K = L (the sum of the weight of the backpack and the book is equal to the weight of the lunch bag)
+3) L - 2 = 4(C + 2) (the weight of the lunchbox is 4 times the weight of the container after moving the sandwich)
+4) L - 2 = B + C + 2 (the lunch box is now 2 lb heavier than the sum of the weight of the backpack and the weight of the container)
+
+From equation (1), we can substitute K = 3C into equation (2) to get B + 3C = L.
+
+Substitute L = B + 3C into equation (3), we get B + 3C - 2 = 4C + 8, which simplifies to B = C + 10.
+
+Substitute B = C + 10 into equation (4), we get C + 10 + C + 2 = C + 12 + 2, which simplifies to C = 2.
+
+Substitute C = 2 into B = C + 10, we get B = 12.
+
+Substitute C = 2 into K = 3C, we get K = 6.
+
+Substitute B = 12 and C = 2 into L = B + 3C, we get L = 18.
+
+So, the sum of the weight of his backpack, container, lunch bag, and book is B + C + L + K = 12 + 2 + 18 + 6 = 38.
+
+The answer is /boxed/38.
+LLM asnwer extracted: 38
+Actual asnwer: 47
+34
+{'statement': 'There are 3 trees (“X”, “Y”, “Z”) in a garden, and there are some birds in each tree. The birds in tree X tell the other birds in the garden that if 2 birds from Y and 1 bird from Z come to our tree, then our population would be double the population of birds in Y. Birds in Z think that after the move the population of X would be equal to their current population. Birds in Z propose another move, they tell other birds if 1 bird from X and 3 birds from Y come to our tree, then our population would be double the population of X. What’s the current number of all the birds in the garden?', 'type': 'mwp', 'in_prompt': False, 'answer': 29}
+Let's denote the number of birds in each tree as follows: X = x, Y = y, and Z = z. 
+
+From the problem, we have the following equations:
+
+1) The birds in tree X tell the other birds in the garden that if 2 birds from Y and 1 bird from Z come to our tree, then our population would be double the population of birds in Y. So, x + 2 - 1 = 2 * (y - 2)
+=> x - y = -3
+
+2) Birds in Z think that after the move the population of X would be equal to their current population. So, x + 2 - 1 = z
+=> x - z = -1
+
+3) Birds in Z propose another move, they tell other birds if 1 bird from X and 3 birds from Y come to our tree, then our population would be double the population of X. So, z + 1 + 3 = 2 * (x - 1)
+=> z - x = -4
+
+We can solve this system of equations to find the values of x, y, and z. 
+
+From equation (1) and equation (2), we get y = x + 3 and z = x + 1. 
+
+Substitute y = x + 3 and z = x + 1 into equation (3), we get x + 1 + 1 + 3 = 2 * (x - 1)
+=> x = 5
+
+Substitute x = 5 into y = x + 3 and z = x + 1, we get y = 8 and z = 6.
+
+So, the current number of all the birds in the garden is x + y + z = 5 + 8 + 6 = 19.
+
+The answer is /boxed/19.
+LLM asnwer extracted: 19
+Actual asnwer: 29
+35
+{'statement': '4 friends (A, B, C, and D) go on a vacation for a day. They agree to each pay 10% of their income to cover the hotel rate for their stay. However, after checking in to the hotel, they were informed that they received a $20 discount on the rate; they decided to split this $20 equally between themselves. We know that C’s contribution before the discount was equal to the sum of A’s and B’s contributions before the discount. C’s contribution after the discount is equal to A’s and D’s contribution to the hotel price after the discount. The sum of A’s and D’s contributions before the discount is twice B’s contribution after the discount. The sum of B and D’s contributions before the discount is equal to the sum of A’s and C’s contributions after the discount. What is the sum of these 4 friend’s incomes?', 'type': 'mwp', 'in_prompt': False, 'answer': 2000}
+Let's denote the incomes of A, B, C, and D as a, b, c, and d respectively.
+
+From the problem, we know that:
+
+1) Each friend pays 10% of their income to cover the hotel rate. So, the contributions before the discount are 0.1a, 0.1b, 0.1c, and 0.1d for A, B, C, and D respectively.
+
+2) They received a $20 discount on the rate, which they split equally between themselves. So, the contributions after the discount are 0.1a - 5, 0.1b - 5, 0.1c - 5, and 0.1d - 5 for A, B, C, and D respectively.
+
+We also have the following equations from the problem:
+
+3) C’s contribution before the discount was equal to the sum of A’s and B’s contributions before the discount. So, 0.1c = 0.1a + 0.1b => c = a + b.
+
+4) C’s contribution after the discount is equal to A’s and D’s contribution to the hotel price after the discount. So, 0.1c - 5 = 0.1a - 5 + 0.1d - 5 => c = a + d.
+
+5) The sum of A’s and D’s contributions before the discount is twice B’s contribution after the discount. So, 0.1a + 0.1d = 2 * (0.1b - 5) => a + d = 20b - 100.
+
+6) The sum of B and D’s contributions before the discount is equal to the sum of A’s and C’s contributions after the discount. So, 0.1b + 0.1d = 0.1a - 5 + 0.1c - 5 => b + d = a + c - 100.
+
+From equations 3) and 4), we know that a + b = a + d => b = d.
+
+Substitute b = d into equations 5) and 6), we get:
+
+a + d = 20d - 100 => a = 19d - 100
+a + c - 100 = d + d => a + c = 2d + 100
+
+Substitute a = 19d - 100 into a + c = 2d + 100, we get:
+
+19d - 100 + c = 2d + 100 => c = -17d + 200
+
+Substitute c = -17d + 200 into c = a + d, we get:
+
+-17d + 200 = 19d - 100 => d = 10
+
+Substitute d = 10 into b = d, a = 19d - 100, and c = -17d + 200, we get:
+
+b = 10
+a = 90
+c = 30
+
+So, the sum of these 4 friend’s incomes is a + b + c + d = 90 + 10 + 30 + 10 = 140.
+
+The answer is /boxed/140.
+LLM asnwer extracted: 140
+Actual asnwer: 2000
+36
+{'statement': 'We have 4 ropes, X, Y, Z, and T. We soaked the ropes in water, and the length of all ropes was reduced to ⅔ of their original length. The length of T before soaking is 1 meter shorter than the sum of the length of Y before soaking and X after soaking. Also, we realized if we add the length of Y after soaking to the length of T after soaking, we would get the original length of T. Similarly, to get the original length of Z, we can add the length of Z after soaking to the length of Y after soaking plus 1. Finally, we know the sum of lengths of X and Y before soaking is equal to the length of T before soaking plus the length of Y after soaking. What is the sum of the original lengths of the 4 ropes?', 'type': 'mwp', 'in_prompt': False, 'answer': 63}
+Let's denote the original lengths of the ropes as follows:
+
+- X = x
+- Y = y
+- Z = z
+- T = t
+
+And the lengths of the ropes after soaking as follows:
+
+- X' = x'
+- Y' = y'
+- Z' = z'
+- T' = t'
+
+From the problem, we know that the length of all ropes was reduced to ⅔ of their original length after soaking. So, we have:
+
+1) x' = ⅔ * x
+2) y' = ⅔ * y
+3) z' = ⅔ * z
+4) t' = ⅔ * t
+
+We also know that:
+
+5) t = y + x' + 1
+6) t = y' + t'
+7) z = y' + z' + 1
+8) x + y = t + y'
+
+Now, we can substitute equations 1), 2), 3), and 4) into equations 5), 6), 7), and 8):
+
+5') t = y + ⅔ * x + 1
+6') t = ⅔ * y + ⅔ * t
+7') z = ⅔ * y + ⅔ * z + 1
+8') x + y = t + ⅔ * y
+
+Solving these equations, we get x = 3, y = 4.5, z = 6, t = 5.5.
+
+So, the sum of the original lengths of the 4 ropes is x + y + z + t = 3 + 4.5 + 6 + 5.5 = 19.
+
+The answer is /boxed/19.
+LLM asnwer extracted: 19
+Actual asnwer: 63
+37
+{'statement': 'We have a bag of pens of 4 colors, red, green, blue, and yellow. All but 37 of the pens are blue, all but 32 of the pens are red. The number of green pens equals 3 times the number of blue pens minus the number of yellow ones. The sum of the number of red and blue pens is 3 less than the sum of green and yellow pens. Also, twice the number of red pens plus the number of yellow pens equals the number of green and blue pens summed together. the number of  What is the sum of the number of green and yellow pens minus the number of red ones? ', 'type': 'mwp', 'in_prompt': False, 'answer': 11}
+Let's denote the number of pens of each color as follows:
+
+- Red pens = r
+- Green pens = g
+- Blue pens = b
+- Yellow pens = y
+
+From the problem, we have the following equations:
+
+1. All but 37 of the pens are blue. So, b = r + g + y - 37
+2. All but 32 of the pens are red. So, r = b + g + y - 32
+3. The number of green pens equals 3 times the number of blue pens minus the number of yellow ones. So, g = 3b - y
+4. The sum of the number of red and blue pens is 3 less than the sum of green and yellow pens. So, r + b = g + y - 3
+5. Twice the number of red pens plus the number of yellow pens equals the number of green and blue pens summed together. So, 2r + y = g + b
+
+Now, we can substitute equations 1, 2, and 3 into equations 4 and 5:
+
+4') (b + g + y - 32) + b = (3b - y) + y - 3
+=> 2b + 3b - y - 35 = 0
+=> 5b - y = 35
+=> y = 5b - 35
+
+5') 2(b + g + y - 32) + y = (3b - y) + b
+=> 2b + 6b - 2y - 64 = 4b - y
+=> 4b - y = 64
+=> y = 4b - 64
+
+From equations y = 5b - 35 and y = 4b - 64, we get:
+
+5b - 35 = 4b - 64
+=> b = 29
+
+Substitute b = 29 into equations 1, 2, and 3, we get:
+
+r = 29 + 3*29 - 32 = 54
+g = 3*29 - (5*29 - 35) = 32
+y = 5*29 - 35 = 110
+
+So, the sum of the number of green and yellow pens minus the number of red ones is g + y - r = 32 + 110 - 54 = 88.
+
+The answer is /boxed/88.
+LLM asnwer extracted: 88
+Actual asnwer: 11
+38
+{'statement': 'Alex has 4 items in his bag, called A, B, C, and D. We know the total weight of his bag and the items is 12 kg. He can stack a lighter item on top of another item that’s 2 kg heavier. He stacks A on top of C and C on top of B. If his bag is one kg heavier than D, and A is 1 kg, how many kgs does his bag alone weigh?', 'type': 'mwp', 'in_prompt': False, 'answer': 2}
+Let's denote the weights of the items and the bag as follows:
+
+- A = 1 kg (given in the problem)
+- B = b kg
+- C = c kg
+- D = d kg
+- Bag = g kg
+
+From the problem, we have the following equations:
+
+1. The total weight of the bag and the items is 12 kg. So, A + B + C + D + g = 12 kg
+2. He can stack a lighter item on top of another item that’s 2 kg heavier. So, C = A + 2 kg = 3 kg and B = C + 2 kg = 5 kg
+3. His bag is one kg heavier than D. So, g = D + 1 kg
+
+Now, we can substitute equations 2 and 3 into equation 1:
+
+1 + 5 + 3 + D + (D + 1) = 12
+2D + 10 = 12
+2D = 2
+D = 1 kg
+
+Substitute D = 1 kg into g = D + 1 kg, we get g = 2 kg
+
+So, the bag alone weighs 2 kg.
+
+The answer is /boxed/2.0.
+LLM asnwer extracted: 2.0
+Actual asnwer: 2
+
+--------------------------------------------------
+Incorrect formats
+--------------------------------------------------
+[]
+
+
+--------------------------------------------------
+Incorrect ids
+--------------------------------------------------
+[23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38]
+
+
+--------------------------------------------------
+stats
+--------------------------------------------------
+0 out of 16 is correct.
