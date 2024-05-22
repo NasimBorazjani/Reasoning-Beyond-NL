@@ -95,7 +95,7 @@ python inference_text_nlr.py [-h] your_openai_api_key {GPT4,GPT3.5} {MWP,CS,AI}
 ```
 
 
-## NLR Dataset with NLR Dataset with Variable Entanglement Variations
+## NLR Dataset with Variable Entanglement Variations
 
 GPT4 prompted with our Prolog in-context learning examples, using our neurosymbolic inference approach, achieve the following performance on the variation of the NLR dataset with variable entanglement variations:
 
