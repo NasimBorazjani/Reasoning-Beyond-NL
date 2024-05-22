@@ -1,11 +1,12 @@
 import re
 from openai import OpenAI
-from NLR_dataset import get_problems
+from NLR_dataset_var_entanglement import get_problems
 import pytholog as pl
 import subprocess
 from threading import Timer
 import time
 import argparse
+from collections import Counter
 
 prompt_mwp = """In the following examples, the goal is to solve math word problems step by step, and return the final answer as a float. The answer must follow the term /boxed/ 
 
@@ -567,10 +568,10 @@ def get_llm_solution(problem, model, type):
     
     
 def main():
-    parser = argparse.ArgumentParser(description='This script evaluates the end-to-end text-based performance of GPT4 or GPT3.5 Turbo on a subset of the NLR dataset')
+    parser = argparse.ArgumentParser(description='This script evaluates the end-to-end text-based performance of a subset of the NLR dataset with 0-4 entangled variables in each problem/state.')
     parser.add_argument('OAI_key', type=str, help='Your OpenAI API key.')
     parser.add_argument('model', type=str, choices=['GPT4', 'GPT3.5'], help='Name of the model you want to do inference on, either GPT4 or GPT3.5.')
-    parser.add_argument('subset', type=str, choices=['MWP', 'CS', 'AI'], help='Name of the subset of NLR dataset you want to do inference on. MWP stands for math word problems, CS is constraint satisfaction problems, AI is algorithmic instructions.')
+    parser.add_argument('subset', type=str, choices=['MWP', 'AI'], help='Name of the subset of NLR dataset you want to do inference on. MWP stands for math word problems, CS is constraint satisfaction problems, AI is algorithmic instructions.')
     parser.add_argument('--print', type=str, choices=['True', 'False'], default='True', nargs='?', help='If set to True, the script will print a statemnt about the result of each call to the model')
 
     args = parser.parse_args()
@@ -584,16 +585,25 @@ def main():
     global print_progress
     print_progress = args.print
 
-    log_file = f"{model}_{type}_text.txt"
+    log_file = f"{model}_{type}_text_var_entanglement.txt"
     
     problems = get_problems(type)
     count_correct = 0
     incorrect_formats = []
     incorrect_ids = []
     
+    if type == "MWP":
+        VE_key =  "Number of entangled variables"
+    elif type == "AI":
+        VE_key = "Number of entangled variables in each state"
+            
     min_id = min(problems.keys())
+    
+    VE_correct_count = Counter()
 
     for id, problem in problems.items():
+        if id != 28 and id != 24:
+            continue
         correct_format, complete_answer, answer_llm = get_llm_solution(problem["statement"], model, type)
         if not correct_format:
             incorrect_formats.append(id)
@@ -608,8 +618,9 @@ def main():
             f.write("Actual asnwer: " + str(problem["answer"]) + "\n")
             f.close()
             
-        if correct_format and float(answer_llm) == problem["answer"]:
+        if correct_format and round(float(answer_llm), 2) == problem["answer"]:
             count_correct += 1
+            VE_correct_count[problem[VE_key]] += 1
             print(str(count_correct) + " out of " + str(id - min_id + 1) + " is correct.")
             
             f = open(log_file, "a")
@@ -648,9 +659,14 @@ def main():
     f.write("stats")
     f.write("\n" + "-"*50 + "\n")
     f.write(str(count_correct) + " out of " + str(len(problems)) + " is correct.")
+    
+    f.write("\n\n")
+    f.write("\n" + "-"*50 + "\n")
+    f.write("stats"+ "\n")
+    f.write(f"The count of correct solutions for {type} problmes out of 5 problems for each variable entanglement level is: \n {VE_correct_count}")
     f.close()
     
-    print(str(count_correct) + " out of " + str(len(problems)) + " is correct.")
+    print(f"The count of correct solutions for {type} problmes out of 5 problems for each variable entanglement level is {VE_correct_count}")
 
     
 main()

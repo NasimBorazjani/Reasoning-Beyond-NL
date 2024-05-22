@@ -61,7 +61,7 @@ The number of scratches on the black sides is 2 (top and bottom) and the number 
 Therefore, the number of scratches on the black sides minus the number on the gray sides is 2 - 4 = -2.
 
 The answer is /boxed/-2.
-LLM asnwer extracted: 2
+LLM asnwer extracted:-2
 Actual asnwer: -1
 46
 {'statement': "In the game of 'Stack it', two rods hold weights of 1,2,3,4,5 kg. A “move” involves transferring the top weight from the heavier rod to the lighter one. In each round, we roll a 3-sided dice (with numbers 1 to 3) to determine the number of “moves” per round. After each round, a 1 kg weight is added to the lighter rod. The weight of the rods is recalculated after each move in a round. Initially, the first rod holds 1, 5, 3 kg, top to bottom, and the second holds 4, 2 kg. If the dice rolls are 2, 1, 3, 1 in the first four rounds, what is the sum of the weights on the heavier rod after the fourth round?", 'type': 'algorithmic_instructions', 'in_prompt': False, 'answer': 10}
@@ -136,7 +136,7 @@ Now, the sum of the numbers in the 10 squares after the waitlist is empty is:
 0 + 0 + 0 + 0 + 0 + 0 + (-1) + (-1) + 0 + 0 = -2
 
 The answer is /boxed/-2.
-LLM asnwer extracted: 2
+LLM asnwer extracted:-2
 Actual asnwer: 5
 49
 {'statement': 'In the game of “the special 3”, we are given 10 numbers. Our task is to count the number of times that 3 numbers that come after each other in this line are strictly increasing or decreasing (either first number < second number < third number or first number > second number > third number ), and either the difference between the first and third number is less than 5 and more than 3 or the middle number is divisible by 3. Whenever a sequence of 3 numbers meets the criteria, we add 1 to all the numbers that come after the third number in the line before checking the next 3 numbers. What is the sum of the count of special 3s and all of the numbers in the final list after the last check for the following list: 3, 5, 7, 8, 10, 12, 8, 6, 3, 2?', 'type': 'algorithmic_instructions', 'in_prompt': False, 'answer': 238}

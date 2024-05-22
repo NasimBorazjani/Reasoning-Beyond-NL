@@ -1,0 +1,3408 @@
+ID: 21
+{'statement': "In 'Sum It Up, 10 squares in a row each contain a number. A queue of numbers, the waitlist, is used to replace the first squares with number 0, the target square. The initial square numbers are in order 1, 2, 3, 0, 4, 0, -1, -1, 0, 0, and the waitlist numbers are 7, 2, 6, 2. What's the sum of the numbers in the 10 squares after the waitlist is empty?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 0, 'ID of problem in NLR dataset': None, 'answer': 25}
+NOT repeated 
+% Encoding the squares and the waitlist as lists of numbers
+
+
+% replace_target_square encodes the rule of replacing the first target square with the first number in the waitlist
+replace_target_square(Squares, Waitlist, Updated_squares, Updated_waitlist):-
+% The target square is the first square with number 0
+index_of_element(0, Squares, Index_target_square),
+% The number to replace the target square is the first number in the waitlist
+Waitlist = [First_waitlist_number|Rest_waitlist],
+% Replacing the target square with the first number in the waitlist
+replace(Index_target_square, First_waitlist_number, Squares, Updated_squares),
+% Removing the first number from the waitlist
+Updated_waitlist = Rest_waitlist.
+
+
+% replace is a helper predicate to replace an element at a specific index in a list
+replace(0, X, [_|T], [X|T]).
+replace(I, X, [H|T], [H|R]):- I > 0, I1 is I-1, replace(I1, X, T, R).
+
+
+problem(Sum_squares):-
+% Encoding the initial status of the squares and the waitlist
+Squares = [1, 2, 3, 0, 4, 0, -1, -1, 0, 0],
+Waitlist = [7, 2, 6, 2],
+
+
+% Iterating through the waitlist to replace the target squares
+replace_target_square(Squares, Waitlist, Squares_after_first_replacement, Waitlist_after_first_replacement),
+replace_target_square(Squares_after_first_replacement, Waitlist_after_first_replacement, Squares_after_second_replacement, Waitlist_after_second_replacement),
+replace_target_square(Squares_after_second_replacement, Waitlist_after_second_replacement, Squares_after_third_replacement, Waitlist_after_third_replacement),
+replace_target_square(Squares_after_third_replacement, Waitlist_after_third_replacement, Squares_after_fourth_replacement, _),
+
+
+% To find the sum of the numbers in the 10 squares after the waitlist is empty, we use sum_list to calculate sum of the list
+sum_list(Squares_after_fourth_replacement, Sum_squares).
+prolog run result: 25 problem answer: 25
+
+
+
+ID: 22
+{'statement': "In 'Sum It Up, 10 squares in a row each contain a number. A queue of numbers, the waitlist, is used to replace the first squares with number 0, the target square. If the index of the target square (counting from 0, left to right) is equal to the waitlist number, then the waitlist number clears out, and the 0 in the target square remains unchanged in that round. The initial numbers in the squares are in order 1, -2, 3, 0, 4, 0, -1, -1, 0, 0, and the waitlist numbers are  3, -2, 5, -1, 5. What's the sum of the numbers in the 10 squares after the waitlist is empty?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 6}
+NOT repeated 
+% Encoding the squares and the waitlist as lists of numbers
+
+
+% replace_square encodes the rules of replacing a square with a number from the waitlist
+replace_square(Squares, Waitlist, Squares_updated, Waitlist_updated):-
+% Getting the index of the target square, the first square with number 0
+index_of_element(0, Squares, Index_target_square),
+% Getting the first number in the waitlist
+Waitlist = [Waitlist_first_number|_],
+% If the index of the target square is equal to the waitlist number, then the waitlist number clears out, and the 0 in the target square remains unchanged in that round
+(Index_target_square =:= Waitlist_first_number ->
+% Removing the first number from the waitlist
+remove(Waitlist_first_number, Waitlist, Waitlist_updated),
+Squares_updated = Squares;
+% Else: the waitlist number replaces the 0 in the target square
+% Splitting the squares list at the target square index
+split_list_at(Index_target_square, Squares, Squares_before_target, [_|Squares_after_target]),
+% Replacing the target square with the waitlist number
+append(Squares_before_target, [Waitlist_first_number], Squares_before_target_updated),
+append(Squares_before_target_updated, Squares_after_target, Squares_updated),
+% Removing the first number from the waitlist
+remove(Waitlist_first_number, Waitlist, Waitlist_updated)).
+
+
+
+
+problem(Sum_squares):-
+% Encoding the initial status of the squares and the waitlist
+Squares = [1, -2, 3, 0, 4, 0, -1, -1, 0, 0],
+Waitlist = [3, -2, 5, -1, 5],
+
+
+% Iterating through the waitlist to update the squares
+replace_square(Squares, Waitlist, Squares_after_first_waitlist, Waitlist_after_first_waitlist),
+replace_square(Squares_after_first_waitlist, Waitlist_after_first_waitlist, Squares_after_second_waitlist, Waitlist_after_second_waitlist),
+replace_square(Squares_after_second_waitlist, Waitlist_after_second_waitlist, Squares_after_third_waitlist, Waitlist_after_third_waitlist),
+replace_square(Squares_after_third_waitlist, Waitlist_after_third_waitlist, Squares_after_fourth_waitlist, Waitlist_after_fourth_waitlist),
+replace_square(Squares_after_fourth_waitlist, Waitlist_after_fourth_waitlist, Squares_final, _),
+
+
+% To find the total sum of the numbers in the squares, we use sum_list
+sum_list(Squares_final, Sum_squares).
+prolog run result: 6 problem answer: 6
+
+
+
+ID: 23
+{'statement': "In 'Sum It Up, 10 squares in a row each contain a number. A queue of numbers, the waitlist, is used to replace the first squares with number 0, the target square. If the number in the square before the target square is equal to the waitlist number, then the waitlist number clears out, the number in the square before the target square becomes 0 and the 0 in the target square remains unchanged in that round. Otherwise, the waitlist number replaces the 0 int he target square and we move to the next number on the waitlist queue. The initial numbers in the squares are in order 1, -2, 3, 0, 4, 0, -1, -1, 0, 0, and the waitlist numbers are  3, -4, 3, 4, 3.  What's the sum of the numbers in the 10 squares after the waitlist is empty?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 3, 'ID of problem in NLR dataset': None, 'answer': -7}
+NOT repeated 
+% Encoding the squares as a list of numbers and the waitlist as a queue of numbers
+
+
+% replace_square encodes the rules of replacing the target square with the waitlist number
+replace_square(Squares, Waitlist, Squares_updated, Waitlist_updated):-
+% Getting the index of the first target square, the first square with number 0
+index_of_element(0, Squares, Index_target_square),
+% The square before the target square is at index - 1
+Index_square_before_target is Index_target_square - 1,
+% Getting the number in the square before the target square
+nth0(Index_square_before_target, Squares, Num_square_before_target),
+% Getting the first number in the waitlist
+Waitlist = [Waitlist_first_num|Rest_waitlist],
+
+
+% If the number in the square before the target square is equal to the waitlist number
+(Num_square_before_target =:= Waitlist_first_num ->
+% Then the waitlist number clears out, the number in the square before the target square becomes 0 and the 0 in the target square remains unchanged in that round
+replace(Num_square_before_target, Squares, 0, Squares_updated),
+Waitlist_updated = Rest_waitlist;
+% Otherwise, the waitlist number replaces the 0 in the target square and we move to the next number on the waitlist queue
+replace(0, Squares, Waitlist_first_num, Squares_updated),
+Waitlist_updated = Rest_waitlist).
+
+
+% replace is a helper predicate that replaces the first occurrence of an element in a list
+replace(_, [], _, []).
+replace(O, [O|T], R, [R|T2]) :- replace(O, T, R, T2).
+replace(O, [H|T], R, [H|T2]) :- H \= O, replace(O, T, R, T2).
+
+
+problem(Sum_squares):-
+% Encoding the initial status of the squares and the waitlist
+Squares = [1, -2, 3, 0, 4, 0, -1, -1, 0, 0],
+Waitlist = [3, -4, 3, 4, 3],
+
+
+% Iterating through the waitlist to update the squares
+replace_square(Squares, Waitlist, Squares_round1, Waitlist_round1),
+replace_square(Squares_round1, Waitlist_round1, Squares_round2, Waitlist_round2),
+replace_square(Squares_round2, Waitlist_round2, Squares_round3, Waitlist_round3),
+replace_square(Squares_round3, Waitlist_round3, Squares_round4, Waitlist_round4),
+replace_square(Squares_round4, Waitlist_round4, Squares_round5, Waitlist_round5),
+
+
+% The waitlist is empty after 5 rounds
+% To find the sum of the numbers in the 10 squares, we use sum_list
+sum_list(Squares_round5, Sum_squares).
+prolog run result: 1 ?-  problem answer: -7
+
+
+
+ID: 23
+{'statement': "In 'Sum It Up, 10 squares in a row each contain a number. A queue of numbers, the waitlist, is used to replace the first squares with number 0, the target square. If the number in the square before the target square is equal to the waitlist number, then the waitlist number clears out, the number in the square before the target square becomes 0 and the 0 in the target square remains unchanged in that round. Otherwise, the waitlist number replaces the 0 int he target square and we move to the next number on the waitlist queue. The initial numbers in the squares are in order 1, -2, 3, 0, 4, 0, -1, -1, 0, 0, and the waitlist numbers are  3, -4, 3, 4, 3.  What's the sum of the numbers in the 10 squares after the waitlist is empty?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 3, 'ID of problem in NLR dataset': None, 'answer': -7}
+repeated: 1
+Corrected!!!!!
+% Encoding the squares and the waitlist as lists of numbers
+
+
+% replace_target_square encodes the rules of replacing the target square with a number from the waitlist
+replace_target_square(Squares, Waitlist, Squares_updated, Waitlist_updated):-
+% Getting the index of the first target square, the first square with number 0
+index_of_element(0, Squares, Index_target_square),
+% The square before the target square is at index - 1
+Index_square_before_target is Index_target_square - 1,
+% Getting the number in the square before the target square
+nth0(Index_square_before_target, Squares, Num_square_before_target),
+% Getting the first number in the waitlist
+Waitlist = [Waitlist_first_num|Rest_waitlist],
+
+
+% If the number in the square before the target square is equal to the waitlist number
+(Num_square_before_target =:= Waitlist_first_num ->
+% Then the waitlist number clears out, the number in the square before the target square becomes 0 and the 0 in the target square remains unchanged in that round
+replace(Squares, Index_square_before_target, 0, Squares_updated),
+Waitlist_updated = Rest_waitlist;
+% Otherwise, the waitlist number replaces the 0 in the target square and we move to the next number on the waitlist queue
+replace(Squares, Index_target_square, Waitlist_first_num, Squares_updated),
+Waitlist_updated = Rest_waitlist).
+
+
+% replace is a helper predicate that replaces the element at a given index in a list with a new element
+replace([_|T], 0, X, [X|T]).
+replace([H|T], I, X, [H|R]):- I > -1, NI is I-1, replace(T, NI, X, R), !.
+replace(L, _, _, L).
+
+
+problem(Sum_squares):-
+% Encoding the initial status of the squares and the waitlist
+Squares = [1, -2, 3, 0, 4, 0, -1, -1, 0, 0],
+Waitlist = [3, -4, 3, 4, 3],
+
+
+% Iterating through the waitlist to update the squares
+replace_target_square(Squares, Waitlist, Squares_after_first, Waitlist_after_first),
+replace_target_square(Squares_after_first, Waitlist_after_first, Squares_after_second, Waitlist_after_second),
+replace_target_square(Squares_after_second, Waitlist_after_second, Squares_after_third, Waitlist_after_third),
+replace_target_square(Squares_after_third, Waitlist_after_third, Squares_after_fourth, Waitlist_after_fourth),
+replace_target_square(Squares_after_fourth, Waitlist_after_fourth, Squares_after_fifth, _),
+
+
+% To find the total sum of the numbers in the 10 squares after the waitlist is empty, we use sum_list to calculate sum of the final squares
+sum_list(Squares_after_fifth, Sum_squares).
+prolog run result: -7 problem answer: -7
+
+
+
+ID: 24
+{'statement': "In 'Sum It Up, 10 squares in a row each contain a number. A queue of numbers, the waitlist, is used to replace the first squares with number 0, the target square. If the waitlist number equals the sum of the numbers before and after the target square, or if the waitlist number matches the number before target square, then the numbers in all three squares (the target square and the squares before and after it) become zero. Otherwise, the round ends with the waitlist number replacing the 0 in the target square. The initial square numbers are 1, 2, 3, 0, 4, 0, -1, -1, 0, 0, and the waitlist numbers are 4, 3, 1, -1, -2, 1, 4. What's the sum of the numbers in the 10 squares after the waitlist is empty?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 4, 'ID of problem in NLR dataset': 48, 'answer': 6}
+NOT repeated 
+% Encoding the squares as a list of numbers and the waitlist as a list of numbers
+
+
+% replace_target_square encodes the rules of replacing the target square
+replace_target_square(Squares, Waitlist, Squares_updated, Waitlist_updated):-
+% Getting the index of the target square, the first square with number 0
+index_of_element(0, Squares, Index_target_square),
+% Getting the index of the square before and after the target square
+Index_before_target_square is Index_target_square - 1,
+Index_after_target_square is Index_target_square + 1,
+% Getting the numbers in the squares before and after the target square
+nth0(Index_before_target_square, Squares, Num_before_target_square),
+nth0(Index_after_target_square, Squares, Num_after_target_square),
+% Getting the first number in the waitlist
+Waitlist = [Waitlist_first_num|Waitlist_rest],
+
+
+% If the waitlist number equals the sum of the numbers before and after the target square, or if the waitlist number matches the number before target square, then the numbers in all three squares (the target square and the squares before and after it) become zero
+((Waitlist_first_num =:= Num_before_target_square + Num_after_target_square; Waitlist_first_num =:= Num_before_target_square) ->
+% Replacing the numbers in the squares before, at, and after the target square with 0
+replace(Squares, Index_before_target_square, 0, Squares_temp),
+replace(Squares_temp, Index_target_square, 0, Squares_temp2),
+replace(Squares_temp2, Index_after_target_square, 0, Squares_updated);
+% Otherwise, the round ends with the waitlist number replacing the 0 in the target square
+replace(Squares, Index_target_square, Waitlist_first_num, Squares_updated)),
+
+
+% Updating the waitlist by removing the first number
+Waitlist_updated = Waitlist_rest.
+
+
+% replace is a helper predicate to replace the element at a given index in a list
+replace([_|T], 0, X, [X|T]).
+replace([H|T], I, X, [H|R]):- I > 0, I1 is I-1, replace(T, I1, X, R).
+
+
+problem(Sum_squares_final):-
+% Encoding the initial status of the squares and the waitlist
+Squares = [1, 2, 3, 0, 4, 0, -1, -1, 0, 0],
+Waitlist = [4, 3, 1, -1, -2, 1, 4],
+
+
+% Iterating through the waitlist to update the squares
+replace_target_square(Squares, Waitlist, Squares_round1, Waitlist_round1),
+replace_target_square(Squares_round1, Waitlist_round1, Squares_round2, Waitlist_round2),
+replace_target_square(Squares_round2, Waitlist_round2, Squares_round3, Waitlist_round3),
+replace_target_square(Squares_round3, Waitlist_round3, Squares_round4, Waitlist_round4),
+replace_target_square(Squares_round4, Waitlist_round4, Squares_round5, Waitlist_round5),
+replace_target_square(Squares_round5, Waitlist_round5, Squares_round6, Waitlist_round6),
+replace_target_square(Squares_round6, Waitlist_round6, Squares_final, _),
+
+
+% Calculating the sum of the numbers in the squares after the waitlist is empty
+sum_list(Squares_final, Sum_squares_final).
+prolog run result: 6 problem answer: 6
+
+
+
+ID: 25
+{'statement': 'Sarah has a chain of 5 magnetic beads, with the middle bead being the only one with a scratch. She plays a game where she rolls a dice to get a number, N. She then disconnects the magnetic beads before the Nth index, counting from 0 left to right, and adds 1 bead to the end of the second segment, and then she reconnects the two segments. If she plays 4 rounds of this game and she gets numbers 4, 4, 3, 2, what is the number of the bead with a scratch, counting from 0, left to right, after the fourth round?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 0, 'ID of problem in NLR dataset': None, 'answer': 2}
+NOT repeated 
+% Encoding the beads as a list of numbers, with the scratched bead represented by 1 and the other beads represented by 0
+
+% disconnect_add_bead encodes the process of disconnecting the beads, adding a bead, and reconnecting the beads
+disconnect_add_bead(N, Bead_chain, Updated_bead_chain):-
+% Using split_list_at to get the 2 sub-lists resulting from disconnecting the beads
+split_list_at(N, Bead_chain, First_segment, Second_segment),
+% Adding a bead to the end of the second segment
+append(Second_segment, [0], Second_segment_added_bead),
+% Reconnecting the two bead segments to get the final updated bead chain
+append(First_segment, Second_segment_added_bead, Updated_bead_chain).
+
+problem(Index_scratched_bead):-
+% Encoding the initial status of the beads
+Initial_bead_chain = [0, 0, 1, 0, 0],
+
+% Iterating through the dice roll results to update the bead chain
+disconnect_add_bead(4, Initial_bead_chain, Bead_chain_round1),
+disconnect_add_bead(4, Bead_chain_round1, Bead_chain_round2),
+disconnect_add_bead(3, Bead_chain_round2, Bead_chain_round3),
+disconnect_add_bead(2, Bead_chain_round3, Bead_chain_round4),
+
+% To find the index of the scratched bead in the final bead chain, we use index_of_element
+index_of_element(1, Bead_chain_round4, Index_scratched_bead).
+prolog run result: 2 problem answer: 2
+
+
+
+ID: 26
+{'statement': 'Sarah has a chain of 5 magnetic beads, with the middle bead being the only one with a scratch. She plays a game where she rolls a dice to get a number, N. She then disconnects the magnetic beads before the Nth index, counting from 0 left to right, and  adds 1 bead to the front of the second segment, and then she reconnects the two segments. If she plays 4 rounds of this game and she gets numbers 4, 2, 3, 5, what is the number of the bead with a scratch, counting from 0, left to right, after the fourth round?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 4}
+NOT repeated 
+% Encoding the beads as a list of numbers, with the scratched bead represented by 1 and the other beads represented by 0
+
+% disconnect_add_bead encodes the process of disconnecting the bead chain, adding a bead, and reconnecting the chain
+disconnect_add_bead(Dice_roll, Bead_chain, Updated_bead_chain):-
+% The chain is disconnected before the Nth index, where N is the dice roll result
+split_list_at(Dice_roll, Bead_chain, First_segment, Second_segment),
+% 1 bead is added to the front of the second segment
+append([0], Second_segment, Second_segment_added_to_front),
+% The two segments are reconnected
+append(First_segment, Second_segment_added_to_front, Updated_bead_chain).
+
+
+problem(Index_scratched_bead):-
+% Encoding the initial state of the bead chain
+% The middle bead is the only one with a scratch
+Initial_bead_chain = [0, 0, 1, 0, 0],
+
+
+% Sarah plays 4 rounds of the game
+disconnect_add_bead(4, Initial_bead_chain, Bead_chain_round1),
+disconnect_add_bead(2, Bead_chain_round1, Bead_chain_round2),
+disconnect_add_bead(3, Bead_chain_round2, Bead_chain_round3),
+disconnect_add_bead(5, Bead_chain_round3, Bead_chain_round4),
+
+
+% To find the index of the scratched bead in the final bead chain, we use the index_of_element predicate
+index_of_element(1, Bead_chain_round4, Index_scratched_bead).
+prolog run result: 4 problem answer: 4
+
+
+
+ID: 27
+{'statement': 'Sarah has a chain of 5 magnetic beads, with the middle bead being the only one with a scratch. She plays a game where she rolls a dice to get a number, N. She then disconnects the magnetic beads before the Nth index, counting from 0 left to right, and  adds 2 beads to the two segments, one bead to the end of the first segment and another to the beginning of the second segment and then she reconnects the two segments. If she plays 4 rounds of this game and she gets numbers 3, 4, 2, 4, what is the number of the bead with a scratch, counting from 0, left to right, after the fourth round?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 3, 'ID of problem in NLR dataset': None, 'answer': 6}
+NOT repeated 
+% Encoding the beads as a list of numbers, with the bead with a scratch being represented by 1 and the other beads by 0
+
+% disconnect_add_beads encodes the process of disconnecting the chain of beads, adding 2 beads, and reconnecting the chain
+disconnect_add_beads(Dice_roll, Bead_chain, Updated_bead_chain):-
+% The chain is disconnected before the Nth index, counting from 0 left to right
+split_list_at(Dice_roll, Bead_chain, First_segment, Second_segment),
+% One bead is added to the end of the first segment
+append(First_segment, [0], First_segment_added_to_end),
+% Another bead is added to the beginning of the second segment
+append([0], Second_segment, Second_segment_added_to_front),
+% The two segments are reconnected
+append(First_segment_added_to_end, Second_segment_added_to_front, Updated_bead_chain).
+
+
+problem(Index_scratched_bead):-
+% Encoding the initial state of the bead chain
+% The middle bead is the only one with a scratch
+Initial_bead_chain = [0, 0, 1, 0, 0],
+
+
+% Iterating through the dice rolls in the 4 rounds of the game
+disconnect_add_beads(3, Initial_bead_chain, Bead_chain_round1),
+disconnect_add_beads(4, Bead_chain_round1, Bead_chain_round2),
+disconnect_add_beads(2, Bead_chain_round2, Bead_chain_round3),
+disconnect_add_beads(4, Bead_chain_round3, Bead_chain_round4),
+
+
+% To find the index of the bead with a scratch after the 4 rounds, we use the index_of_element predicate
+index_of_element(1, Bead_chain_round4, Index_scratched_bead).
+prolog run result: 6 problem answer: 6
+
+
+
+ID: 28
+{'statement': 'Sarah has a chain of 5 magnetic beads, with the middle bead being the only one with a scratch. She plays a game where she rolls a 10-sided dice to get a number, N. She then disconnects the magnetic beads before the Nth index, counting from 0 left to right, and adds a total of 4 beads to the two segments, one bead to the front and back of each of the two resulting segments. Sarah reverses the order of the two resulting segments (second segmnet added to the front of the first) before reconnecting them into a single chain. If she rolls 2, 2, 7, 4 in four rounds of playing this game, then what is the position of the scratched bead counting from 0 from left to right?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 4, 'ID of problem in NLR dataset': 47, 'answer': 2}
+NOT repeated 
+% Encoding the beads as a list of numbers, with the scratched bead represented as 1 and the other beads as 0
+
+
+% add_beads_reverse_segments encodes the process of adding beads to the chain segments and reversing their order
+add_beads_reverse_segments(Split_index, Bead_chain, Updated_bead_chain):-
+% Splitting the bead chain at the given index
+split_list_at(Split_index, Bead_chain, First_segment, Second_segment),
+% Adding a bead to the front and back of each segment
+append([0], First_segment, First_segment_added_to_front),
+append(First_segment_added_to_front, [0], First_segment_added_to_front_back),
+append([0], Second_segment, Second_segment_added_to_front),
+append(Second_segment_added_to_front, [0], Second_segment_added_to_front_back),
+% Reversing the order of the two segments before reconnecting them
+append(Second_segment_added_to_front_back, First_segment_added_to_front_back, Updated_bead_chain).
+
+
+problem(Scratched_bead_position):-
+% Encoding the initial state of the bead chain
+% The middle bead is the only one with a scratch
+Initial_bead_chain = [0, 0, 1, 0, 0],
+
+
+% Sarah rolls 2, 2, 7, 4 in four rounds of playing this game
+% Updating the bead chain after each round
+add_beads_reverse_segments(2, Initial_bead_chain, Bead_chain_round1),
+add_beads_reverse_segments(2, Bead_chain_round1, Bead_chain_round2),
+add_beads_reverse_segments(7, Bead_chain_round2, Bead_chain_round3),
+add_beads_reverse_segments(4, Bead_chain_round3, Bead_chain_round4),
+
+
+% To find the position of the scratched bead in the final bead chain, we use index_of_element
+index_of_element(1, Bead_chain_round4, Scratched_bead_position).
+prolog run result: 2 problem answer: 2
+
+
+
+ID: 29
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. After each swipe, a 0 is added as a padding between the two numbers. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5 if the player swipes left at index 4 (counting from 0), then right at 5, left at 4, right at 6, right at 3, and finally right at 4, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 0, 'ID of problem in NLR dataset': None, 'answer': 63}
+NOT repeated 
+% Encoding the list as a list of numbers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes how the list is updated after a swipe
+swipe(Swipe_direction, Swipe_index, List_before_swipe, List_after_swipe):-
+% If the swipe is to the left, then the swipe targets the number at the swipe index and the number before it
+(Swipe_direction = 'L' ->
+% Getting the two numbers targeted by the swipe
+List_before_swipe = [Swipe_index_number, Prev_number|Rest],
+% Adding a 0 between the two numbers
+append([Prev_number, 0, Swipe_index_number], Rest, List_after_swipe);
+% Else: the swipe is to the right, then the swipe targets the number at the swipe index and the number after it
+List_before_swipe = [Swipe_index_number, Next_number|Rest],
+% Adding a 0 between the two numbers
+append([Swipe_index_number, 0, Next_number], Rest, List_after_swipe)).
+
+
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial list
+Initial_list = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% Iterating through the list of swipes to update the list after each swipe
+% The swipe index is the index of the number targeted by the swipe
+% If the player swipes left at index 4
+split_list_at(4, Initial_list, _, List_after_index_4),
+swipe('L', 4, List_after_index_4, List_after_swipe_1),
+
+
+% Then right at 5
+split_list_at(5, List_after_swipe_1, _, List_after_index_5),
+swipe('R', 5, List_after_index_5, List_after_swipe_2),
+
+
+% Left at 4
+split_list_at(4, List_after_swipe_2, _, List_after_index_4_second),
+swipe('L', 4, List_after_index_4_second, List_after_swipe_3),
+
+
+% Right at 6
+split_list_at(6, List_after_swipe_3, _, List_after_index_6),
+swipe('R', 6, List_after_index_6, List_after_swipe_4),
+
+
+% Right at 3
+split_list_at(3, List_after_swipe_4, _, List_after_index_3),
+swipe('R', 3, List_after_index_3, List_after_swipe_5),
+
+
+% Finally right at 4
+split_list_at(4, List_after_swipe_5, _, List_after_index_4_third),
+swipe('R', 4, List_after_index_4_third, Final_list),
+
+
+% To find the final list length plus the sum of its numbers, we use len_list to calculate the length of the list and sum_list to calculate the sum of the numbers in the list
+len_list(Final_list, Final_list_length),
+sum_list(Final_list, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 1 ?-  problem answer: 63
+
+
+
+ID: 29
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. After each swipe, a 0 is added as a padding between the two numbers. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5 if the player swipes left at index 4 (counting from 0), then right at 5, left at 4, right at 6, right at 3, and finally right at 4, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 0, 'ID of problem in NLR dataset': None, 'answer': 63}
+repeated: 1
+Corrected!!!!!
+% Encoding the list of numbers as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes how the number list is updated after a swipe
+swipe(Swipe_direction, Swipe_index, Number_list, Updated_number_list):-
+% If the swipe is to the left, then the swipe targets the number at the swipe index and the number before it
+(Swipe_direction = 'L' ->
+% Getting the index of the number before the swipe index
+Index_before_swipe is Swipe_index - 1,
+% Splitting the list at the index before the swipe
+split_list_at(Index_before_swipe, Number_list, List_before_swipe, List_after_swipe),
+% Adding a 0 between the two numbers targeted by the swipe
+append(List_before_swipe, [0], List_before_swipe_padded),
+% Reconnecting the two parts of the list to get the updated list
+append(List_before_swipe_padded, List_after_swipe, Updated_number_list);
+% Else: the swipe is to the right, then the swipe targets the number at the swipe index and the number after it
+Index_after_swipe is Swipe_index + 1,
+split_list_at(Index_after_swipe, Number_list, List_before_swipe, List_after_swipe),
+append(List_before_swipe, [0], List_before_swipe_padded),
+append(List_before_swipe_padded, List_after_swipe, Updated_number_list)).
+
+
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial status of the number list
+Number_list_initial = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% The player swipes left at index 4
+swipe('L', 4, Number_list_initial, Number_list_after_swipe1),
+
+
+% Then right at 5
+swipe('R', 5, Number_list_after_swipe1, Number_list_after_swipe2),
+
+
+% Then left at 4
+swipe('L', 4, Number_list_after_swipe2, Number_list_after_swipe3),
+
+
+% Then right at 6
+swipe('R', 6, Number_list_after_swipe3, Number_list_after_swipe4),
+
+
+% Then right at 3
+swipe('R', 3, Number_list_after_swipe4, Number_list_after_swipe5),
+
+
+% Finally right at 4
+swipe('R', 4, Number_list_after_swipe5, Number_list_final),
+
+
+% To find the final list length plus the sum of its numbers, we use len_list to calculate the length of the list and sum_list to calculate the sum of the numbers in the list
+len_list(Number_list_final, Final_list_length),
+sum_list(Number_list_final, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 63 problem answer: 63
+
+
+ID: 30
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with 1 if we swiped left or 0 if we swiped right. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 0 (counting from 0), then right at 1, right at 7, right at 4, and finally left at 3, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 29}
+NOT repeated 
+% Encoding the list of numbers as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of the game for a single swipe action
+swipe(Swipe_direction, Swipe_index, Number_list, Updated_number_list):-
+% Getting the number at the swipe index and its neighboring number
+% If the swipe is to the left, the neighboring number is the one before the swipe index
+(Swipe_direction = 'L' ->
+% Getting the number at the swipe index and the one before it
+Number_list = [Swipe_index_number, Prev_number|Rest],
+% If the two numbers are equal, both odd, or both even, then they merge
+((Swipe_index_number =:= Prev_number; Swipe_index_number mod 2 =:= Prev_number mod 2) ->
+% If the swipe was to the left, the two numbers are replaced by 1
+Updated_number_list = [1|Rest];
+% Else: the two numbers do not merge and the list remains the same
+Updated_number_list = Number_list);
+
+
+% Else: the swipe is to the right, the neighboring number is the one after the swipe index
+% Getting the number at the swipe index and the one after it
+split_list_at(Swipe_index, Number_list, Start, [Swipe_index_number, Next_number|Rest]),
+% If the two numbers are equal, both odd, or both even, then they merge
+((Swipe_index_number =:= Next_number; Swipe_index_number mod 2 =:= Next_number mod 2) ->
+% If the swipe was to the right, the two numbers are replaced by 0
+Updated_number_list = append(Start, [0|Rest]);
+% Else: the two numbers do not merge and the list remains the same
+Updated_number_list = Number_list)).
+
+
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial list of numbers
+Initial_number_list = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% The player swipes left at index 0
+swipe('L', 0, Initial_number_list, Number_list_after_swipe1),
+
+
+% Then right at index 1
+swipe('R', 1, Number_list_after_swipe1, Number_list_after_swipe2),
+
+
+% Then right at index 7
+swipe('R', 7, Number_list_after_swipe2, Number_list_after_swipe3),
+
+
+% Then right at index 4
+swipe('R', 4, Number_list_after_swipe3, Number_list_after_swipe4),
+
+
+% Finally left at index 3
+swipe('L', 3, Number_list_after_swipe4, Final_number_list),
+
+
+% To find the final list length plus the sum of its numbers, we use len_list to calculate the length of the list and sum_list to calculate the sum of the numbers in the list
+len_list(Final_number_list, Final_list_length),
+sum_list(Final_number_list, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 1 ?-  problem answer: 29
+
+
+
+ID: 30
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with 1 if we swiped left or 0 if we swiped right. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 0 (counting from 0), then right at 1, right at 7, right at 4, and finally left at 3, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 29}
+repeated: 1
+% Encoding the list of numbers as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of the game for a single swipe action
+swipe(Swipe_direction, Swipe_index, Number_list, Updated_number_list):-
+% Getting the number at the swipe index and its neighboring number
+% If the swipe is to the left, the neighboring number is the one before the swipe index
+(Swipe_direction = 'L' ->
+% Getting the number at the swipe index and the one before it
+Number_list = [Swipe_index_number|Rest],
+split_list_at(Swipe_index - 1, Rest, _, [Neighbour_number|_]);
+% Else: the swipe is to the right and the neighboring number is the one after the swipe index
+Number_list = [Swipe_index_number|Rest],
+split_list_at(Swipe_index + 1, Rest, _, [Neighbour_number|_])),
+
+
+% If the two numbers are equal or both odd or both even, then they merge
+((Swipe_index_number =:= Neighbour_number; (Swipe_index_number mod 2 =:= 0, Neighbour_number mod 2 =:= 0); (Swipe_index_number mod 2 =:= 1, Neighbour_number mod 2 =:= 1)) ->
+% If the swipe is to the left, the two numbers are replaced with 1
+(Swipe_direction = 'L' ->
+remove(Swipe_index_number, Number_list, Number_list_removed),
+remove(Neighbour_number, Number_list_removed, Number_list_removed_twice),
+append(Number_list_removed_twice, [1], Updated_number_list);
+% Else: the swipe is to the right and the two numbers are replaced with 0
+remove(Swipe_index_number, Number_list, Number_list_removed),
+remove(Neighbour_number, Number_list_removed, Number_list_removed_twice),
+append(Number_list_removed_twice, [0], Updated_number_list));
+% Else: the two numbers do not merge and the list remains the same
+Updated_number_list = Number_list).
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial list of numbers
+Initial_number_list = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% Iterating through the swipe actions to update the list of numbers
+% First swipe is to the left at index 0
+swipe('L', 0, Initial_number_list, Number_list_after_swipe1),
+
+
+% Second swipe is to the right at index 1
+swipe('R', 1, Number_list_after_swipe1, Number_list_after_swipe2),
+
+
+% Third swipe is to the right at index 7
+swipe('R', 7, Number_list_after_swipe2, Number_list_after_swipe3),
+
+
+% Fourth swipe is to the right at index 4
+swipe('R', 4, Number_list_after_swipe3, Number_list_after_swipe4),
+
+
+% Last swipe is to the left at index 3
+swipe('L', 3, Number_list_after_swipe4, Final_number_list),
+
+
+% To find the final list length plus the sum of its numbers, we use len_list to calculate the length of the list and sum_list to calculate the sum of the numbers in the list
+len_list(Final_number_list, Final_list_length),
+sum_list(Final_number_list, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 1 ?-  problem answer: 29
+
+
+
+ID: 30
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with 1 if we swiped left or 0 if we swiped right. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 0 (counting from 0), then right at 1, right at 7, right at 4, and finally left at 3, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 29}
+repeated: 2
+% Encoding the list of numbers as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of the game for a single swipe action
+swipe(Direction, Index, Number_list, Updated_number_list):-
+% Getting the number at the target index and its neighboring number
+% If the swipe is to the left, the neighboring number is the one before the target number
+(Direction = 'L' ->
+% Getting the index of the neighboring number
+Index_neighbour is Index - 1,
+% Getting the target number and its neighbor
+nth0(Index, Number_list, Target_number),
+nth0(Index_neighbour, Number_list, Neighbour_number);
+% Else: the swipe is to the right, the neighboring number is the one after the target number
+Index_neighbour is Index + 1,
+nth0(Index, Number_list, Target_number),
+nth0(Index_neighbour, Number_list, Neighbour_number)),
+
+
+% If the target number and its neighbor are equal, or both are odd, or both are even, then they merge
+((Target_number =:= Neighbour_number; (Target_number mod 2 =:= 0, Neighbour_number mod 2 =:= 0); (Target_number mod 2 =:= 1, Neighbour_number mod 2 =:= 1)) ->
+% If the swipe is to the left, the two numbers are replaced by 1
+(Direction = 'L' ->
+% First remove the two numbers from the list
+delete(Number_list, Target_number, Number_list_removed_target),
+delete(Number_list_removed_target, Neighbour_number, Number_list_removed_both),
+% Then add 1 at the index of the neighbor
+nth0(Index_neighbour, Updated_number_list, 1, Number_list_removed_both);
+% Else: the swipe is to the right, the two numbers are replaced by 0
+delete(Number_list, Target_number, Number_list_removed_target),
+delete(Number_list_removed_target, Neighbour_number, Number_list_removed_both),
+nth0(Index_neighbour, Updated_number_list, 0, Number_list_removed_both));
+% Else: the two numbers do not merge, the list remains the same
+Updated_number_list = Number_list).
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial list of numbers
+Initial_number_list = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% The player swipes left at index 0
+swipe('L', 0, Initial_number_list, Number_list_after_swipe1),
+
+
+% Then right at index 1
+swipe('R', 1, Number_list_after_swipe1, Number_list_after_swipe2),
+
+
+% Then right at index 7
+swipe('R', 7, Number_list_after_swipe2, Number_list_after_swipe3),
+
+
+% Then right at index 4
+swipe('R', 4, Number_list_after_swipe3, Number_list_after_swipe4),
+
+
+% Finally left at index 3
+swipe('L', 3, Number_list_after_swipe4, Final_number_list),
+
+
+% To find the final list length plus the sum of its numbers, we use length to get the length of the list and sum_list to calculate the sum of the numbers in the list
+length(Final_number_list, Final_list_length),
+sum_list(Final_number_list, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 1 ?-  problem answer: 29
+
+
+
+ID: 30
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with 1 if we swiped left or 0 if we swiped right. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 0 (counting from 0), then right at 1, right at 7, right at 4, and finally left at 3, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 29}
+repeated: 3
+% Encoding the list of numbers as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of the game when a player swipes at a target index
+swipe(Swipe_direction, Target_index, Number_list, Updated_number_list):-
+% Getting the target number and its neighbors
+% If the target index is 0, then the target number has only one neighbor to the right
+(Target_index =:= 0 ->
+Number_list = [Target_number, Right_neighbor|Rest],
+% If the target number and its right neighbor can be merged
+((Target_number =:= Right_neighbor; (Target_number mod 2 =:= Right_neighbor mod 2)) ->
+% If the swipe was to the left, then the two numbers are replaced by 1
+(Swipe_direction = 'L' ->
+Updated_number_list = [1|Rest];
+% Else: the swipe was to the right and the two numbers are replaced by 0
+Updated_number_list = [0|Rest]);
+% Else: the target number and its right neighbor can not be merged
+Updated_number_list = Number_list);
+
+
+% If the target index is the last index in the list, then the target number has only one neighbor to the left
+index_of_element(Target_number, Number_list, Target_index),
+len_list(Number_list, Len_number_list),
+Target_index =:= Len_number_list - 1 ->
+split_list_at(Target_index, Number_list, List_before_target, [Target_number, Left_neighbor]),
+((Target_number =:= Left_neighbor; (Target_number mod 2 =:= Left_neighbor mod 2)) ->
+(Swipe_direction = 'L' ->
+Updated_number_list = append(List_before_target, [1]);
+Updated_number_list = append(List_before_target, [0]));
+Updated_number_list = Number_list);
+
+
+% Else: the target number is not at the edge of the list and has two neighbors
+split_list_at(Target_index, Number_list, List_before_target, [Target_number, Right_neighbor|Rest]),
+pop_last(List_before_target, Left_neighbor, List_before_left_neighbor),
+((Target_number =:= Left_neighbor; Target_number =:= Right_neighbor; (Target_number mod 2 =:= Left_neighbor mod 2); (Target_number mod 2 =:= Right_neighbor mod 2)) ->
+(Swipe_direction = 'L' ->
+Updated_number_list = append(List_before_left_neighbor, [1, Right_neighbor|Rest]);
+Updated_number_list = append(List_before_left_neighbor, [0, Right_neighbor|Rest]));
+Updated_number_list = Number_list)).
+
+
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial list of numbers
+Number_list_initial = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% The player swipes left at index 0
+swipe('L', 0, Number_list_initial, Number_list_after_swipe1),
+
+
+% Then right at 1
+swipe('R', 1, Number_list_after_swipe1, Number_list_after_swipe2),
+
+
+% Then right at 7
+swipe('R', 7, Number_list_after_swipe2, Number_list_after_swipe3),
+
+
+% Then right at 4
+swipe('R', 4, Number_list_after_swipe3, Number_list_after_swipe4),
+
+
+% Finally left at 3
+swipe('L', 3, Number_list_after_swipe4, Number_list_final),
+
+
+% To find the final list length plus the sum of its numbers, we use len_list to calculate the length of the list and sum_list to calculate the sum of the numbers in the list
+len_list(Number_list_final, Final_list_length),
+sum_list(Number_list_final, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 1 ?-  problem answer: 29
+
+
+
+ID: 30
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with 1 if we swiped left or 0 if we swiped right. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 0 (counting from 0), then right at 1, right at 7, right at 4, and finally left at 3, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 29}
+repeated: 4
+% Encoding the list of numbers as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of the game for a single swipe action
+swipe(Direction, Index, Number_list, Updated_number_list):-
+% Getting the number at the target index and its neighbors
+Number_list = [X|Rest],
+% If the target index is 0, then the target number and its right neighbor are the first two numbers in the list
+(Index =:= 0 ->
+Target_number = X,
+Right_neighbor = Rest[0],
+% If the target index is the last index in the list, then the target number and its left neighbor are the last two numbers in the list
+len_list(Number_list, Len),
+Index =:= Len - 1 ->
+pop_last(Number_list, Target_number, Without_last),
+pop_last(Without_last, Left_neighbor, _);
+% Otherwise the target number is not at the edge of the list and has both neighbors
+index_of_element(Target_number, Number_list, Index),
+Index_right_neighbor is Index + 1,
+Index_left_neighbor is Index - 1,
+index_of_element(Right_neighbor, Number_list, Index_right_neighbor),
+index_of_element(Left_neighbor, Number_list, Index_left_neighbor)),
+
+
+% If the target number and its neighbor are equal or both odd or both even, then they merge
+% If the target number and its neighbor are not equal and one is odd and the other is even, then they do not merge and the list does not change
+((Target_number =:= Right_neighbor; Target_number =:= Left_neighbor; (Target_number mod 2 =:= 0, Right_neighbor mod 2 =:= 0); (Target_number mod 2 =:= 0, Left_neighbor mod 2 =:= 0); (Target_number mod 2 =:= 1, Right_neighbor mod 2 =:= 1); (Target_number mod 2 =:= 1, Left_neighbor mod 2 =:= 1)) ->
+% If the numbers merge, then they are replaced with 1 if we swiped left or 0 if we swiped right
+% If the swipe direction is left, then the target number and its left neighbor merge
+(Direction = 'L' ->
+remove(Target_number, Number_list, Without_target),
+remove(Left_neighbor, Without_target, Without_left_neighbor),
+append(1, Without_left_neighbor, Updated_number_list);
+% If the swipe direction is right, then the target number and its right neighbor merge
+Direction = 'R' ->
+remove(Target_number, Number_list, Without_target),
+remove(Right_neighbor, Without_target, Without_right_neighbor),
+append(0, Without_right_neighbor, Updated_number_list));
+% If the numbers do not merge, then the list does not change
+Updated_number_list = Number_list).
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial list of numbers
+Initial_number_list = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% The player swipes left at index 0
+swipe('L', 0, Initial_number_list, Number_list_after_first_swipe),
+
+
+% Then right at 1
+swipe('R', 1, Number_list_after_first_swipe, Number_list_after_second_swipe),
+
+
+% Then right at 7
+swipe('R', 7, Number_list_after_second_swipe, Number_list_after_third_swipe),
+
+
+% Then right at 4
+swipe('R', 4, Number_list_after_third_swipe, Number_list_after_fourth_swipe),
+
+
+% Finally left at 3
+swipe('L', 3, Number_list_after_fourth_swipe, Final_number_list),
+
+
+% To find the final list length plus the sum of its numbers, we use len_list to calculate the length of the list and sum_list to calculate the sum of the numbers in the list
+len_list(Final_number_list, Final_list_length),
+sum_list(Final_number_list, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 1 ?-  problem answer: 29
+
+
+
+ID: 30
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with 1 if we swiped left or 0 if we swiped right. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 0 (counting from 0), then right at 1, right at 7, right at 4, and finally left at 3, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 29}
+repeated: 5
+% Encoding the list of numbers as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of the game for a single swipe
+swipe(Swipe_direction, Swipe_index, Number_list, Updated_number_list):-
+% If the swipe is to the left, then the target numbers are at the swipe index and the index before it
+(Swipe_direction = 'L' ->
+% Getting the target numbers
+Index_before is Swipe_index - 1,
+nth0(Swipe_index, Number_list, Number_at_index),
+nth0(Index_before, Number_list, Number_before),
+% If the two numbers are equal, both odd, or both even, then they merge
+((Number_at_index =:= Number_before; Number_at_index mod 2 =:= Number_before mod 2) ->
+% Merging replaces the 2 numbers with 1
+% Removing the two numbers from the list
+delete(Number_list, Number_at_index, Number_list_after_delete1),
+delete(Number_list_after_delete1, Number_before, Number_list_after_delete2),
+% Adding the merged number to the list at the index before the swipe index
+nth0(Index_before, Updated_number_list, 1, Number_list_after_delete2);
+% If the numbers do not merge, then the list does not change
+Updated_number_list = Number_list);
+
+
+% If the swipe is to the right, then the target numbers are at the swipe index and the index after it
+Index_after is Swipe_index + 1,
+nth0(Swipe_index, Number_list, Number_at_index),
+nth0(Index_after, Number_list, Number_after),
+% If the two numbers are equal, both odd, or both even, then they merge
+((Number_at_index =:= Number_after; Number_at_index mod 2 =:= Number_after mod 2) ->
+% Merging replaces the 2 numbers with 0
+% Removing the two numbers from the list
+delete(Number_list, Number_at_index, Number_list_after_delete1),
+delete(Number_list_after_delete1, Number_after, Number_list_after_delete2),
+% Adding the merged number to the list at the swipe index
+nth0(Swipe_index, Updated_number_list, 0, Number_list_after_delete2);
+% If the numbers do not merge, then the list does not change
+Updated_number_list = Number_list)).
+
+
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial list of numbers
+Number_list_initial = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% The player swipes left at index 0
+swipe('L', 0, Number_list_initial, Number_list_after_swipe1),
+
+
+% Then right at 1
+swipe('R', 1, Number_list_after_swipe1, Number_list_after_swipe2),
+
+
+% Then right at 7
+swipe('R', 7, Number_list_after_swipe2, Number_list_after_swipe3),
+
+
+% Then right at 4
+swipe('R', 4, Number_list_after_swipe3, Number_list_after_swipe4),
+
+
+% Finally left at 3
+swipe('L', 3, Number_list_after_swipe4, Number_list_final),
+
+
+% To find the final list length plus the sum of its numbers, we use length to get the length of the list and sum_list to calculate the sum of the numbers in the list
+length(Number_list_final, Final_list_length),
+sum_list(Number_list_final, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 1 ?-  problem answer: 29
+
+
+
+ID: 30
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with 1 if we swiped left or 0 if we swiped right. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 0 (counting from 0), then right at 1, right at 7, right at 4, and finally left at 3, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 29}
+repeated: 6
+% Encoding the list of numbers as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of the game for a single swipe action
+swipe(Swipe_direction, Swipe_index, Number_list, Updated_number_list):-
+% If the player swipes left, then the target number and the number before it are merged
+(Swipe_direction = 'L' ->
+% Getting the target number and the number before it
+Number_list = [Target_number|Rest],
+split_list_at(Swipe_index, Rest, _, [Number_before_target|_]),
+% If the two numbers are equal, both odd, or both even, then they are merged
+((Target_number =:= Number_before_target; Target_number mod 2 =:= Number_before_target mod 2) ->
+% Merging replaces the 2 numbers with 1
+% Removing the target number and the number before it from the list
+remove(Target_number, Number_list, Number_list_removed_target),
+remove(Number_before_target, Number_list_removed_target, Number_list_removed_both),
+% Adding the merged number to the list at the index of the number before the target
+split_list_at(Swipe_index - 1, Number_list_removed_both, List_before_target, List_after_target),
+append(List_before_target, [1], List_before_target_merged),
+append(List_before_target_merged, List_after_target, Updated_number_list);
+% If the two numbers can not be merged, then the list remains the same
+Updated_number_list = Number_list);
+
+
+% If the player swipes right, then the target number and the number after it are merged
+Swipe_direction = 'R' ->
+Number_list = [Target_number|Rest],
+split_list_at(Swipe_index, Rest, _, [Number_after_target|_]),
+((Target_number =:= Number_after_target; Target_number mod 2 =:= Number_after_target mod 2) ->
+% Merging replaces the 2 numbers with 0
+remove(Target_number, Number_list, Number_list_removed_target),
+remove(Number_after_target, Number_list_removed_target, Number_list_removed_both),
+split_list_at(Swipe_index, Number_list_removed_both, List_before_target, List_after_target),
+append(List_before_target, [0], List_before_target_merged),
+append(List_before_target_merged, List_after_target, Updated_number_list);
+Updated_number_list = Number_list)).
+
+
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial list of numbers
+Number_list_initial = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% The player swipes left at index 0
+swipe('L', 0, Number_list_initial, Number_list_after_swipe1),
+
+
+% Then right at 1
+swipe('R', 1, Number_list_after_swipe1, Number_list_after_swipe2),
+
+
+% Then right at 7
+swipe('R', 7, Number_list_after_swipe2, Number_list_after_swipe3),
+
+
+% Then right at 4
+swipe('R', 4, Number_list_after_swipe3, Number_list_after_swipe4),
+
+
+% Finally left at 3
+swipe('L', 3, Number_list_after_swipe4, Number_list_final),
+
+
+% To find the final list length plus the sum of its numbers, we use len_list to calculate the length of the list and sum_list to calculate the sum of the numbers in the list
+len_list(Number_list_final, Final_list_length),
+sum_list(Number_list_final, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 1 ?-  problem answer: 29
+
+
+
+ID: 30
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with 1 if we swiped left or 0 if we swiped right. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 0 (counting from 0), then right at 1, right at 7, right at 4, and finally left at 3, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 29}
+repeated: 7
+% Encoding the list of numbers as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of the game for a single swipe
+swipe(Direction, Index, Number_list, Updated_number_list):-
+% Getting the number at the target index and its neighbors
+Number_list = [X|Rest],
+% If the target index is 0, then the target number and its right neighbor are the first two numbers in the list
+(Index =:= 0 ->
+Target_number = X,
+Right_neighbor = Rest[0],
+% If the target index is the last index in the list, then the target number and its left neighbor are the last two numbers in the list
+len_list(Number_list, Len),
+Index =:= Len - 1 ->
+pop_last(Number_list, Target_number, Without_last),
+pop_last(Without_last, Left_neighbor, _);
+% Otherwise the target number is not at the edge of the list and has both neighbors
+split_list_at(Index, Number_list, Before_target, After_target),
+Target_number = After_target[0],
+Left_neighbor = Before_target[-1],
+Right_neighbor = After_target[1]),
+
+
+% If the target number and its left neighbor can be merged
+% They can be merged if they are equal or both odd or both even
+((Target_number =:= Left_neighbor; Target_number mod 2 =:= Left_neighbor mod 2) ->
+% If the swipe is to the left, then the two numbers are replaced by 1
+(Direction = 'L' ->
+remove(Target_number, Number_list, Without_target),
+remove(Left_neighbor, Without_target, Without_left_neighbor),
+append(1, Without_left_neighbor, Updated_number_list);
+% If the swipe is to the right, then the two numbers are replaced by 0
+Direction = 'R' ->
+remove(Target_number, Number_list, Without_target),
+remove(Left_neighbor, Without_target, Without_left_neighbor),
+append(0, Without_left_neighbor, Updated_number_list));
+
+
+% If the target number and its right neighbor can be merged
+((Target_number =:= Right_neighbor; Target_number mod 2 =:= Right_neighbor mod 2) ->
+% If the swipe is to the left, then the two numbers are replaced by 1
+(Direction = 'L' ->
+remove(Target_number, Number_list, Without_target),
+remove(Right_neighbor, Without_target, Without_right_neighbor),
+append(1, Without_right_neighbor, Updated_number_list);
+% If the swipe is to the right, then the two numbers are replaced by 0
+Direction = 'R' ->
+remove(Target_number, Number_list, Without_target),
+remove(Right_neighbor, Without_target, Without_right_neighbor),
+append(0, Without_right_neighbor, Updated_number_list))).
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial list of numbers
+Number_list = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% The player swipes left at index 0
+swipe('L', 0, Number_list, Number_list_after_swipe1),
+
+
+% Then right at index 1
+swipe('R', 1, Number_list_after_swipe1, Number_list_after_swipe2),
+
+
+% Then right at index 7
+swipe('R', 7, Number_list_after_swipe2, Number_list_after_swipe3),
+
+
+% Then right at index 4
+swipe('R', 4, Number_list_after_swipe3, Number_list_after_swipe4),
+
+
+% Finally left at index 3
+swipe('L', 3, Number_list_after_swipe4, Final_number_list),
+
+
+% To find the final list length plus the sum of its numbers, we use len_list to calculate the length of the list and sum_list to calculate the sum of the numbers in the list
+len_list(Final_number_list, Final_list_length),
+sum_list(Final_number_list, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 1 ?-  problem answer: 29
+
+
+
+ID: 30
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with 1 if we swiped left or 0 if we swiped right. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 0 (counting from 0), then right at 1, right at 7, right at 4, and finally left at 3, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 29}
+repeated: 8
+% Encoding the list of numbers as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of the game when a player swipes at a target index
+swipe(Swipe_direction, Target_index, Number_list, Updated_number_list):-
+% If the player swipes left, then the target number and the number before it are merged
+(Swipe_direction = 'L' ->
+% Getting the target number and the number before it
+index_of_element(Target_number, Number_list, Target_index),
+Index_before_target is Target_index - 1,
+index_of_element(Number_before_target, Number_list, Index_before_target),
+% Checking if the two numbers can be merged
+% If the two numbers are equal, or both are odd, or both are even then they can be merged
+((Target_number =:= Number_before_target; Target_number mod 2 =:= Number_before_target mod 2) ->
+% If the two numbers are merged, they are replaced by 1
+remove(Target_number, Number_list, Number_list_removed_target),
+remove(Number_before_target, Number_list_removed_target, Updated_number_list);
+% If the two numbers can not be merged, then the list of numbers does not change
+Updated_number_list = Number_list);
+
+
+% If the player swipes right, then the target number and the number after it are merged
+Swipe_direction = 'R' ->
+index_of_element(Target_number, Number_list, Target_index),
+Index_after_target is Target_index + 1,
+index_of_element(Number_after_target, Number_list, Index_after_target),
+((Target_number =:= Number_after_target; Target_number mod 2 =:= Number_after_target mod 2) ->
+% If the two numbers are merged, they are replaced by 0
+remove(Target_number, Number_list, Number_list_removed_target),
+remove(Number_after_target, Number_list_removed_target, Updated_number_list);
+Updated_number_list = Number_list)).
+
+
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial list of numbers
+Number_list_initial = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% The player swipes left at index 0
+swipe('L', 0, Number_list_initial, Number_list_after_swipe1),
+
+
+% Then the player swipes right at index 1
+swipe('R', 1, Number_list_after_swipe1, Number_list_after_swipe2),
+
+
+% Then the player swipes right at index 7
+swipe('R', 7, Number_list_after_swipe2, Number_list_after_swipe3),
+
+
+% Then the player swipes right at index 4
+swipe('R', 4, Number_list_after_swipe3, Number_list_after_swipe4),
+
+
+% Finally the player swipes left at index 3
+swipe('L', 3, Number_list_after_swipe4, Number_list_final),
+
+
+% To find the final list length plus the sum of its numbers, we use len_list to calculate the length of the list and sum_list to calculate the sum of the numbers in the list
+len_list(Number_list_final, Final_list_length),
+sum_list(Number_list_final, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 1 ?-  problem answer: 29
+
+
+
+ID: 30
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with 1 if we swiped left or 0 if we swiped right. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 0 (counting from 0), then right at 1, right at 7, right at 4, and finally left at 3, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 29}
+repeated: 9
+% Encoding the list of numbers as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of the game for a single swipe action
+swipe(Direction, Index, Number_list, Updated_number_list):-
+% Getting the number at the target index and its neighbors
+Number_list = [Target_number|Rest],
+% If the target index is 0, then the target number has only one neighbor to the right
+(Index =:= 0 ->
+Neighbor_right = Rest[0],
+% If the target number and its neighbor are equal, both odd, or both even, then they merge
+((Target_number =:= Neighbor_right; Target_number mod 2 =:= Neighbor_right mod 2) ->
+% If the swipe was to the left, then the two numbers are replaced by 1
+(Direction = 'L' ->
+remove(Target_number, Number_list, Number_list_removed_target),
+remove(Neighbor_right, Number_list_removed_target, Number_list_removed_target_neighbor),
+append([1], Number_list_removed_target_neighbor, Updated_number_list);
+% Else: the swipe was to the right, then the two numbers are replaced by 0
+remove(Target_number, Number_list, Number_list_removed_target),
+remove(Neighbor_right, Number_list_removed_target, Number_list_removed_target_neighbor),
+append([0], Number_list_removed_target_neighbor, Updated_number_list));
+% Else: the target number and its neighbor can not merge, then the list remains the same
+Updated_number_list = Number_list);
+
+
+% If the target index is the last index in the list, then the target number has only one neighbor to the left
+len_list(Number_list, Len_number_list),
+Index =:= Len_number_list - 1 ->
+Neighbor_left = Number_list[Len_number_list - 2],
+((Target_number =:= Neighbor_left; Target_number mod 2 =:= Neighbor_left mod 2) ->
+(Direction = 'L' ->
+remove(Target_number, Number_list, Number_list_removed_target),
+remove(Neighbor_left, Number_list_removed_target, Number_list_removed_target_neighbor),
+append(Number_list_removed_target_neighbor, [1], Updated_number_list);
+remove(Target_number, Number_list, Number_list_removed_target),
+remove(Neighbor_left, Number_list_removed_target, Number_list_removed_target_neighbor),
+append(Number_list_removed_target_neighbor, [0], Updated_number_list));
+Updated_number_list = Number_list);
+
+
+% If the target index is not at the start or end of the list, then the target number has two neighbors
+Neighbor_left = Number_list[Index - 1],
+Neighbor_right = Number_list[Index + 1],
+% If the target number and either of its neighbors can merge, then the two numbers are replaced by 1 if the swipe was to the left or 0 if the swipe was to the right
+((Target_number =:= Neighbor_left; Target_number mod 2 =:= Neighbor_left mod 2) ->
+(Direction = 'L' ->
+remove(Target_number, Number_list, Number_list_removed_target),
+remove(Neighbor_left, Number_list_removed_target, Number_list_removed_target_neighbor),
+split_list_at(Index - 1, Number_list_removed_target_neighbor, List_before_target, List_after_target),
+append(List_before_target, [1], List_before_target_updated),
+append(List_before_target_updated, List_after_target, Updated_number_list);
+remove(Target_number, Number_list, Number_list_removed_target),
+remove(Neighbor_left, Number_list_removed_target, Number_list_removed_target_neighbor),
+split_list_at(Index - 1, Number_list_removed_target_neighbor, List_before_target, List_after_target),
+append(List_before_target, [0], List_before_target_updated),
+append(List_before_target_updated, List_after_target, Updated_number_list));
+(Target_number =:= Neighbor_right; Target_number mod 2 =:= Neighbor_right mod 2) ->
+(Direction = 'L' ->
+remove(Target_number, Number_list, Number_list_removed_target),
+remove(Neighbor_right, Number_list_removed_target, Number_list_removed_target_neighbor),
+split_list_at(Index, Number_list_removed_target_neighbor, List_before_target, List_after_target),
+append(List_before_target, [1], List_before_target_updated),
+append(List_before_target_updated, List_after_target, Updated_number_list);
+remove(Target_number, Number_list, Number_list_removed_target),
+remove(Neighbor_right, Number_list_removed_target, Number_list_removed_target_neighbor),
+split_list_at(Index, Number_list_removed_target_neighbor, List_before_target, List_after_target),
+append(List_before_target, [0], List_before_target_updated),
+append(List_before_target_updated, List_after_target, Updated_number_list));
+% Else: the target number and its neighbors can not merge, then the list remains the same
+Updated_number_list = Number_list)).
+
+
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial list of numbers
+Number_list = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% The player swipes left at index 0
+swipe('L', 0, Number_list, Number_list_after_swipe1),
+
+
+% Then right at index 1
+swipe('R', 1, Number_list_after_swipe1, Number_list_after_swipe2),
+
+
+% Then right at index 7
+swipe('R', 7, Number_list_after_swipe2, Number_list_after_swipe3),
+
+
+% Then right at index 4
+swipe('R', 4, Number_list_after_swipe3, Number_list_after_swipe4),
+
+
+% Finally left at index 3
+swipe('L', 3, Number_list_after_swipe4, Number_list_final),
+
+
+% To find the final list length plus the sum of its numbers, we use len_list to calculate the length of the list and sum_list to calculate the sum of the numbers in the list
+len_list(Number_list_final, Final_list_length),
+sum_list(Number_list_final, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 1 ?-  problem answer: 29
+
+
+
+ID: 30
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with 1 if we swiped left or 0 if we swiped right. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 0 (counting from 0), then right at 1, right at 7, right at 4, and finally left at 3, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 29}
+repeated: 10
+% Encoding the number list as a list of numbers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of a swipe action
+swipe(Swipe_direction, Swipe_index, Number_list, Updated_number_list):-
+% Getting the numbers at the swipe index and the index to its left or right based on the swipe direction
+% If the swipe is to the left, we need the number at the swipe index and the number to its left
+(Swipe_direction = 'L' ->
+Swipe_index_left is Swipe_index - 1,
+nth0(Swipe_index_left, Number_list, Number_left),
+nth0(Swipe_index, Number_list, Number_swipe_index);
+% Else: the swipe is to the right, we need the number at the swipe index and the number to its right
+Swipe_index_right is Swipe_index + 1,
+nth0(Swipe_index, Number_list, Number_swipe_index),
+nth0(Swipe_index_right, Number_list, Number_right)),
+
+
+% Checking if the two numbers can be merged
+% If the two numbers are equal, or both are odd, or both are even, then they can be merged
+((Number_left =:= Number_swipe_index; Number_left mod 2 =:= Number_swipe_index mod 2) ->
+% If the swipe is to the left, the two numbers are replaced with 1
+(Swipe_direction = 'L' ->
+% Removing the two numbers from the list
+delete(Number_list, Number_left, Number_list_without_left),
+delete(Number_list_without_left, Number_swipe_index, Number_list_without_both),
+% Adding 1 at the swipe index
+nth0(Swipe_index, Updated_number_list, 1, Number_list_without_both);
+% Else: the swipe is to the right, the two numbers are replaced with 0
+delete(Number_list, Number_swipe_index, Number_list_without_swipe_index),
+delete(Number_list_without_swipe_index, Number_right, Number_list_without_both),
+nth0(Swipe_index, Updated_number_list, 0, Number_list_without_both));
+% Else: the two numbers can not be merged, the list remains the same
+Updated_number_list = Number_list).
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial number list
+Number_list_initial = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% Iterating through the swipe actions to update the number list
+% The player swipes left at index 0
+swipe('L', 0, Number_list_initial, Number_list_after_swipe1),
+
+
+% Then right at index 1
+swipe('R', 1, Number_list_after_swipe1, Number_list_after_swipe2),
+
+
+% Then right at index 7
+swipe('R', 7, Number_list_after_swipe2, Number_list_after_swipe3),
+
+
+% Then right at index 4
+swipe('R', 4, Number_list_after_swipe3, Number_list_after_swipe4),
+
+
+% Finally left at index 3
+swipe('L', 3, Number_list_after_swipe4, Number_list_final),
+
+
+% To find the final list length plus the sum of its numbers, we use length to get the list length and sum_list to calculate the sum of the list's numbers
+length(Number_list_final, Final_list_length),
+sum_list(Number_list_final, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 1 ?-  problem answer: 29
+
+
+
+ID: 30
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with 1 if we swiped left or 0 if we swiped right. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 0 (counting from 0), then right at 1, right at 7, right at 4, and finally left at 3, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 29}
+repeated: 11
+% Encoding the list of numbers as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of the game for a single swipe action
+swipe(Swipe_direction, Swipe_index, Number_list, Updated_number_list):-
+% Getting the numbers at the target index and the index to its left or right based on the swipe direction
+% If the swipe is to the left, the target index and the index to its left are merged
+(Swipe_direction = 'L' ->
+% Getting the index to the left of the target index
+Index_left is Swipe_index - 1,
+% Getting the numbers at the target index and the index to its left
+nth0(Swipe_index, Number_list, Number_target_index),
+nth0(Index_left, Number_list, Number_left),
+% Checking if the two numbers can be merged
+% If the two numbers are equal, or both are odd, or both are even, then they can be merged
+((Number_target_index =:= Number_left; Number_target_index mod 2 =:= Number_left mod 2) ->
+% If the numbers can be merged, then they are replaced by 1
+% First remove the number at the target index
+remove(Number_target_index, Number_list, Number_list_removed_target),
+% Then remove the number to the left of the target index
+remove(Number_left, Number_list_removed_target, Number_list_removed_both),
+% Finally add 1 to the start of the updated list
+append([1], Number_list_removed_both, Updated_number_list);
+% If the numbers can not be merged, then the list remains the same
+Updated_number_list = Number_list);
+
+
+% If the swipe is to the right, the target index and the index to its right are merged
+Swipe_direction = 'R' ->
+Index_right is Swipe_index + 1,
+nth0(Swipe_index, Number_list, Number_target_index),
+nth0(Index_right, Number_list, Number_right),
+((Number_target_index =:= Number_right; Number_target_index mod 2 =:= Number_right mod 2) ->
+remove(Number_target_index, Number_list, Number_list_removed_target),
+remove(Number_right, Number_list_removed_target, Number_list_removed_both),
+% If the numbers can be merged, then they are replaced by 0
+append([0], Number_list_removed_both, Updated_number_list);
+Updated_number_list = Number_list)).
+
+
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial list of numbers
+Number_list_initial = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% The player swipes left at index 0
+swipe('L', 0, Number_list_initial, Number_list_after_swipe1),
+
+
+% Then right at 1
+swipe('R', 1, Number_list_after_swipe1, Number_list_after_swipe2),
+
+
+% Then right at 7
+swipe('R', 7, Number_list_after_swipe2, Number_list_after_swipe3),
+
+
+% Then right at 4
+swipe('R', 4, Number_list_after_swipe3, Number_list_after_swipe4),
+
+
+% Finally left at 3
+swipe('L', 3, Number_list_after_swipe4, Number_list_final),
+
+
+% To find the final list length plus the sum of its numbers, we use len_list to calculate the length of the list and sum_list to calculate the sum of the numbers in the list
+len_list(Number_list_final, Final_list_length),
+sum_list(Number_list_final, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 1 ?-  problem answer: 29
+
+
+
+ID: 30
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with 1 if we swiped left or 0 if we swiped right. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 0 (counting from 0), then right at 1, right at 7, right at 4, and finally left at 3, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 29}
+repeated: 12
+% Encoding the list of numbers as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of the game when a player swipes at a target index
+swipe(Swipe_direction, Target_index, Number_list, Updated_number_list):-
+% Getting the number at the target index and the numbers at the indices before and after the target index
+% If the target index is 0, then there is no number before it
+(Target_index =:= 0 ->
+Number_before_target is 0;
+% Otherwise we get the number before the target index
+Number_before_target is Number_list[Target_index - 1]),
+
+
+% Getting the number at the target index
+Number_at_target is Number_list[Target_index],
+
+
+% If the target index is the last index in the list, then there is no number after it
+(len_list(Number_list, Len_number_list),
+Target_index =:= Len_number_list - 1 ->
+Number_after_target is 0;
+% Otherwise we get the number after the target index
+Number_after_target is Number_list[Target_index + 1]),
+
+
+% Now we check the conditions under which the numbers merge
+% If the numbers merge, we replace the 2 numbers with 1 if we swiped left or 0 if we swiped right
+% If the numbers do not merge, then the list remains the same
+% If the number at the target index is equal to the number before it
+((Number_at_target =:= Number_before_target) ->
+% If the swipe was to the left, then replace the 2 numbers with 1
+(Swipe_direction = 'L' ->
+remove(Number_at_target, Number_list, Number_list_removed_target),
+remove(Number_before_target, Number_list_removed_target, Number_list_removed_target_before),
+append([1], Number_list_removed_target_before, Updated_number_list);
+% Else: the swipe was to the right, then replace the 2 numbers with 0
+remove(Number_at_target, Number_list, Number_list_removed_target),
+remove(Number_before_target, Number_list_removed_target, Number_list_removed_target_before),
+append([0], Number_list_removed_target_before, Updated_number_list));
+
+
+% If the number at the target index is equal to the number after it
+(Number_at_target =:= Number_after_target) ->
+(Swipe_direction = 'L' ->
+remove(Number_at_target, Number_list, Number_list_removed_target),
+remove(Number_after_target, Number_list_removed_target, Number_list_removed_target_after),
+append([1], Number_list_removed_target_after, Updated_number_list);
+remove(Number_at_target, Number_list, Number_list_removed_target),
+remove(Number_after_target, Number_list_removed_target, Number_list_removed_target_after),
+append([0], Number_list_removed_target_after, Updated_number_list));
+
+
+% If the number at the target index and the number before it are both odd
+(Number_at_target mod 2 =:= 1, Number_before_target mod 2 =:= 1) ->
+(Swipe_direction = 'L' ->
+remove(Number_at_target, Number_list, Number_list_removed_target),
+remove(Number_before_target, Number_list_removed_target, Number_list_removed_target_before),
+append([1], Number_list_removed_target_before, Updated_number_list);
+remove(Number_at_target, Number_list, Number_list_removed_target),
+remove(Number_before_target, Number_list_removed_target, Number_list_removed_target_before),
+append([0], Number_list_removed_target_before, Updated_number_list));
+
+
+% If the number at the target index and the number after it are both odd
+(Number_at_target mod 2 =:= 1, Number_after_target mod 2 =:= 1) ->
+(Swipe_direction = 'L' ->
+remove(Number_at_target, Number_list, Number_list_removed_target),
+remove(Number_after_target, Number_list_removed_target, Number_list_removed_target_after),
+append([1], Number_list_removed_target_after, Updated_number_list);
+remove(Number_at_target, Number_list, Number_list_removed_target),
+remove(Number_after_target, Number_list_removed_target, Number_list_removed_target_after),
+append([0], Number_list_removed_target_after, Updated_number_list));
+
+
+% If the number at the target index and the number before it are both even
+(Number_at_target mod 2 =:= 0, Number_before_target mod 2 =:= 0) ->
+(Swipe_direction = 'L' ->
+remove(Number_at_target, Number_list, Number_list_removed_target),
+remove(Number_before_target, Number_list_removed_target, Number_list_removed_target_before),
+append([1], Number_list_removed_target_before, Updated_number_list);
+remove(Number_at_target, Number_list, Number_list_removed_target),
+remove(Number_before_target, Number_list_removed_target, Number_list_removed_target_before),
+append([0], Number_list_removed_target_before, Updated_number_list));
+
+
+% If the number at the target index and the number after it are both even
+(Number_at_target mod 2 =:= 0, Number_after_target mod 2 =:= 0) ->
+(Swipe_direction = 'L' ->
+remove(Number_at_target, Number_list, Number_list_removed_target),
+remove(Number_after_target, Number_list_removed_target, Number_list_removed_target_after),
+append([1], Number_list_removed_target_after, Updated_number_list);
+remove(Number_at_target, Number_list, Number_list_removed_target),
+remove(Number_after_target, Number_list_removed_target, Number_list_removed_target_after),
+append([0], Number_list_removed_target_after, Updated_number_list));
+
+
+% If none of the conditions for merging are met, then the list remains the same
+Updated_number_list = Number_list).
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial list of numbers
+Number_list_initial = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% The player swipes left at index 0
+swipe('L', 0, Number_list_initial, Number_list_after_swipe1),
+
+
+% Then right at 1
+swipe('R', 1, Number_list_after_swipe1, Number_list_after_swipe2),
+
+
+% Right at 7
+swipe('R', 7, Number_list_after_swipe2, Number_list_after_swipe3),
+
+
+% Right at 4
+swipe('R', 4, Number_list_after_swipe3, Number_list_after_swipe4),
+
+
+% Finally left at 3
+swipe('L', 3, Number_list_after_swipe4, Number_list_final),
+
+
+% To find the final list length plus the sum of its numbers, we use len_list to calculate the length of the list and sum_list to calculate the sum of the numbers in the list
+len_list(Number_list_final, Final_list_length),
+sum_list(Number_list_final, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length +
+prolog run result: 1 ?-  problem answer: 29
+
+
+
+ID: 30
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with 1 if we swiped left or 0 if we swiped right. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 0 (counting from 0), then right at 1, right at 7, right at 4, and finally left at 3, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 29}
+repeated: 13
+% Encoding the number list as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of the game for a single swipe action
+% The swipe action targets two numbers in the list, the number at the target index and the number at index-1 for a left swipe or at index+1 for a right swipe
+% If the two numbers are equal or both odd or both even, then they merge into a single number
+% The merged number is 1 for a left swipe and 0 for a right swipe
+% The merged number replaces the two numbers in the list
+swipe('L', Target_index, Number_list, Updated_number_list):-
+% Getting the two numbers targeted by the swipe
+Target_index_minus_1 is Target_index - 1,
+nth0(Target_index_minus_1, Number_list, Number_minus_1),
+nth0(Target_index, Number_list, Number_at_index),
+% Checking if the two numbers can merge
+((Number_minus_1 =:= Number_at_index; Number_minus_1 mod 2 =:= Number_at_index mod 2) ->
+% If the numbers can merge, then we replace the two numbers with a single 1
+% First we remove the number at the target index
+remove(Number_at_index, Number_list, Number_list_removed_at_index),
+% Then we replace the number at index-1 with 1
+replace(Number_minus_1, 1, Number_list_removed_at_index, Updated_number_list);
+% If the numbers can not merge, then the list does not change
+Updated_number_list = Number_list), !.
+
+
+swipe('R', Target_index, Number_list, Updated_number_list):-
+% Getting the two numbers targeted by the swipe
+Target_index_plus_1 is Target_index + 1,
+nth0(Target_index, Number_list, Number_at_index),
+nth0(Target_index_plus_1, Number_list, Number_plus_1),
+% Checking if the two numbers can merge
+((Number_at_index =:= Number_plus_1; Number_at_index mod 2 =:= Number_plus_1 mod 2) ->
+% If the numbers can merge, then we replace the two numbers with a single 0
+% First we remove the number at index+1
+remove(Number_plus_1, Number_list, Number_list_removed_at_plus_1),
+% Then we replace the number at the target index with 0
+replace(Number_at_index, 0, Number_list_removed_at_plus_1, Updated_number_list);
+% If the numbers can not merge, then the list does not change
+Updated_number_list = Number_list), !.
+
+
+% replace is a helper predicate that replaces the first occurrence of an element in a list
+replace(_, _, [], []).
+replace(O, R, [O|T], [R|T2]) :- replace(O, R, T, T2).
+replace(O, R, [H|T], [H|T2]) :- H \= O, replace(O, R, T, T2).
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial state of the number list
+Number_list_initial = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% Iterating through the swipe actions to update the number list
+% First swipe is left at index 0
+swipe('L', 0, Number_list_initial, Number_list_after_swipe1),
+
+
+% Second swipe is right at index 1
+swipe('R', 1, Number_list_after_swipe1, Number_list_after_swipe2),
+
+
+% Third swipe is right at index 7
+swipe('R', 7, Number_list_after_swipe2, Number_list_after_swipe3),
+
+
+% Fourth swipe is right at index 4
+swipe('R', 4, Number_list_after_swipe3, Number_list_after_swipe4),
+
+
+% Last swipe is left at index 3
+swipe('L', 3, Number_list_after_swipe4, Number_list_final),
+
+
+% To find the final list length plus the sum of its numbers, we use length to get the list length and sum_list to calculate the sum of the list's numbers
+length(Number_list_final, Final_list_length),
+sum_list(Number_list_final, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 1 ?-  problem answer: 29
+
+
+
+ID: 30
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with 1 if we swiped left or 0 if we swiped right. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 0 (counting from 0), then right at 1, right at 7, right at 4, and finally left at 3, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 29}
+repeated: 14
+% Encoding the list of numbers as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of the game when a player swipes at a target index
+swipe(Swipe_direction, Target_index, Number_list, Updated_number_list):-
+% Getting the numbers at the target index and the index to its left or right
+% If the target index is 0, then there is no number to its left and we only need to get the number at the target index and the one to its right
+(Target_index =:= 0 ->
+Number_list = [Target_number, Right_number|Rest];
+% If the target index is the last index in the list, then there is no number to its right and we only need to get the number at the target index and the one to its left
+Target_index =:= len_list(Number_list, Len), Len is Target_index + 1 ->
+split_list_at(Target_index - 1, Number_list, List_before_target, [Left_number, Target_number]),
+Right_number is 0;
+% Otherwise, the target index is not at the edge of the list and we need to get the numbers at the target index and the ones to its left and right
+split_list_at(Target_index - 1, Number_list, List_before_target, [Left_number, Target_number, Right_number|Rest])),
+
+
+% If the player swipes left, then the target number and the one to its left are merged
+(Swipe_direction = 'L' ->
+% If the two numbers are equal, both odd, or both even, then they are replaced by 1
+((Target_number =:= Left_number; Target_number mod 2 =:= Left_number mod 2) ->
+append(List_before_target, [1|Rest], Updated_number_list);
+% Otherwise, the numbers are not merged and the list remains the same
+Updated_number_list is Number_list);
+% If the player swipes right, then the target number and the one to its right are merged
+(Swipe_direction = 'R' ->
+% If the two numbers are equal, both odd, or both even, then they are replaced by 0
+((Target_number =:= Right_number; Target_number mod 2 =:= Right_number mod 2) ->
+append(List_before_target, [0|Rest], Updated_number_list);
+% Otherwise, the numbers are not merged and the list remains the same
+Updated_number_list is Number_list)).
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial list of numbers
+Number_list_initial = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% The player swipes left at index 0
+swipe('L', 0, Number_list_initial, Number_list_after_swipe1),
+
+
+% Then the player swipes right at index 1
+swipe('R', 1, Number_list_after_swipe1, Number_list_after_swipe2),
+
+
+% Then the player swipes right at index 7
+swipe('R', 7, Number_list_after_swipe2, Number_list_after_swipe3),
+
+
+% Then the player swipes right at index 4
+swipe('R', 4, Number_list_after_swipe3, Number_list_after_swipe4),
+
+
+% Finally, the player swipes left at index 3
+swipe('L', 3, Number_list_after_swipe4, Final_number_list),
+
+
+% To find the final list length plus the sum of its numbers, we use len_list to calculate the length of the list and sum_list to calculate the sum of the numbers in the list
+len_list(Final_number_list, Final_list_length),
+sum_list(Final_number_list, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 1 ?-  problem answer: 29
+
+
+
+ID: 30
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with 1 if we swiped left or 0 if we swiped right. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 0 (counting from 0), then right at 1, right at 7, right at 4, and finally left at 3, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 29}
+repeated: 15
+% Encoding the list of numbers as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of the game for a single swipe action
+swipe(Swipe_direction, Swipe_index, Number_list, Updated_number_list):-
+% Getting the number at the swipe index and its neighboring number
+% If the swipe is to the left, the neighboring number is the one before the swipe index
+(Swipe_direction = 'L' ->
+% Getting the number at the swipe index and the one before it
+Number_list = [Swipe_index_number, Prev_number|Rest],
+% If the two numbers are equal, both odd, or both even then they merge
+((Swipe_index_number =:= Prev_number; (Swipe_index_number mod 2 =:= 0, Prev_number mod 2 =:= 0); (Swipe_index_number mod 2 =:= 1, Prev_number mod 2 =:= 1)) ->
+% If the swipe is to the left, the two numbers are replaced with 1
+Updated_number_list = [1|Rest];
+% If the numbers do not merge, the list remains the same
+Updated_number_list = Number_list);
+
+
+% If the swipe is to the right, the neighboring number is the one after the swipe index
+Swipe_direction = 'R' ->
+% Getting the number at the swipe index and the one after it
+Number_list = [Swipe_index_number, Next_number|Rest],
+% If the two numbers are equal, both odd, or both even then they merge
+((Swipe_index_number =:= Next_number; (Swipe_index_number mod 2 =:= 0, Next_number mod 2 =:= 0); (Swipe_index_number mod 2 =:= 1, Next_number mod 2 =:= 1)) ->
+% If the swipe is to the right, the two numbers are replaced with 0
+Updated_number_list = [0|Rest];
+% If the numbers do not merge, the list remains the same
+Updated_number_list = Number_list)).
+
+
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial list of numbers
+Number_list_initial = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% Iterating through the swipe actions to update the list of numbers
+% Swipe left at index 0
+swipe('L', 0, Number_list_initial, Number_list_after_swipe1),
+% Swipe right at index 1
+swipe('R', 1, Number_list_after_swipe1, Number_list_after_swipe2),
+% Swipe right at index 7
+swipe('R', 7, Number_list_after_swipe2, Number_list_after_swipe3),
+% Swipe right at index 4
+swipe('R', 4, Number_list_after_swipe3, Number_list_after_swipe4),
+% Swipe left at index 3
+swipe('L', 3, Number_list_after_swipe4, Number_list_final),
+
+
+% To find the final list length plus the sum of its numbers, we use len_list to calculate the length of the list and sum_list to calculate the sum of the numbers in the list
+len_list(Number_list_final, Final_list_length),
+sum_list(Number_list_final, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 44 problem answer: 29
+
+
+
+ID: 31
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with the sum of the 2 numbers modulo 10. If none of the merging conditions hold, then a 0 is added as a padding between the two numbers. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 4 (counting from 0), then right at 5, left at 4, right at 6, right at 3, and finally right at 4, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 3, 'ID of problem in NLR dataset': 52, 'answer': 35}
+NOT repeated 
+% Encoding the list of numbers as a list of integers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of the game when a player swipes left or right at a target index
+swipe(Swipe_direction, Target_index, Number_list, Updated_number_list):-
+% If the player swipes left, the target number and the number before it are affected
+(Swipe_direction = 'L' ->
+% Getting the index of the number before the target
+Index_before_target is Target_index - 1,
+% Using nth0 to get the target number and the number before it
+nth0(Target_index, Number_list, Target_number),
+nth0(Index_before_target, Number_list, Number_before_target),
+% Checking if the two numbers can be merged
+% If the two numbers are equal, or both are odd, or both are even then they can be merged
+((Target_number =:= Number_before_target; Target_number mod 2 =:= Number_before_target mod 2) ->
+% The two numbers are replaced with the sum of the two numbers modulo 10
+Merged_number is (Target_number + Number_before_target) mod 10,
+% Using select to replace the target number with the merged number
+select(Target_number, Number_list, Merged_number, Number_list_after_merge),
+% Then remove the number before the target from the list
+remove(Number_before_target, Number_list_after_merge, Updated_number_list);
+% Else: if the two numbers can not be merged, then a 0 is added as a padding between the two numbers
+% First replace the target number with 0
+select(Target_number, Number_list, 0, Number_list_after_padding),
+% Then insert the target number after the 0 padding
+nth0(Index_before_target, Number_list_after_padding, _, Number_list_after_insert),
+nth0(Index_before_target, Updated_number_list, Target_number, Number_list_after_insert));
+
+
+% Else: if the player swipes right, the target number and the number after it are affected
+Index_after_target is Target_index + 1,
+nth0(Target_index, Number_list, Target_number),
+nth0(Index_after_target, Number_list, Number_after_target),
+% Checking if the two numbers can be merged
+((Target_number =:= Number_after_target; Target_number mod 2 =:= Number_after_target mod 2) ->
+% The two numbers are replaced with the sum of the two numbers modulo 10
+Merged_number is (Target_number + Number_after_target) mod 10,
+% Using select to replace the target number with the merged number
+select(Target_number, Number_list, Merged_number, Number_list_after_merge),
+% Then remove the number after the target from the list
+remove(Number_after_target, Number_list_after_merge, Updated_number_list);
+% Else: if the two numbers can not be merged, then a 0 is added as a padding between the two numbers
+% First replace the target number with 0
+select(Target_number, Number_list, 0, Number_list_after_padding),
+% Then insert the target number after the 0 padding
+nth0(Index_after_target, Number_list_after_padding, _, Number_list_after_insert),
+nth0(Index_after_target, Updated_number_list, Target_number, Number_list_after_insert))).
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial list of numbers
+Number_list_initial = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% The player swipes left at index 4
+swipe('L', 4, Number_list_initial, Number_list_after_swipe1),
+% Then right at 5
+swipe('R', 5, Number_list_after_swipe1, Number_list_after_swipe2),
+% Then left at 4
+swipe('L', 4, Number_list_after_swipe2, Number_list_after_swipe3),
+% Then right at 6
+swipe('R', 6, Number_list_after_swipe3, Number_list_after_swipe4),
+% Then right at 3
+swipe('R', 3, Number_list_after_swipe4, Number_list_after_swipe5),
+% Finally right at 4
+swipe('R', 4, Number_list_after_swipe5, Number_list_final),
+
+
+% To find the final list length plus the sum of its numbers, we use length to get the length of the list and sum_list to calculate the sum of the numbers in the list
+length(Number_list_final, Final_list_length),
+sum_list(Number_list_final, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 35 problem answer: 35
+
+
+
+
+ID: 32
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with the sum of the 2 numbers modulo 10. If none of the merging conditions hold, then the number at index X - 2 is added as a padding between the two numbers targeted by the swipe. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 4 (counting from 0), then right at 5, left at 4, right at 6, right at 3, and finally right at 4, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 4, 'ID of problem in NLR dataset': None, 'answer': 55}
+NOT repeated 
+% Encoding the number list as a list of numbers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of a swipe action
+swipe(Swipe_direction, Swipe_index, Number_list, Updated_number_list):-
+% If the swipe is to the left, the targeted numbers are at index X and X-1
+(Swipe_direction = 'L' ->
+% Getting the two numbers targeted by the swipe
+Number_list = [Number1, Number2|Rest],
+% Checking if the two numbers can be merged
+% If the two numbers are equal, both odd, or both even, then they are merged
+((Number1 =:= Number2; (Number1 mod 2 =:= 0, Number2 mod 2 =:= 0); (Number1 mod 2 =:= 1, Number2 mod 2 =:= 1)) ->
+% The two numbers are replaced by the sum of the two numbers modulo 10
+Merged_number is (Number1 + Number2) mod 10,
+Updated_number_list = [Merged_number|Rest];
+% If the two numbers can not be merged, then the number at index X - 2 is added as a padding between the two numbers
+Updated_number_list = [Number1, Number_list[Swipe_index - 2], Number2|Rest]);
+
+
+% If the swipe is to the right, the targeted numbers are at index X and X+1
+Number_list = [Number1, Number2|Rest],
+% Checking if the two numbers can be merged
+((Number1 =:= Number2; (Number1 mod 2 =:= 0, Number2 mod 2 =:= 0); (Number1 mod 2 =:= 1, Number2 mod 2 =:= 1)) ->
+% The two numbers are replaced by the sum of the two numbers modulo 10
+Merged_number is (Number1 + Number2) mod 10,
+Updated_number_list = [Merged_number|Rest];
+% If the two numbers can not be merged, then the number at index X - 2 is added as a padding between the two numbers
+Updated_number_list = [Number1, Number_list[Swipe_index - 2], Number2|Rest])).
+
+
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial status of the number list
+Number_list_initial = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% The player swipes left at index 4
+swipe('L', 4, Number_list_initial, Number_list_after_swipe1),
+
+
+% Then right at 5
+swipe('R', 5, Number_list_after_swipe1, Number_list_after_swipe2),
+
+
+% Then left at 4
+swipe('L', 4, Number_list_after_swipe2, Number_list_after_swipe3),
+
+
+% Then right at 6
+swipe('R', 6, Number_list_after_swipe3, Number_list_after_swipe4),
+
+
+% Then right at 3
+swipe('R', 3, Number_list_after_swipe4, Number_list_after_swipe5),
+
+
+% Finally right at 4
+swipe('R', 4, Number_list_after_swipe5, Number_list_final),
+
+
+% To find the final list length plus the sum of its numbers, we use len_list to calculate the length of the list and sum_list to calculate the sum of the numbers in the list
+len_list(Number_list_final, Final_list_length),
+sum_list(Number_list_final, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 1 ?-  problem answer: 55
+
+
+
+ID: 32
+{'statement': "In the game of 'Swipe It', players swipe left or right on a number list. Left swipe at X targets X and X-1, right swipe targets X and X+1. Numbers merge if equal, both odd, or both even. Merging replaces the 2 numbers with the sum of the 2 numbers modulo 10. If none of the merging conditions hold, then the number at index X - 2 is added as a padding between the two numbers targeted by the swipe. Given the list 2, 0, 9, 9, 3, 3, 8, 0, 8, 5, if the player swipes left at index 4 (counting from 0), then right at 5, left at 4, right at 6, right at 3, and finally right at 4, what's the final list length plus the sum of its numbers?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 4, 'ID of problem in NLR dataset': None, 'answer': 55}
+repeated: 1
+% Encoding the number list as a list of numbers
+% Encoding a left swipe as 'L' and a right swipe as 'R'
+
+
+% swipe encodes the rules of a swipe action
+swipe(Swipe_direction, Swipe_index, Number_list, Updated_number_list):-
+% If the swipe is to the left, the targeted numbers are at index X and X-1
+(Swipe_direction = 'L' ->
+% Getting the two numbers targeted by the swipe
+Swipe_index_minus_1 is Swipe_index - 1,
+nth0(Swipe_index, Number_list, Number_X),
+nth0(Swipe_index_minus_1, Number_list, Number_X_minus_1),
+% Checking if the two numbers can be merged
+% If the two numbers are equal, both odd, or both even, then they are replaced by the sum of the two numbers modulo 10
+((Number_X =:= Number_X_minus_1; (Number_X mod 2 =:= 0, Number_X_minus_1 mod 2 =:= 0); (Number_X mod 2 =:= 1, Number_X_minus_1 mod 2 =:= 1)) ->
+Sum_mod_10 is (Number_X + Number_X_minus_1) mod 10,
+% Replacing the two numbers with the sum modulo 10
+replace(Number_X, Sum_mod_10, Number_list, Number_list_replaced_X),
+replace(Number_X_minus_1, Sum_mod_10, Number_list_replaced_X, Updated_number_list);
+% If the two numbers can not be merged, then the number at index X - 2 is added as a padding between the two numbers
+Swipe_index_minus_2 is Swipe_index - 2,
+nth0(Swipe_index_minus_2, Number_list, Number_X_minus_2),
+% Adding the padding number at index X - 1
+insert(Number_X_minus_2, Swipe_index_minus_1, Number_list, Updated_number_list));
+
+
+% If the swipe is to the right, the targeted numbers are at index X and X+1
+Swipe_direction = 'R' ->
+Swipe_index_plus_1 is Swipe_index + 1,
+nth0(Swipe_index, Number_list, Number_X),
+nth0(Swipe_index_plus_1, Number_list, Number_X_plus_1),
+% Checking if the two numbers can be merged
+((Number_X =:= Number_X_plus_1; (Number_X mod 2 =:= 0, Number_X_plus_1 mod 2 =:= 0); (Number_X mod 2 =:= 1, Number_X_plus_1 mod 2 =:= 1)) ->
+Sum_mod_10 is (Number_X + Number_X_plus_1) mod 10,
+% Replacing the two numbers with the sum modulo 10
+replace(Number_X, Sum_mod_10, Number_list, Number_list_replaced_X),
+replace(Number_X_plus_1, Sum_mod_10, Number_list_replaced_X, Updated_number_list);
+% If the two numbers can not be merged, then the number at index X - 2 is added as a padding between the two numbers
+Swipe_index_minus_2 is Swipe_index - 2,
+nth0(Swipe_index_minus_2, Number_list, Number_X_minus_2),
+% Adding the padding number at index X
+insert(Number_X_minus_2, Swipe_index, Number_list, Updated_number_list))).
+
+
+% replace replaces an element in a list
+replace(_, _, [], []).
+replace(O, R, [O|T], [R|T2]) :- replace(O, R, T, T2).
+replace(O, R, [H|T], [H|T2]) :- H \= O, replace(O, R, T, T2).
+
+
+% insert inserts an element at a specific index in a list
+insert(Element, Index, List, Updated_list):-
+split_list_at(Index, List, List1, List2),
+append(List1, [Element], List1_added),
+append(List1_added, List2, Updated_list).
+
+
+problem(Final_list_length_plus_sum):-
+% Encoding the initial number list
+Number_list = [2, 0, 9, 9, 3, 3, 8, 0, 8, 5],
+
+
+% Iterating through the swipe actions to update the number list
+swipe('L', 4, Number_list, Number_list_after_swipe1),
+swipe('R', 5, Number_list_after_swipe1, Number_list_after_swipe2),
+swipe('L', 4, Number_list_after_swipe2, Number_list_after_swipe3),
+swipe('R', 6, Number_list_after_swipe3, Number_list_after_swipe4),
+swipe('R', 3, Number_list_after_swipe4, Number_list_after_swipe5),
+swipe('R', 4, Number_list_after_swipe5, Final_number_list),
+
+
+% Calculating the length of the final number list
+length(Final_number_list, Final_list_length),
+% Calculating the sum of the numbers in the final list
+sum_list(Final_number_list, Final_list_sum),
+
+
+Final_list_length_plus_sum is Final_list_length + Final_list_sum.
+prolog run result: 15 problem answer: 55
+
+
+
+ID: 33
+{'statement': 'A scientist has a device that takes a quadrilateral shaped piece of fabric and stretches the top edge by 10%. He puts a square fabric with a side length of 5m in it and performs the following actions: stretch, stretch, stretch, stretch. What is the difference between the initial and final length of the top edge of the fabric after these actions?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 0, 'ID of problem in NLR dataset': None, 'answer': 2.32}
+NOT repeated 
+% Encoding the initial length of the top edge of the fabric as a number
+% The fabric is a square with side length 5m
+
+% stretch_top_edge encodes the stretching of the top edge of the fabric by 10%
+stretch_top_edge(Prev_length, Updated_length):-
+Updated_length is Prev_length + (0.1 * Prev_length).
+
+problem(Difference):-
+% Encoding the initial length of the top edge of the fabric
+Initial_length is 5,
+
+% The scientist stretches the top edge of the fabric 4 times
+stretch_top_edge(Initial_length, Length_after_stretch1),
+stretch_top_edge(Length_after_stretch1, Length_after_stretch2),
+stretch_top_edge(Length_after_stretch2, Length_after_stretch3),
+stretch_top_edge(Length_after_stretch3, Final_length),
+
+% The difference between the initial and final length of the top edge of the fabric is calculated by subtracting the initial length from the final length
+Difference is Final_length - Initial_length.
+prolog run result: 2.320499999999999 problem answer: 2.32
+
+
+
+ID: 34
+{'statement': 'A scientist has a device that takes a quadrilateral shaped piece of fabric and stretches the top edge by 5%, and the bottom edge by 10%. He puts a square fabric with a side length of 5m in it and performs the following actions: stretch, rotate 180 degrees, stretch, rotate 180 degrees, stretch, stretch. What is the difference between the length of the edge at the top of the fabric and the edge at the bottom of the fabric after these actions? ', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 0.62}
+NOT repeated 
+% Encoding the stretch operation as a predicate that takes the top and bottom edge lengths and returns the updated lengths after stretching
+stretch(Top_edge_length_prev, Bottom_edge_length_prev, Top_edge_length_now, Bottom_edge_length_now):-
+% The top edge is stretched by 5%
+Top_edge_length_now is Top_edge_length_prev * 1.05,
+% The bottom edge is stretched by 10%
+Bottom_edge_length_now is Bottom_edge_length_prev * 1.1.
+
+
+% Encoding the rotation operation as a predicate that swaps the top and bottom edge lengths
+rotate(Top_edge_length_prev, Bottom_edge_length_prev, Top_edge_length_now, Bottom_edge_length_now):-
+Top_edge_length_now is Bottom_edge_length_prev,
+Bottom_edge_length_now is Top_edge_length_prev.
+
+
+problem(Difference_top_bottom):-
+% Encoding the initial state of the fabric as a square with side length 5m
+Top_edge_length_initial is 5,
+Bottom_edge_length_initial is 5,
+
+
+% Iterating through the actions taken by the scientist to update the fabric's shape
+% First the fabric is stretched
+stretch(Top_edge_length_initial, Bottom_edge_length_initial, Top_edge_length_stretch1, Bottom_edge_length_stretch1),
+
+
+% Then the fabric is rotated 180 degrees
+rotate(Top_edge_length_stretch1, Bottom_edge_length_stretch1, Top_edge_length_rotate1, Bottom_edge_length_rotate1),
+
+
+% The fabric is stretched again
+stretch(Top_edge_length_rotate1, Bottom_edge_length_rotate1, Top_edge_length_stretch2, Bottom_edge_length_stretch2),
+
+
+% The fabric is rotated 180 degrees for the second time
+rotate(Top_edge_length_stretch2, Bottom_edge_length_stretch2, Top_edge_length_rotate2, Bottom_edge_length_rotate2),
+
+
+% The fabric is stretched for the third time
+stretch(Top_edge_length_rotate2, Bottom_edge_length_rotate2, Top_edge_length_stretch3, Bottom_edge_length_stretch3),
+
+
+% The fabric is stretched for the fourth and final time
+stretch(Top_edge_length_stretch3, Bottom_edge_length_stretch3, Top_edge_length_final, Bottom_edge_length_final),
+
+
+% The difference between the length of the top edge and the bottom edge is calculated
+Difference_top_bottom is abs(Top_edge_length_final - Bottom_edge_length_final).
+prolog run result: 0.6208125000000013 problem answer: 0.62
+
+
+
+ID: 35
+{'statement': 'A scientist has a device that takes a quadrilateral shaped piece of fabric and stretches the top edge by 10%, the sides by 20%, and the bottom edge by 5%. He puts a square fabric with a side length of 5m in it and performs the following actions: stretch, rotate 180 degrees, stretch, rotate 180 degrees, stretch, rotate 180 degrees, stretch, stretch. What is the difference between the length of the longest and shortest sides after these actions?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 3, 'ID of problem in NLR dataset': None, 'answer': 5.44}
+NOT repeated 
+% Encoding the stretching of the fabric as a list of 4 numbers, each representing the length of a side of the fabric
+% The top side is the first number, the right side is the second, the bottom side is the third, and the left side is the fourth
+% The stretching of the fabric is encoded as a multiplication of the side length by a factor
+
+
+% stretch_fabric encodes the stretching of the fabric by the device
+stretch_fabric(Fabric_prev, Fabric_now):-
+% The top side is stretched by 10%
+Fabric_prev = [Top_prev, Right_prev, Bottom_prev, Left_prev],
+Top_now is Top_prev * 1.1,
+% The right and left sides are stretched by 20%
+Right_now is Right_prev * 1.2,
+Left_now is Left_prev * 1.2,
+% The bottom side is stretched by 5%
+Bottom_now is Bottom_prev * 1.05,
+Fabric_now = [Top_now, Right_now, Bottom_now, Left_now].
+
+
+% rotate_fabric encodes the rotation of the fabric by 180 degrees
+rotate_fabric(Fabric_prev, Fabric_now):-
+% The top side becomes the bottom side and vice versa
+% The right side becomes the left side and vice versa
+Fabric_prev = [Top_prev, Right_prev, Bottom_prev, Left_prev],
+Fabric_now = [Bottom_prev, Left_prev, Top_prev, Right_prev].
+
+
+problem(Difference):-
+% Encoding the initial state of the fabric as a square with side length 5m
+Fabric_initial = [5, 5, 5, 5],
+
+
+% Iterating through the actions taken by the scientist
+stretch_fabric(Fabric_initial, Fabric_after_stretch1),
+rotate_fabric(Fabric_after_stretch1, Fabric_after_rotate1),
+stretch_fabric(Fabric_after_rotate1, Fabric_after_stretch2),
+rotate_fabric(Fabric_after_stretch2, Fabric_after_rotate2),
+stretch_fabric(Fabric_after_rotate2, Fabric_after_stretch3),
+rotate_fabric(Fabric_after_stretch3, Fabric_after_rotate3),
+stretch_fabric(Fabric_after_rotate3, Fabric_after_stretch4),
+stretch_fabric(Fabric_after_stretch4, Fabric_final),
+
+
+% To find the difference between the longest and shortest sides of the fabric, we first need to find the longest and shortest sides
+Fabric_final = [Top_final, Right_final, Bottom_final, Left_final],
+min(Top_final, Right_final, Min1),
+min(Bottom_final, Left_final, Min2),
+min(Min1, Min2, Shortest_side),
+max(Top_final, Right_final, Max1),
+max(Bottom_final, Left_final, Max2),
+max(Max1, Max2, Longest_side),
+
+
+% The difference between the longest and shortest sides is the longest side length minus the shortest side length
+Difference is Longest_side - Shortest_side.
+prolog run result: 5.437968749999996 problem answer: 5.44
+
+
+
+ID: 36
+{'statement': 'A scientist has a device that takes a quadrilateral shaped piece of fabric and stretches the top edge by 1%, the sides by 2%, and the bottom edge by 3%. He puts a square fabric with a side length of 5m in it and performs the following actions: stretch, rotate 90 degrees clockwise, stretch, rotate 90 degrees counterclockwise, stretch, rotate 180 degrees, stretch. What is the difference between the length of the longest and shortest sides after these actions? Round the answer to 2 decimal points.', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 4, 'ID of problem in NLR dataset': 44, 'answer': 0.11}
+NOT repeated 
+% Encoding the stretching of the fabric as a list of 4 numbers, each representing the length of a side of the fabric
+% The stretching device stretches the top edge by 1%, the sides by 2%, and the bottom edge by 3%
+
+
+% stretch_fabric encodes how the fabric is stretched by the device
+stretch_fabric(Fabric_prev, Fabric_now):-
+% The fabric is a quadrilateral with 4 sides
+Fabric_prev = [Top_prev, Right_prev, Bottom_prev, Left_prev],
+% The top edge is stretched by 1%
+Top_now is Top_prev * 1.01,
+% The sides are stretched by 2%
+Right_now is Right_prev * 1.02,
+Left_now is Left_prev * 1.02,
+% The bottom edge is stretched by 3%
+Bottom_now is Bottom_prev * 1.03,
+Fabric_now = [Top_now, Right_now, Bottom_now, Left_now].
+
+
+% rotate_fabric encodes how the fabric is rotated by the device
+rotate_fabric(Fabric_prev, Fabric_now, Direction, Degrees):-
+% The fabric is a quadrilateral with 4 sides
+Fabric_prev = [Top_prev, Right_prev, Bottom_prev, Left_prev],
+% If the fabric is rotated 90 degrees clockwise, then the top edge becomes the left edge, the right edge becomes the top edge, the bottom edge becomes the right edge, and the left edge becomes the bottom edge
+(Direction = 'clockwise', Degrees = 90 ->
+Fabric_now = [Left_prev, Top_prev, Right_prev, Bottom_prev];
+% If the fabric is rotated 90 degrees counterclockwise, then the top edge becomes the right edge, the right edge becomes the bottom edge, the bottom edge becomes the left edge, and the left edge becomes the top edge
+Direction = 'counterclockwise', Degrees = 90 ->
+Fabric_now = [Right_prev, Bottom_prev, Left_prev, Top_prev];
+% If the fabric is rotated 180 degrees, then the top edge becomes the bottom edge, the right edge becomes the left edge, the bottom edge becomes the top edge, and the left edge becomes the right edge
+Degrees = 180 ->
+Fabric_now = [Bottom_prev, Left_prev, Top_prev, Right_prev]).
+
+
+problem(Difference_rounded):-
+% Encoding the initial state of the fabric as a square with a side length of 5m
+Fabric_initial = [5, 5, 5, 5],
+
+
+% The scientist performs the following actions: stretch, rotate 90 degrees clockwise, stretch, rotate 90 degrees counterclockwise, stretch, rotate 180 degrees, stretch
+stretch_fabric(Fabric_initial, Fabric_after_stretch1),
+rotate_fabric(Fabric_after_stretch1, Fabric_after_rotate1, 'clockwise', 90),
+stretch_fabric(Fabric_after_rotate1, Fabric_after_stretch2),
+rotate_fabric(Fabric_after_stretch2, Fabric_after_rotate2, 'counterclockwise', 90),
+stretch_fabric(Fabric_after_rotate2, Fabric_after_stretch3),
+rotate_fabric(Fabric_after_stretch3, Fabric_after_rotate3, 'clockwise', 180),
+stretch_fabric(Fabric_after_rotate3, Fabric_final),
+
+
+% To find the difference between the length of the longest and shortest sides, we first need to find the longest and shortest sides
+Fabric_final = [Top_final, Right_final, Bottom_final, Left_final],
+min(Top_final, Right_final, Min1),
+min(Min1, Bottom_final, Min2),
+min(Min2, Left_final, Shortest_side),
+max(Top_final, Right_final, Max1),
+max(Max1, Bottom_final, Max2),
+max(Max2, Left_final, Longest_side),
+
+
+% The difference between the longest and shortest sides is calculated by subtracting the length of the shortest side from the length of the longest side
+Difference is Longest_side - Shortest_side,
+
+
+% Getting the difference as a rounded number to 2 decimal points
+format(atom(Difference_rounded), '~w', [Difference]).
+prolog run result: 0.10663589999999967 problem answer: 0.11
+
+
+
+ID: 37
+{'statement': 'We have a square metal plate divided into four equal subsquares, each colored differently. The plate is oriented such that the top left subsquare is red, and moving clockwise, the subsquares are blue, orange, and purple. An artist begins adding three designs to the top right subsquare and two to the bottom left subsquare. Next, he adds five designs to the top right subsquare. He then adds four designs to each of the two subsquares at the bottom. What is the total number of designs on the red and blue subsquares subtracted from the total number of designs on the orange and purple subsquares?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 0, 'ID of problem in NLR dataset': None, 'answer': -2}
+NOT repeated 
+% Encoding the subsquares as variables with the initial number of designs
+Red_initial is 0,
+Blue_initial is 0,
+Orange_initial is 0,
+Purple_initial is 0,
+
+% The artist begins adding three designs to the top right subsquare (blue) and two to the bottom left subsquare (red)
+Blue_after_first_addition is Blue_initial + 3,
+Red_after_first_addition is Red_initial + 2,
+
+% Next, he adds five designs to the top right subsquare (blue)
+Blue_after_second_addition is Blue_after_first_addition + 5,
+
+% He then adds four designs to each of the two subsquares at the bottom (orange and purple)
+Orange_after_addition is Orange_initial + 4,
+Purple_after_addition is Purple_initial + 4,
+
+% The total number of designs on the red and blue subsquares
+Total_red_blue is Red_after_first_addition + Blue_after_second_addition,
+
+% The total number of designs on the orange and purple subsquares
+Total_orange_purple is Orange_after_addition + Purple_after_addition,
+
+% The total number of designs on the red and blue subsquares subtracted from the total number of designs on the orange and purple subsquares
+problem(Difference) :-
+Difference is Total_orange_purple - Total_red_blue.
+prolog run result: 1 ?-  problem answer: -2
+
+
+
+ID: 37
+{'statement': 'We have a square metal plate divided into four equal subsquares, each colored differently. The plate is oriented such that the top left subsquare is red, and moving clockwise, the subsquares are blue, orange, and purple. An artist begins adding three designs to the top right subsquare and two to the bottom left subsquare. Next, he adds five designs to the top right subsquare. He then adds four designs to each of the two subsquares at the bottom. What is the total number of designs on the red and blue subsquares subtracted from the total number of designs on the orange and purple subsquares?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 0, 'ID of problem in NLR dataset': None, 'answer': -2}
+repeated: 1
+Corrected!!!!!
+% Encoding the four subsquares as distinct variables
+% The initial number of designs on each subsquare is 0
+
+% add_designs encodes the addition of designs to a subsquare
+add_designs(Num_designs, Prev_num_designs, Updated_num_designs):-
+Updated_num_designs is Prev_num_designs + Num_designs.
+
+
+problem(Difference_designs):-
+% Encoding the initial number of designs on each subsquare
+Red_initial is 0,
+Blue_initial is 0,
+Orange_initial is 0,
+Purple_initial is 0,
+
+
+% The artist begins adding three designs to the top right subsquare (blue) and two to the bottom left subsquare (red)
+add_designs(3, Blue_initial, Blue_after_first_addition),
+add_designs(2, Red_initial, Red_after_first_addition),
+
+
+% Next, he adds five designs to the top right subsquare (blue)
+add_designs(5, Blue_after_first_addition, Blue_after_second_addition),
+
+
+% He then adds four designs to each of the two subsquares at the bottom (orange and purple)
+add_designs(4, Orange_initial, Orange_after_addition),
+add_designs(4, Purple_initial, Purple_after_addition),
+
+
+% The total number of designs on the red and blue subsquares
+Total_red_blue is Red_after_first_addition + Blue_after_second_addition,
+
+
+% The total number of designs on the orange and purple subsquares
+Total_orange_purple is Orange_after_addition + Purple_after_addition,
+
+
+% The difference between the total number of designs on the orange and purple subsquares and the total number of designs on the red and blue subsquares
+Difference_designs is Total_orange_purple - Total_red_blue.
+prolog run result: -2 problem answer: -2
+
+
+
+ID: 38
+{'statement': "We have a square metal plate divided into four equal subsquares, each colored differently. The plate is oriented such that the top left subsquare is red, and moving clockwise, the subsquares are blue, orange, and purple. The only way one can move this plate is by holding the top right and bottom left corners and flipping the plate around it's main diagonal, such that only the top right and bottom left corners of the plate are swapped. An artist begins by flipping the square, then he adds three designs to the top right subsquare and two to the bottom left subsquare. Next, he flips the plate again and adds five designs to the 2 subsquares on the right side of the plate. He then flips the plate around in the same way, and adds four designs to each of the two subsquares at the bottom. What is the total number of designs on the red and blue subsquares subtracted from the total number of designs on the orange and purple subsquares?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 1}
+NOT repeated 
+% Encoding the subsquares as variables with their initial color as their names
+% The initial orientation of the plate is such that the top left subsquare is red, and moving clockwise, the subsquares are blue, orange, and purple
+Red_initial is 0,
+Blue_initial is 0,
+Orange_initial is 0,
+Purple_initial is 0,
+
+
+% The artist first flips the plate, swapping the top right and bottom left corners
+% The red subsquare moves to the bottom right, the blue one to the top left, the orange one to the top right, and the purple one to the bottom left
+Red_after_flip1 is Red_initial,
+Blue_after_flip1 is Blue_initial,
+Orange_after_flip1 is Orange_initial,
+Purple_after_flip1 is Purple_initial,
+
+
+% The artist then adds three designs to the top right subsquare and two to the bottom left subsquare
+Orange_after_flip1_designs is Orange_after_flip1 + 3,
+Purple_after_flip1_designs is Purple_after_flip1 + 2,
+
+
+% The artist flips the plate again
+Red_after_flip2 is Orange_after_flip1_designs,
+Blue_after_flip2 is Purple_after_flip1_designs,
+Orange_after_flip2 is Red_after_flip1,
+Purple_after_flip2 is Blue_after_flip1,
+
+
+% The artist then adds five designs to the 2 subsquares on the right side of the plate
+Red_after_flip2_designs is Red_after_flip2 + 5,
+Orange_after_flip2_designs is Orange_after_flip2 + 5,
+
+
+% The artist flips the plate again
+Red_after_flip3 is Orange_after_flip2_designs,
+Blue_after_flip3 is Red_after_flip2_designs,
+Orange_after_flip3 is Blue_after_flip2,
+Purple_after_flip3 is Purple_after_flip2,
+
+
+% The artist then adds four designs to each of the two subsquares at the bottom
+Blue_after_flip3_designs is Blue_after_flip3 + 4,
+Purple_after_flip3_designs is Purple_after_flip3 + 4,
+
+
+% The total number of designs on the red and blue subsquares subtracted from the total number of designs on the orange and purple subsquares is calculated as follows
+problem(Designs_difference):-
+Designs_difference is (Orange_after_flip3 + Purple_after_flip3_designs) - (Red_after_flip3 + Blue_after_flip3_designs).
+prolog run result: 1 ?-  problem answer: 1
+
+
+
+ID: 38
+{'statement': "We have a square metal plate divided into four equal subsquares, each colored differently. The plate is oriented such that the top left subsquare is red, and moving clockwise, the subsquares are blue, orange, and purple. The only way one can move this plate is by holding the top right and bottom left corners and flipping the plate around it's main diagonal, such that only the top right and bottom left corners of the plate are swapped. An artist begins by flipping the square, then he adds three designs to the top right subsquare and two to the bottom left subsquare. Next, he flips the plate again and adds five designs to the 2 subsquares on the right side of the plate. He then flips the plate around in the same way, and adds four designs to each of the two subsquares at the bottom. What is the total number of designs on the red and blue subsquares subtracted from the total number of designs on the orange and purple subsquares?", 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 2, 'ID of problem in NLR dataset': None, 'answer': 1}
+repeated: 1
+Corrected!!!!!
+% Encoding the colors of the subsquares as atoms and the number of designs on each subsquare as integers
+% The initial state of the plate is encoded as a list of 4 elements, each element is a pair of the color of the subsquare and the number of designs on it
+% The order of the elements in the list represents the position of the subsquares on the plate, starting from the top left subsquare and moving clockwise
+% The flip operation is encoded as a predicate that swaps the positions of the top right and bottom left subsquares
+
+
+% flip_plate encodes the flip operation on the plate
+flip_plate(Plate, Flipped_plate):-
+% The plate is a list of 4 elements, each element is a pair of the color of the subsquare and the number of designs on it
+Plate = [Top_left, Top_right, Bottom_right, Bottom_left],
+% The flip operation swaps the positions of the top right and bottom left subsquares
+Flipped_plate = [Top_left, Bottom_left, Bottom_right, Top_right].
+
+
+% add_designs encodes the addition of designs to the subsquares
+% The position of the subsquares to add designs to is given as a list of indices
+add_designs(Plate, Indices, Num_designs, Updated_plate):-
+% If the list of indices is empty, then there are no more subsquares to add designs to
+(Indices = [] ->
+Updated_plate = Plate;
+% Else: there are still subsquares to add designs to
+% Getting the index of the first subsquare to add designs to
+Indices = [Index|Rest_indices],
+% Using nth0 to get the color and number of designs on the subsquare at the given index
+nth0(Index, Plate, [Color, Num_designs_prev]),
+% Adding the new designs to the subsquare
+Num_designs_now is Num_designs_prev + Num_designs,
+% Updating the plate with the new number of designs on the subsquare
+replace(Plate, Index, [Color, Num_designs_now], Plate_after_adding),
+% Recursively adding designs to the rest of the subsquares
+add_designs(Plate_after_adding, Rest_indices, Num_designs, Updated_plate)).
+
+
+% replace is a helper predicate that replaces the element at a given index in a list
+replace([_|T], 0, X, [X|T]).
+replace([H|T], I, X, [H|R]):- I > -1, NI is I-1, replace(T, NI, X, R), !.
+replace(L, _, _, L).
+
+
+problem(Difference_designs):-
+% Encoding the initial state of the plate
+% The plate is a square metal plate divided into four equal subsquares, each colored differently
+% The plate is oriented such that the top left subsquare is red, and moving clockwise, the subsquares are blue, orange, and purple
+% Initially there are no designs on any of the subsquares
+Initial_plate = [['red', 0], ['blue', 0], ['orange', 0], ['purple', 0]],
+
+
+% The artist begins by flipping the square
+flip_plate(Initial_plate, Plate_after_flip1),
+
+
+% Then he adds three designs to the top right subsquare and two to the bottom left subsquare
+% The top right subsquare is at index 1 and the bottom left one is at index 3
+add_designs(Plate_after_flip1, [1], 3, Plate_after_adding1),
+add_designs(Plate_after_adding1, [3], 2, Plate_after_adding2),
+
+
+% Next, he flips the plate again
+flip_plate(Plate_after_adding2, Plate_after_flip2),
+
+
+% And adds five designs to the 2 subsquares on the right side of the plate
+% The subsquares on the right side of the plate are at indices 1 and 2
+add_designs(Plate_after_flip2, [1, 2], 5, Plate_after_adding3),
+
+
+% He then flips the plate around in the same way
+flip_plate(Plate_after_adding3, Plate_after_flip3),
+
+
+% And adds four designs to each of the two subsquares at the bottom
+% The subsquares at the bottom of the plate are at indices 2 and 3
+add_designs(Plate_after_flip3, [2, 3], 4, Plate_after_adding4),
+
+
+% To find the total number of designs on the red and blue subsquares subtracted from the total number of designs on the orange and purple subsquares
+% We first need to find the number of designs on each colored subsquare
+% Using member to find the pair of the color and number of designs for each colored subsquare
+member(['red', Num_designs_red], Plate_after_adding4),
+member(['blue', Num_designs_blue], Plate_after_adding4),
+member(['orange', Num_designs_orange], Plate_after_adding4),
+member(['purple', Num_designs_purple], Plate_after_adding4),
+
+
+% Then we calculate the total number of designs on the red and blue subsquares and the total number of designs on the orange and purple subsquares
+Total_designs_red_blue is Num_designs_red + Num_designs_blue,
+Total_designs_orange_purple is Num_designs_orange + Num_designs_purple,
+
+
+% Finally we subtract the total number of designs on the red and blue subsquares from the total number of designs on the orange and purple subsquares
+Difference_designs is Total_designs_orange_purple - Total_designs_red_blue.
+prolog run result: 1 problem answer: 1
+
+
+
+ID: 39
+{'statement': 'We have a metal plate shaped like an equilateral triangle, divided into 3 equal sub-triangle, each colored differently. The plate is oriented such that the top left sub-triangle is red, and the top right sub-triangle is blue, and the bottom sub-triangle is purple. An artist begins by rotating the plate 120 degrees clockwise, then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle. Next, he rotates the plate 120 degrees clockwise again and adds five designs to the top right sub-triangle. He then rotates the plate 120 degrees counterclockwise, and adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle. What is the total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple  sub-triangle?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 3, 'ID of problem in NLR dataset': None, 'answer': 1}
+NOT repeated 
+% Encoding the initial state of the plate with the number of designs on each sub-triangle
+% The sub-triangles are initially empty
+Red_initial is 0,
+Blue_initial is 0,
+Purple_initial is 0,
+
+
+% The artist first rotates the plate 120 degrees clockwise
+% The red sub-triangle moves to the bottom, the blue one moves to the top left, and the purple one moves to the top right
+% Then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle
+Red_after_first_rotation is Red_initial + 2,
+Blue_after_first_rotation is Blue_initial,
+Purple_after_first_rotation is Purple_initial + 3,
+
+
+% The artist rotates the plate 120 degrees clockwise again
+% The red sub-triangle moves to the top right, the blue one moves to the bottom, and the purple one moves to the top left
+% Then he adds five designs to the top right sub-triangle
+Red_after_second_rotation is Red_after_first_rotation + 5,
+Blue_after_second_rotation is Blue_after_first_rotation,
+Purple_after_second_rotation is Purple_after_first_rotation,
+
+
+% The artist rotates the plate 120 degrees counterclockwise
+% The red sub-triangle moves to the top left, the blue one moves to the top right, and the purple one moves to the bottom
+% Then he adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle
+Red_final is Red_after_second_rotation + 3,
+Blue_final is Blue_after_second_rotation,
+Purple_final is Purple_after_second_rotation + 4,
+
+
+% The total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple sub-triangle
+problem(Designs_difference):-
+Designs_difference is Purple_final - (Red_final + Blue_final).
+prolog run result: 1 ?-  problem answer: 1
+
+
+
+ID: 39
+{'statement': 'We have a metal plate shaped like an equilateral triangle, divided into 3 equal sub-triangle, each colored differently. The plate is oriented such that the top left sub-triangle is red, and the top right sub-triangle is blue, and the bottom sub-triangle is purple. An artist begins by rotating the plate 120 degrees clockwise, then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle. Next, he rotates the plate 120 degrees clockwise again and adds five designs to the top right sub-triangle. He then rotates the plate 120 degrees counterclockwise, and adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle. What is the total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple  sub-triangle?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 3, 'ID of problem in NLR dataset': None, 'answer': 1}
+repeated: 1
+% Encoding the initial state of the plate with the number of designs on each sub-triangle
+% The sub-triangles are initially empty
+Red_initial is 0,
+Blue_initial is 0,
+Purple_initial is 0,
+
+
+% The artist first rotates the plate 120 degrees clockwise
+% The red sub-triangle moves to the bottom, the blue one moves to the top left, and the purple one moves to the top right
+% Then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle
+Red_after_first_rotation is Red_initial + 2,
+Blue_after_first_rotation is Blue_initial,
+Purple_after_first_rotation is Purple_initial + 3,
+
+
+% The artist rotates the plate 120 degrees clockwise again
+% The red sub-triangle moves to the top right, the blue one moves to the bottom, and the purple one moves to the top left
+% Then he adds five designs to the top right sub-triangle
+Red_after_second_rotation is Red_after_first_rotation + 5,
+Blue_after_second_rotation is Blue_after_first_rotation,
+Purple_after_second_rotation is Purple_after_first_rotation,
+
+
+% The artist rotates the plate 120 degrees counterclockwise
+% The red sub-triangle moves to the top left, the blue one moves to the top right, and the purple one moves to the bottom
+% Then he adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle
+Red_after_third_rotation is Red_after_second_rotation + 3,
+Blue_after_third_rotation is Blue_after_second_rotation,
+Purple_after_third_rotation is Purple_after_second_rotation + 4,
+
+
+% The total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple sub-triangle
+problem(Designs_difference):-
+Designs_difference is Purple_after_third_rotation - (Red_after_third_rotation + Blue_after_third_rotation).
+prolog run result: 1 ?-  problem answer: 1
+
+
+
+ID: 39
+{'statement': 'We have a metal plate shaped like an equilateral triangle, divided into 3 equal sub-triangle, each colored differently. The plate is oriented such that the top left sub-triangle is red, and the top right sub-triangle is blue, and the bottom sub-triangle is purple. An artist begins by rotating the plate 120 degrees clockwise, then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle. Next, he rotates the plate 120 degrees clockwise again and adds five designs to the top right sub-triangle. He then rotates the plate 120 degrees counterclockwise, and adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle. What is the total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple  sub-triangle?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 3, 'ID of problem in NLR dataset': None, 'answer': 1}
+repeated: 2
+% Encoding the initial state of the plate with the number of designs on each sub-triangle
+% The sub-triangles are initially empty
+Red_initial is 0,
+Blue_initial is 0,
+Purple_initial is 0,
+
+
+% The artist first rotates the plate 120 degrees clockwise
+% The red sub-triangle moves to the bottom, the blue one moves to the top left, and the purple one moves to the top right
+% Then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle
+Red_after_first_rotation is Red_initial + 2,
+Blue_after_first_rotation is Blue_initial,
+Purple_after_first_rotation is Purple_initial + 3,
+
+
+% The artist rotates the plate 120 degrees clockwise again
+% The red sub-triangle moves to the top right, the blue one moves to the bottom, and the purple one moves to the top left
+% Then he adds five designs to the top right sub-triangle
+Red_after_second_rotation is Red_after_first_rotation + 5,
+Blue_after_second_rotation is Blue_after_first_rotation,
+Purple_after_second_rotation is Purple_after_first_rotation,
+
+
+% The artist rotates the plate 120 degrees counterclockwise
+% The red sub-triangle moves to the top left, the blue one moves to the top right, and the purple one moves to the bottom
+% Then he adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle
+Red_final is Red_after_second_rotation + 3,
+Blue_final is Blue_after_second_rotation,
+Purple_final is Purple_after_second_rotation + 4,
+
+
+% The total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple sub-triangle
+problem(Designs_difference):-
+Designs_difference is Purple_final - (Red_final + Blue_final).
+prolog run result: 1 ?-  problem answer: 1
+
+
+
+ID: 39
+{'statement': 'We have a metal plate shaped like an equilateral triangle, divided into 3 equal sub-triangle, each colored differently. The plate is oriented such that the top left sub-triangle is red, and the top right sub-triangle is blue, and the bottom sub-triangle is purple. An artist begins by rotating the plate 120 degrees clockwise, then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle. Next, he rotates the plate 120 degrees clockwise again and adds five designs to the top right sub-triangle. He then rotates the plate 120 degrees counterclockwise, and adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle. What is the total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple  sub-triangle?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 3, 'ID of problem in NLR dataset': None, 'answer': 1}
+repeated: 3
+% Encoding the initial state of the plate with the number of designs on each sub-triangle
+% The sub-triangles are initially empty
+Red_initial is 0,
+Blue_initial is 0,
+Purple_initial is 0,
+
+
+% The artist first rotates the plate 120 degrees clockwise
+% The red sub-triangle moves to the bottom, the blue one moves to the top left, and the purple one moves to the top right
+% Then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle
+Red_after_first_rotation is Red_initial + 2,
+Blue_after_first_rotation is Blue_initial,
+Purple_after_first_rotation is Purple_initial + 3,
+
+
+% The artist rotates the plate 120 degrees clockwise again
+% The red sub-triangle moves to the top right, the blue one moves to the bottom, and the purple one moves to the top left
+% Then he adds five designs to the top right sub-triangle
+Red_after_second_rotation is Red_after_first_rotation + 5,
+Blue_after_second_rotation is Blue_after_first_rotation,
+Purple_after_second_rotation is Purple_after_first_rotation,
+
+
+% The artist rotates the plate 120 degrees counterclockwise
+% The red sub-triangle moves to the top left, the blue one moves to the top right, and the purple one moves to the bottom
+% Then he adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle
+Red_final is Red_after_second_rotation + 3,
+Blue_final is Blue_after_second_rotation,
+Purple_final is Purple_after_second_rotation + 4,
+
+
+% The total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple sub-triangle
+problem(Designs_difference):-
+Designs_difference is Purple_final - (Red_final + Blue_final).
+prolog run result: 1 ?-  problem answer: 1
+
+
+
+ID: 39
+{'statement': 'We have a metal plate shaped like an equilateral triangle, divided into 3 equal sub-triangle, each colored differently. The plate is oriented such that the top left sub-triangle is red, and the top right sub-triangle is blue, and the bottom sub-triangle is purple. An artist begins by rotating the plate 120 degrees clockwise, then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle. Next, he rotates the plate 120 degrees clockwise again and adds five designs to the top right sub-triangle. He then rotates the plate 120 degrees counterclockwise, and adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle. What is the total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple  sub-triangle?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 3, 'ID of problem in NLR dataset': None, 'answer': 1}
+repeated: 4
+% Encoding the initial state of the plate with the number of designs on each sub-triangle
+% The sub-triangles are initially empty
+Red_initial is 0,
+Blue_initial is 0,
+Purple_initial is 0,
+
+
+% The artist first rotates the plate 120 degrees clockwise
+% The red sub-triangle moves to the bottom, the blue one to the top left, and the purple one to the top right
+% Then he adds 3 designs to the top right sub-triangle (purple) and 2 to the bottom sub-triangle (red)
+Purple_after_first_rotation is Purple_initial + 3,
+Red_after_first_rotation is Red_initial + 2,
+Blue_after_first_rotation is Blue_initial,
+
+
+% The artist rotates the plate 120 degrees clockwise again
+% The red sub-triangle moves to the top right, the blue one to the bottom, and the purple one to the top left
+% Then he adds 5 designs to the top right sub-triangle (red)
+Red_after_second_rotation is Red_after_first_rotation + 5,
+Blue_after_second_rotation is Blue_after_first_rotation,
+Purple_after_second_rotation is Purple_after_first_rotation,
+
+
+% The artist rotates the plate 120 degrees counterclockwise
+% The red sub-triangle moves to the top left, the blue one to the top right, and the purple one to the bottom
+% Then he adds 4 designs to the bottom sub-triangle (purple) and 3 designs to the top left sub-triangle (red)
+Red_after_third_rotation is Red_after_second_rotation + 3,
+Blue_after_third_rotation is Blue_after_second_rotation,
+Purple_after_third_rotation is Purple_after_second_rotation + 4,
+
+
+% The total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple sub-triangle
+problem(Designs_difference):-
+Designs_difference is Purple_after_third_rotation - (Red_after_third_rotation + Blue_after_third_rotation).
+prolog run result: 1 ?-  problem answer: 1
+
+
+
+ID: 39
+{'statement': 'We have a metal plate shaped like an equilateral triangle, divided into 3 equal sub-triangle, each colored differently. The plate is oriented such that the top left sub-triangle is red, and the top right sub-triangle is blue, and the bottom sub-triangle is purple. An artist begins by rotating the plate 120 degrees clockwise, then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle. Next, he rotates the plate 120 degrees clockwise again and adds five designs to the top right sub-triangle. He then rotates the plate 120 degrees counterclockwise, and adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle. What is the total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple  sub-triangle?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 3, 'ID of problem in NLR dataset': None, 'answer': 1}
+repeated: 5
+% Encoding the initial state of the plate with the number of designs on each sub-triangle
+% The sub-triangles are initially empty
+Red_initial is 0,
+Blue_initial is 0,
+Purple_initial is 0,
+
+
+% The artist first rotates the plate 120 degrees clockwise
+% The red sub-triangle moves to the bottom, the blue one moves to the top left, and the purple one moves to the top right
+% Then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle
+Red_after_first_rotation is Red_initial + 2,
+Blue_after_first_rotation is Blue_initial,
+Purple_after_first_rotation is Purple_initial + 3,
+
+
+% The artist rotates the plate 120 degrees clockwise again
+% The red sub-triangle moves to the top right, the blue one moves to the bottom, and the purple one moves to the top left
+% Then he adds five designs to the top right sub-triangle
+Red_after_second_rotation is Red_after_first_rotation + 5,
+Blue_after_second_rotation is Blue_after_first_rotation,
+Purple_after_second_rotation is Purple_after_first_rotation,
+
+
+% The artist rotates the plate 120 degrees counterclockwise
+% The red sub-triangle moves to the top left, the blue one moves to the top right, and the purple one moves to the bottom
+% Then he adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle
+Red_after_third_rotation is Red_after_second_rotation + 3,
+Blue_after_third_rotation is Blue_after_second_rotation,
+Purple_after_third_rotation is Purple_after_second_rotation + 4,
+
+
+% The total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple sub-triangle
+problem(Designs_difference):-
+Designs_difference is Purple_after_third_rotation - (Red_after_third_rotation + Blue_after_third_rotation).
+prolog run result: 1 ?-  problem answer: 1
+
+
+
+ID: 39
+{'statement': 'We have a metal plate shaped like an equilateral triangle, divided into 3 equal sub-triangle, each colored differently. The plate is oriented such that the top left sub-triangle is red, and the top right sub-triangle is blue, and the bottom sub-triangle is purple. An artist begins by rotating the plate 120 degrees clockwise, then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle. Next, he rotates the plate 120 degrees clockwise again and adds five designs to the top right sub-triangle. He then rotates the plate 120 degrees counterclockwise, and adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle. What is the total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple  sub-triangle?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 3, 'ID of problem in NLR dataset': None, 'answer': 1}
+repeated: 6
+% Encoding the initial state of the plate with the number of designs on each sub-triangle
+% The sub-triangles are initially empty
+Red_initial is 0,
+Blue_initial is 0,
+Purple_initial is 0,
+
+
+% The artist first rotates the plate 120 degrees clockwise
+% The red sub-triangle moves to the bottom, the blue one moves to the top left, and the purple one moves to the top right
+% Then he adds 3 designs to the top right sub-triangle, which is now the purple one, and 2 designs to the bottom sub-triangle, which is now the red one
+Purple_after_first_rotation is Purple_initial + 3,
+Red_after_first_rotation is Red_initial + 2,
+Blue_after_first_rotation is Blue_initial,
+
+
+% The artist rotates the plate 120 degrees clockwise again
+% The red sub-triangle moves to the top right, the blue one moves to the bottom, and the purple one moves to the top left
+% Then he adds 5 designs to the top right sub-triangle, which is now the red one
+Red_after_second_rotation is Red_after_first_rotation + 5,
+Blue_after_second_rotation is Blue_after_first_rotation,
+Purple_after_second_rotation is Purple_after_first_rotation,
+
+
+% The artist rotates the plate 120 degrees counterclockwise
+% The red sub-triangle moves to the top left, the blue one moves to the top right, and the purple one moves to the bottom
+% Then he adds 4 designs to the bottom sub-triangle, which is now the purple one, and 3 designs to the top left sub-triangle, which is now the red one
+Red_after_third_rotation is Red_after_second_rotation + 3,
+Blue_after_third_rotation is Blue_after_second_rotation,
+Purple_after_third_rotation is Purple_after_second_rotation + 4,
+
+
+% The total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple sub-triangle
+Total_designs_difference is Purple_after_third_rotation - (Red_after_third_rotation + Blue_after_third_rotation).
+
+
+problem(Total_designs_difference).
+prolog run result: _6854 problem answer: 1
+
+
+
+ID: 39
+{'statement': 'We have a metal plate shaped like an equilateral triangle, divided into 3 equal sub-triangle, each colored differently. The plate is oriented such that the top left sub-triangle is red, and the top right sub-triangle is blue, and the bottom sub-triangle is purple. An artist begins by rotating the plate 120 degrees clockwise, then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle. Next, he rotates the plate 120 degrees clockwise again and adds five designs to the top right sub-triangle. He then rotates the plate 120 degrees counterclockwise, and adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle. What is the total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple  sub-triangle?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 3, 'ID of problem in NLR dataset': None, 'answer': 1}
+repeated: 7
+% Encoding the initial state of the plate with the number of designs on each sub-triangle
+% The sub-triangles are initially empty
+Red_initial is 0,
+Blue_initial is 0,
+Purple_initial is 0,
+
+
+% The artist first rotates the plate 120 degrees clockwise
+% The red sub-triangle moves to the bottom, the blue one moves to the top left, and the purple one moves to the top right
+% Then he adds 3 designs to the top right sub-triangle (purple) and 2 to the bottom sub-triangle (red)
+Purple_after_first_rotation is Purple_initial + 3,
+Red_after_first_rotation is Red_initial + 2,
+Blue_after_first_rotation is Blue_initial,
+
+
+% The artist rotates the plate 120 degrees clockwise again
+% The red sub-triangle moves to the top right, the blue one moves to the bottom, and the purple one moves to the top left
+% Then he adds 5 designs to the top right sub-triangle (red)
+Red_after_second_rotation is Red_after_first_rotation + 5,
+Blue_after_second_rotation is Blue_after_first_rotation,
+Purple_after_second_rotation is Purple_after_first_rotation,
+
+
+% The artist rotates the plate 120 degrees counterclockwise
+% The red sub-triangle moves to the top left, the blue one moves to the top right, and the purple one moves to the bottom
+% Then he adds 4 designs to the sub-triangle at the bottom (purple) and 3 designs to the top left sub-triangle (red)
+Red_after_third_rotation is Red_after_second_rotation + 3,
+Blue_after_third_rotation is Blue_after_second_rotation,
+Purple_after_third_rotation is Purple_after_second_rotation + 4,
+
+
+% The total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple sub-triangle
+problem(Designs_difference):-
+Designs_difference is Purple_after_third_rotation - (Red_after_third_rotation + Blue_after_third_rotation).
+prolog run result: 1 ?-  problem answer: 1
+
+
+
+ID: 39
+{'statement': 'We have a metal plate shaped like an equilateral triangle, divided into 3 equal sub-triangle, each colored differently. The plate is oriented such that the top left sub-triangle is red, and the top right sub-triangle is blue, and the bottom sub-triangle is purple. An artist begins by rotating the plate 120 degrees clockwise, then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle. Next, he rotates the plate 120 degrees clockwise again and adds five designs to the top right sub-triangle. He then rotates the plate 120 degrees counterclockwise, and adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle. What is the total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple  sub-triangle?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 3, 'ID of problem in NLR dataset': None, 'answer': 1}
+repeated: 8
+% Encoding the initial state of the plate with the number of designs on each sub-triangle
+% The sub-triangles are initially empty
+Red_initial is 0,
+Blue_initial is 0,
+Purple_initial is 0,
+
+
+% The artist first rotates the plate 120 degrees clockwise
+% The red sub-triangle moves to the bottom, the blue one to the top left, and the purple one to the top right
+% Then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle
+Red_after_rotation1 is Red_initial + 2,
+Blue_after_rotation1 is Blue_initial,
+Purple_after_rotation1 is Purple_initial + 3,
+
+
+% The artist rotates the plate 120 degrees clockwise again
+% The red sub-triangle moves to the top right, the blue one to the bottom, and the purple one to the top left
+% Then he adds five designs to the top right sub-triangle
+Red_after_rotation2 is Red_after_rotation1 + 5,
+Blue_after_rotation2 is Blue_after_rotation1,
+Purple_after_rotation2 is Purple_after_rotation1,
+
+
+% The artist rotates the plate 120 degrees counterclockwise
+% The red sub-triangle moves to the top left, the blue one to the top right, and the purple one to the bottom
+% Then he adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle
+Red_after_rotation3 is Red_after_rotation2 + 3,
+Blue_after_rotation3 is Blue_after_rotation2,
+Purple_after_rotation3 is Purple_after_rotation2 + 4,
+
+
+% The total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple sub-triangle
+problem(Designs_difference):-
+Designs_difference is Purple_after_rotation3 - (Red_after_rotation3 + Blue_after_rotation3).
+prolog run result: 1 ?-  problem answer: 1
+
+
+
+ID: 39
+{'statement': 'We have a metal plate shaped like an equilateral triangle, divided into 3 equal sub-triangle, each colored differently. The plate is oriented such that the top left sub-triangle is red, and the top right sub-triangle is blue, and the bottom sub-triangle is purple. An artist begins by rotating the plate 120 degrees clockwise, then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle. Next, he rotates the plate 120 degrees clockwise again and adds five designs to the top right sub-triangle. He then rotates the plate 120 degrees counterclockwise, and adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle. What is the total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple  sub-triangle?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 3, 'ID of problem in NLR dataset': None, 'answer': 1}
+repeated: 9
+% Encoding the initial state of the plate with the number of designs on each sub-triangle
+% The sub-triangles are initially empty
+Red_initial is 0,
+Blue_initial is 0,
+Purple_initial is 0,
+
+
+% The artist first rotates the plate 120 degrees clockwise
+% The red sub-triangle moves to the bottom, the blue one to the top left, and the purple one to the top right
+% Then he adds 3 designs to the top right sub-triangle (purple) and 2 to the bottom sub-triangle (red)
+Red_after_first_rotation is Red_initial + 2,
+Blue_after_first_rotation is Blue_initial,
+Purple_after_first_rotation is Purple_initial + 3,
+
+
+% The artist rotates the plate 120 degrees clockwise again
+% The red sub-triangle moves to the top right, the blue one to the bottom, and the purple one to the top left
+% Then he adds 5 designs to the top right sub-triangle (red)
+Red_after_second_rotation is Red_after_first_rotation + 5,
+Blue_after_second_rotation is Blue_after_first_rotation,
+Purple_after_second_rotation is Purple_after_first_rotation,
+
+
+% The artist rotates the plate 120 degrees counterclockwise
+% The red sub-triangle moves to the top left, the blue one to the top right, and the purple one to the bottom
+% Then he adds 4 designs to the bottom sub-triangle (purple) and 3 designs to the top left sub-triangle (red)
+Red_after_third_rotation is Red_after_second_rotation + 3,
+Blue_after_third_rotation is Blue_after_second_rotation,
+Purple_after_third_rotation is Purple_after_second_rotation + 4,
+
+
+% The total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple sub-triangle
+problem(Designs_difference):-
+Designs_difference is Purple_after_third_rotation - (Red_after_third_rotation + Blue_after_third_rotation).
+prolog run result: 1 ?-  problem answer: 1
+
+
+
+ID: 39
+{'statement': 'We have a metal plate shaped like an equilateral triangle, divided into 3 equal sub-triangle, each colored differently. The plate is oriented such that the top left sub-triangle is red, and the top right sub-triangle is blue, and the bottom sub-triangle is purple. An artist begins by rotating the plate 120 degrees clockwise, then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle. Next, he rotates the plate 120 degrees clockwise again and adds five designs to the top right sub-triangle. He then rotates the plate 120 degrees counterclockwise, and adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle. What is the total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple  sub-triangle?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 3, 'ID of problem in NLR dataset': None, 'answer': -1}
+repeated: 10
+Corrected!!!!!
+% Encoding the initial state of the plate as a list of 3 elements, each representing a sub-triangle. The first element is the top left sub-triangle, the second is the top right sub-triangle, and the third is the bottom sub-triangle. The initial color of each sub-triangle is also encoded as a list of 3 elements in the same order. The number of designs on each sub-triangle is initially 0.
+
+% rotate_plate_clockwise encodes the rotation of the plate 120 degrees clockwise. The color and number of designs on each sub-triangle are updated.
+rotate_plate_clockwise(Colors_prev, Designs_prev, Colors_now, Designs_now):-
+% The color of the top left sub-triangle becomes the color of the bottom sub-triangle, the color of the top right sub-triangle becomes the color of the top left sub-triangle, and the color of the bottom sub-triangle becomes the color of the top right sub-triangle
+Colors_prev = [Color_top_left_prev, Color_top_right_prev, Color_bottom_prev],
+Colors_now = [Color_bottom_prev, Color_top_left_prev, Color_top_right_prev],
+% The number of designs on each sub-triangle is also updated in the same way
+Designs_prev = [Designs_top_left_prev, Designs_top_right_prev, Designs_bottom_prev],
+Designs_now = [Designs_bottom_prev, Designs_top_left_prev, Designs_top_right_prev].
+
+
+% rotate_plate_counterclockwise encodes the rotation of the plate 120 degrees counterclockwise. The color and number of designs on each sub-triangle are updated.
+rotate_plate_counterclockwise(Colors_prev, Designs_prev, Colors_now, Designs_now):-
+% The color of the top left sub-triangle becomes the color of the top right sub-triangle, the color of the top right sub-triangle becomes the color of the bottom sub-triangle, and the color of the bottom sub-triangle becomes the color of the top left sub-triangle
+Colors_prev = [Color_top_left_prev, Color_top_right_prev, Color_bottom_prev],
+Colors_now = [Color_top_right_prev, Color_bottom_prev, Color_top_left_prev],
+% The number of designs on each sub-triangle is also updated in the same way
+Designs_prev = [Designs_top_left_prev, Designs_top_right_prev, Designs_bottom_prev],
+Designs_now = [Designs_top_right_prev, Designs_bottom_prev, Designs_top_left_prev].
+
+
+% add_designs encodes the addition of designs to the sub-triangles. The number of designs to add to each sub-triangle is passed as a list of 3 elements.
+add_designs(Designs_to_add, Designs_prev, Designs_now):-
+Designs_to_add = [Designs_to_add_top_left, Designs_to_add_top_right, Designs_to_add_bottom],
+Designs_prev = [Designs_top_left_prev, Designs_top_right_prev, Designs_bottom_prev],
+% The number of designs on each sub-triangle is updated by adding the number of designs to add
+Designs_top_left_now is Designs_top_left_prev + Designs_to_add_top_left,
+Designs_top_right_now is Designs_top_right_prev + Designs_to_add_top_right,
+Designs_bottom_now is Designs_bottom_prev + Designs_to_add_bottom,
+Designs_now = [Designs_top_left_now, Designs_top_right_now, Designs_bottom_now].
+
+
+problem(Difference_designs):-
+% Encoding the initial state of the plate
+Colors_initial = ['red', 'blue', 'purple'],
+Designs_initial = [0, 0, 0],
+
+
+% The artist begins by rotating the plate 120 degrees clockwise
+rotate_plate_clockwise(Colors_initial, Designs_initial, Colors_after_rotation1, Designs_after_rotation1),
+
+
+% Then he adds three designs to the top right sub-triangle and two to the bottom sub-triangle
+add_designs([0, 3, 2], Designs_after_rotation1, Designs_after_adding1),
+
+
+% Next, he rotates the plate 120 degrees clockwise again
+rotate_plate_clockwise(Colors_after_rotation1, Designs_after_adding1, Colors_after_rotation2, Designs_after_rotation2),
+
+
+% And adds five designs to the top right sub-triangle
+add_designs([0, 5, 0], Designs_after_rotation2, Designs_after_adding2),
+
+
+% He then rotates the plate 120 degrees counterclockwise
+rotate_plate_counterclockwise(Colors_after_rotation2, Designs_after_adding2, Colors_after_rotation3, Designs_after_rotation3),
+
+
+% And adds four designs to the sub-triangle at the bottom and 3 designs to the top left sub-triangle
+add_designs([3, 0, 4], Designs_after_rotation3, Designs_final),
+
+
+% To find the total number of designs on the red and blue sub-triangle subtracted from the number of designs on the purple sub-triangle, we first need to find the final number of designs on each colored sub-triangle
+Colors_after_rotation3 = [Color_top_left_final, Color_top_right_final, Color_bottom_final],
+Designs_final = [Designs_top_left_final, Designs_top_right_final, Designs_bottom_final],
+% If the color of a sub-triangle is red, blue, or purple, we update the number of designs on the red, blue, or purple sub-triangle respectively
+(Color_top_left_final = 'red' -> Designs_red_final is Designs_top_left_final; Color_top_right_final = 'red' -> Designs_red_final is Designs_top_right_final; Color_bottom_final = 'red' -> Designs_red_final is Designs_bottom_final),
+(Color_top_left_final = 'blue' -> Designs_blue_final is Designs_top_left_final; Color_top_right_final = 'blue' -> Designs_blue_final is Designs_top_right_final; Color_bottom_final = 'blue' -> Designs_blue_final is Designs_bottom_final),
+(Color_top_left_final = 'purple' -> Designs_purple_final is Designs_top_left_final; Color_top_right_final = 'purple' -> Designs_purple_final is Designs_top_right_final; Color_bottom_final = 'purple' -> Designs_purple_final is Designs_bottom_final),
+
+
+% Finally, we calculate the difference between the number of designs on the purple sub-triangle and the sum of the number of designs on the red and blue sub-triangles
+Difference_designs is Designs_purple_final - (Designs_red_final + Designs_blue_final).
+prolog run result: -1 problem answer: -1
+
+
+
+ID: 40
+{'statement': 'We have a square metal plate divided into four equal subsquares, each colored differently. The plate is oriented such that the top left subsquare is red, and moving clockwise, the subsquares are blue, orange, and purple. An artist begins by rotating the plate 180 degrees clockwise, then he adds three designs to the top right subsquare and two to the bottom left subsquare. Next, he flips the plate around the top left bottom right diagonal of the square and adds five designs to the top right subsquare. He then rotates the plate 90 degrees counterclockwise, flips it around in the same way, and adds four designs to each of the two subsquares at the bottom. What is the total number of designs on the red and blue subsquares subtracted from the total number of designs on the orange and purple subsquares?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 4, 'ID of problem in NLR dataset': 53, 'answer': -4}
+NOT repeated 
+% Encoding the colors of the subsquares as atoms and the number of designs as integers
+% The initial state of the plate is encoded as a list of 4 elements, each element is a pair of the color of the subsquare and the number of designs on it
+% The order of the elements in the list represents the position of the subsquares on the plate, starting from the top left subsquare and moving clockwise
+
+
+% rotate_plate_180 encodes the rotation of the plate by 180 degrees
+rotate_plate_180(Plate, Rotated_plate):-
+% The rotation by 180 degrees swaps the positions of the top left and bottom right subsquares and the top right and bottom left subsquares
+Plate = [Top_left, Top_right, Bottom_right, Bottom_left],
+Rotated_plate = [Bottom_right, Bottom_left, Top_left, Top_right].
+
+
+% rotate_plate_90_ccw encodes the rotation of the plate by 90 degrees counterclockwise
+rotate_plate_90_ccw(Plate, Rotated_plate):-
+% The rotation by 90 degrees counterclockwise moves the top left subsquare to the top right, the top right to the bottom right, the bottom right to the bottom left, and the bottom left to the top left
+Plate = [Top_left, Top_right, Bottom_right, Bottom_left],
+Rotated_plate = [Bottom_left, Top_left, Top_right, Bottom_right].
+
+
+% flip_plate encodes the flipping of the plate around the top left bottom right diagonal
+flip_plate(Plate, Flipped_plate):-
+% The flipping swaps the positions of the top right and bottom left subsquares and the top left and bottom right subsquares
+Plate = [Top_left, Top_right, Bottom_right, Bottom_left],
+Flipped_plate = [Bottom_right, Bottom_left, Top_left, Top_right].
+
+
+% add_designs encodes the addition of designs to a subsquare
+add_designs(Num_designs, Subsquare, Subsquare_updated):-
+% The number of designs on the subsquare is incremented by the number of designs added
+Subsquare = (Color, Num_designs_prev),
+Num_designs_now is Num_designs_prev + Num_designs,
+Subsquare_updated = (Color, Num_designs_now).
+
+
+problem(Difference_designs):-
+% Encoding the initial state of the plate
+Initial_plate = [('red', 0), ('blue', 0), ('orange', 0), ('purple', 0)],
+
+
+% The artist begins by rotating the plate 180 degrees clockwise
+rotate_plate_180(Initial_plate, Plate_after_rotation1),
+
+
+% Then he adds three designs to the top right subsquare and two to the bottom left subsquare
+Plate_after_rotation1 = [Top_left1, Top_right1, Bottom_right1, Bottom_left1],
+add_designs(3, Top_right1, Top_right1_updated),
+add_designs(2, Bottom_left1, Bottom_left1_updated),
+Plate_after_designs1 = [Top_left1, Top_right1_updated, Bottom_right1, Bottom_left1_updated],
+
+
+% Next, he flips the plate around the top left bottom right diagonal of the square
+flip_plate(Plate_after_designs1, Plate_after_flip1),
+
+
+% And adds five designs to the top right subsquare
+Plate_after_flip1 = [Top_left2, Top_right2, Bottom_right2, Bottom_left2],
+add_designs(5, Top_right2, Top_right2_updated),
+Plate_after_designs2 = [Top_left2, Top_right2_updated, Bottom_right2, Bottom_left2],
+
+
+% He then rotates the plate 90 degrees counterclockwise
+rotate_plate_90_ccw(Plate_after_designs2, Plate_after_rotation2),
+
+
+% Flips it around in the same way
+flip_plate(Plate_after_rotation2, Plate_after_flip2),
+
+
+% And adds four designs to each of the two subsquares at the bottom
+Plate_after_flip2 = [Top_left3, Top_right3, Bottom_right3, Bottom_left3],
+add_designs(4, Bottom_right3, Bottom_right3_updated),
+add_designs(4, Bottom_left3, Bottom_left3_updated),
+Final_plate = [Top_left3, Top_right3, Bottom_right3_updated, Bottom_left3_updated],
+
+
+% To find the total number of designs on the red and blue subsquares subtracted from the total number of designs on the orange and purple subsquares
+% We first need to find the final number of designs on each colored subsquare
+Final_plate = [(Color1, Num_designs1), (Color2, Num_designs2), (Color3, Num_designs3), (Color4, Num_designs4)],
+
+
+% Then we calculate the total number of designs on the red and blue subsquares and the total number of designs on the orange and purple subsquares
+((Color1 = 'red'; Color1 = 'blue') -> Red_blue_designs is Num_designs1; (Color1 = 'orange'; Color1 = 'purple') -> Orange_purple_designs is Num_designs1),
+((Color2 = 'red'; Color2 = 'blue') -> Red_blue_designs is Red_blue_designs + Num_designs2; (Color2 = 'orange'; Color2 = 'purple') -> Orange_purple_designs is Orange_purple_designs + Num_designs2),
+((Color3 = 'red'; Color3 = 'blue') -> Red_blue_designs is Red_blue_designs + Num_designs3; (Color3 = 'orange'; Color3 = 'purple') -> Orange_purple_designs is Orange_purple_designs + Num_designs3),
+((Color4 = 'red'; Color4 = 'blue') -> Red_blue_designs is Red_blue_designs + Num_designs4; (Color4 = 'orange'; Color4 = 'purple') -> Orange_purple_designs is Orange_purple_designs + Num_designs4),
+
+
+% Finally, we subtract the total number of designs on the red and blue subsquares from the total number of designs on the orange and purple subsquares
+Difference_designs is Orange_purple_designs - Red_blue_designs.
+prolog run result: 1 ?-  problem answer: -4
+
+
+
+ID: 40
+{'statement': 'We have a square metal plate divided into four equal subsquares, each colored differently. The plate is oriented such that the top left subsquare is red, and moving clockwise, the subsquares are blue, orange, and purple. An artist begins by rotating the plate 180 degrees clockwise, then he adds three designs to the top right subsquare and two to the bottom left subsquare. Next, he flips the plate around the top left bottom right diagonal of the square and adds five designs to the top right subsquare. He then rotates the plate 90 degrees counterclockwise, flips it around in the same way, and adds four designs to each of the two subsquares at the bottom. What is the total number of designs on the red and blue subsquares subtracted from the total number of designs on the orange and purple subsquares?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 4, 'ID of problem in NLR dataset': 53, 'answer': -4}
+repeated: 1
+% Encoding the colors of the subsquares as atoms and the number of designs as integers
+% The initial state of the plate is encoded as a list of 4 elements, each element is a pair of the color of the subsquare and the number of designs on it
+% The order of the elements in the list represents the position of the subsquares on the plate, starting from the top left subsquare and moving clockwise
+
+
+% rotate_plate_180 encodes the rotation of the plate by 180 degrees
+rotate_plate_180(Plate, Rotated_plate):-
+% The rotation by 180 degrees swaps the positions of the top left and bottom right subsquares and the top right and bottom left subsquares
+Plate = [Top_left, Top_right, Bottom_right, Bottom_left],
+Rotated_plate = [Bottom_right, Bottom_left, Top_left, Top_right].
+
+
+% rotate_plate_90_ccw encodes the rotation of the plate by 90 degrees counterclockwise
+rotate_plate_90_ccw(Plate, Rotated_plate):-
+% The rotation by 90 degrees counterclockwise moves the top left subsquare to the top right, the top right to the bottom right, the bottom right to the bottom left, and the bottom left to the top left
+Plate = [Top_left, Top_right, Bottom_right, Bottom_left],
+Rotated_plate = [Bottom_left, Top_left, Top_right, Bottom_right].
+
+
+% flip_plate encodes the flipping of the plate around the top left bottom right diagonal
+flip_plate(Plate, Flipped_plate):-
+% The flipping swaps the positions of the top right and bottom left subsquares and the top left and bottom right subsquares
+Plate = [Top_left, Top_right, Bottom_right, Bottom_left],
+Flipped_plate = [Bottom_right, Bottom_left, Top_left, Top_right].
+
+
+% add_designs encodes the addition of designs to a subsquare
+add_designs(Subsquare, Num_designs_added, Subsquare_updated):-
+% The number of designs on the subsquare is incremented by the number of designs added
+Subsquare = [Color, Num_designs],
+Num_designs_updated is Num_designs + Num_designs_added,
+Subsquare_updated = [Color, Num_designs_updated].
+
+
+problem(Difference_designs):-
+% Encoding the initial state of the plate
+Plate_initial = [['red', 0], ['blue', 0], ['orange', 0], ['purple', 0]],
+
+
+% The artist begins by rotating the plate 180 degrees clockwise
+rotate_plate_180(Plate_initial, Plate_rotated_180),
+
+
+% Then he adds three designs to the top right subsquare and two to the bottom left subsquare
+Plate_rotated_180 = [Top_left_180, Top_right_180, Bottom_right_180, Bottom_left_180],
+add_designs(Top_right_180, 3, Top_right_180_updated),
+add_designs(Bottom_left_180, 2, Bottom_left_180_updated),
+Plate_designs_added_1 = [Top_left_180, Top_right_180_updated, Bottom_right_180, Bottom_left_180_updated],
+
+
+% Next, he flips the plate around the top left bottom right diagonal of the square
+flip_plate(Plate_designs_added_1, Plate_flipped),
+
+
+% And adds five designs to the top right subsquare
+Plate_flipped = [Top_left_flipped, Top_right_flipped, Bottom_right_flipped, Bottom_left_flipped],
+add_designs(Top_right_flipped, 5, Top_right_flipped_updated),
+Plate_designs_added_2 = [Top_left_flipped, Top_right_flipped_updated, Bottom_right_flipped, Bottom_left_flipped],
+
+
+% He then rotates the plate 90 degrees counterclockwise
+rotate_plate_90_ccw(Plate_designs_added_2, Plate_rotated_90_ccw),
+
+
+% Flips it around in the same way
+flip_plate(Plate_rotated_90_ccw, Plate_flipped_2),
+
+
+% And adds four designs to each of the two subsquares at the bottom
+Plate_flipped_2 = [Top_left_flipped_2, Top_right_flipped_2, Bottom_right_flipped_2, Bottom_left_flipped_2],
+add_designs(Bottom_right_flipped_2, 4, Bottom_right_flipped_2_updated),
+add_designs(Bottom_left_flipped_2, 4, Bottom_left_flipped_2_updated),
+Plate_final = [Top_left_flipped_2, Top_right_flipped_2, Bottom_right_flipped_2_updated, Bottom_left_flipped_2_updated],
+
+
+% To find the total number of designs on the red and blue subsquares subtracted from the total number of designs on the orange and purple subsquares
+% We first need to find the number of designs on each colored subsquare in the final state of the plate
+Plate_final = [[Color1, Designs1], [Color2, Designs2], [Color3, Designs3], [Color4, Designs4]],
+
+
+% Then we calculate the total number of designs on the red and blue subsquares and the total number of designs on the orange and purple subsquares
+((Color1 = 'red'; Color1 = 'blue') -> Red_blue_designs is Designs1; (Color1 = 'orange'; Color1 = 'purple') -> Orange_purple_designs is Designs1),
+((Color2 = 'red'; Color2 = 'blue') -> Red_blue_designs is Red_blue_designs + Designs2; (Color2 = 'orange'; Color2 = 'purple') -> Orange_purple_designs is Orange_purple_designs + Designs2),
+((Color3 = 'red'; Color3 = 'blue') -> Red_blue_designs is Red_blue_designs + Designs3; (Color3 = 'orange'; Color3 = 'purple') -> Orange_purple_designs is Orange_purple_designs + Designs3),
+((Color4 = 'red'; Color4 = 'blue') -> Red_blue_designs is Red_blue_designs + Designs4; (Color4 = 'orange'; Color4 = 'purple') -> Orange_purple_designs is Orange_purple_designs + Designs4),
+
+
+% Finally, we subtract the total number of designs on the red and blue subsquares from the total number of designs on the orange and purple subsquares
+Difference_designs is Orange_purple_designs - Red_blue_designs.
+prolog run result: 1 ?-  problem answer: -4
+
+
+
+ID: 40
+{'statement': 'We have a square metal plate divided into four equal subsquares, each colored differently. The plate is oriented such that the top left subsquare is red, and moving clockwise, the subsquares are blue, orange, and purple. An artist begins by rotating the plate 180 degrees clockwise, then he adds three designs to the top right subsquare and two to the bottom left subsquare. Next, he flips the plate around the top left bottom right diagonal of the square and adds five designs to the top right subsquare. He then rotates the plate 90 degrees counterclockwise, flips it around in the same way, and adds four designs to each of the two subsquares at the bottom. What is the total number of designs on the red and blue subsquares subtracted from the total number of designs on the orange and purple subsquares?', 'type': 'Algorithmic Instructions', 'in_prompt': False, 'Number of entangled variables in each state': 4, 'ID of problem in NLR dataset': 53, 'answer': -4}
+repeated: 2
+Corrected!!!!!
+% Encoding the colors of the subsquares as atoms and the number of designs as integers
+% The initial state of the plate is encoded as a list of 4 elements, each element is a pair of the color of the subsquare and the number of designs on it
+% The order of the elements in the list represents the position of the subsquares on the plate, starting from the top left subsquare and moving clockwise
+
+
+% rotate_plate_180 encodes the rotation of the plate by 180 degrees
+rotate_plate_180(Plate, Rotated_plate):-
+% The rotation of the plate by 180 degrees is equivalent to reversing the order of the subsquares
+reverse(Plate, Rotated_plate).
+
+
+% flip_plate encodes the flipping of the plate around the top left bottom right diagonal
+flip_plate(Plate, Flipped_plate):-
+% The flipping of the plate around the top left bottom right diagonal is equivalent to swapping the positions of the second and fourth subsquares
+Plate = [First, Second, Third, Fourth],
+Flipped_plate = [First, Fourth, Third, Second].
+
+
+% rotate_plate_90_counterclockwise encodes the rotation of the plate by 90 degrees counterclockwise
+rotate_plate_90_counterclockwise(Plate, Rotated_plate):-
+% The rotation of the plate by 90 degrees counterclockwise is equivalent to moving each subsquare to the position of the next subsquare in the counterclockwise direction
+Plate = [First, Second, Third, Fourth],
+Rotated_plate = [Second, Third, Fourth, First].
+
+
+% add_designs encodes the addition of designs to the subsquares
+add_designs(Num_designs, Subsquare_positions, Plate, Updated_plate):-
+% If the subsquare_positions list is empty, then no more designs need to be added and the plate remains the same
+(Subsquare_positions = [] ->
+Updated_plate = Plate;
+% Else: we need to add designs to the subsquares at the positions specified in the subsquare_positions list
+% We add the designs to the first position in the list then recursively call add_designs to add designs to the remaining positions
+Subsquare_positions = [First_position|Rest_positions],
+% Using nth0 to get the subsquare at the first position
+nth0(First_position, Plate, Subsquare),
+% Each subsquare is a pair of the color and the number of designs, we need to increment the number of designs by Num_designs
+Subsquare = [Color, Num_designs_prev],
+Num_designs_now is Num_designs_prev + Num_designs,
+% Using replace to replace the old subsquare with the updated one in the plate
+replace(Plate, Subsquare, [Color, Num_designs_now], Plate_after_first_position),
+% Recursively calling add_designs to add designs to the remaining positions
+add_designs(Num_designs, Rest_positions, Plate_after_first_position, Updated_plate)).
+
+
+% replace is a helper predicate that replaces an element in a list
+replace([H|T], H, X, [X|T]).
+replace([H|T], Find, Replace, [H|Result]) :-
+  replace(T, Find, Replace, Result).
+
+
+problem(Difference_designs):-
+% Encoding the initial state of the plate
+Initial_plate = [['red', 0], ['blue', 0], ['orange', 0], ['purple', 0]],
+
+
+% The artist begins by rotating the plate 180 degrees clockwise
+rotate_plate_180(Initial_plate, Plate_after_rotation),
+
+
+% Then he adds three designs to the top right subsquare and two to the bottom left subsquare
+add_designs(3, [1], Plate_after_rotation, Plate_after_first_addition),
+add_designs(2, [3], Plate_after_first_addition, Plate_after_second_addition),
+
+
+% Next, he flips the plate around the top left bottom right diagonal of the square
+flip_plate(Plate_after_second_addition, Plate_after_flip),
+
+
+% And adds five designs to the top right subsquare
+add_designs(5, [1], Plate_after_flip, Plate_after_third_addition),
+
+
+% He then rotates the plate 90 degrees counterclockwise
+rotate_plate_90_counterclockwise(Plate_after_third_addition, Plate_after_second_rotation),
+
+
+% Flips it around in the same way
+flip_plate(Plate_after_second_rotation, Plate_after_second_flip),
+
+
+% And adds four designs to each of the two subsquares at the bottom
+add_designs(4, [2, 3], Plate_after_second_flip, Final_plate),
+
+
+% To find the total number of designs on the red and blue subsquares subtracted from the total number of designs on the orange and purple subsquares
+% We first need to find the subsquares with each color in the final state of the plate
+member([red, Num_designs_red], Final_plate),
+member([blue, Num_designs_blue], Final_plate),
+member([orange, Num_designs_orange], Final_plate),
+member([purple, Num_designs_purple], Final_plate),
+
+
+% Then we calculate the total number of designs on the red and blue subsquares and the total number on the orange and purple subsquares
+Total_designs_red_blue is Num_designs_red + Num_designs_blue,
+Total_designs_orange_purple is Num_designs_orange + Num_designs_purple,
+
+
+% Finally we subtract the total number of designs on the red and blue subsquares from the total number of designs on the orange and purple subsquares
+Difference_designs is Total_designs_orange_purple - Total_designs_red_blue.
+prolog run result: -4 problem answer: -4
+
+
+
+
+--------------------------------------------------
+model:
+GPT4
+
+--------------------------------------------------
+nlr_dataste problem type:
+AI
+
+--------------------------------------------------
+Incorrect formats
+
+
+
+--------------------------------------------------
+Incorrect ids
+[30, 32]
+
+
+--------------------------------------------------
+Number of max tries
+50
+--------------------------------------------------
+Number of times prolog didn't run after repeat max tries
+0
+--------------------------------------------------
+Problem ids that prolog didn't run after max tries
+[]
+--------------------------------------------------
+Problem number that got correct solution after many tries
+6
+--------------------------------------------------
+Problem number with incorrect solution after many tries
+2
+--------------------------------------------------
+Tempreture at the max repeat call number
+0.4
+
+
+--------------------------------------------------
+total number of calls to LLM
+53
+
+
+--------------------------------------------------
+stats
+18 out of 20 is correct.
+
+
+--------------------------------------------------
+stats
+The count of correct solutions for AI problmes out of 5 problems for each variable entanglement leve is: 
+ Counter({0: 5, 4: 4, 2: 4, 3: 5})

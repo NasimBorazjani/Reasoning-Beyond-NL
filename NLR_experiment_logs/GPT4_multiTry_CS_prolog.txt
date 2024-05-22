@@ -278,9 +278,9 @@ prolog run result: 0 problem answer: 0
 
 
 ID: 12
-{'statement': "Birthdays of Andy, Blake, Conor, Danny, and Emma are on or between 11th and 15th of a month. No two people's birthdays are on the same date. We know that Emma was born 2 days before Andy, and Blake was born 2 days before Danny. Emma’s birthday is before Blake’s birthday, the number of days between Danny’s birthday and Conor’s birthday is less than the number of days between Blake’s and Connor’s birthday, and Connor is born after Danny. What is Andy's birth date minus Blake’s birth date plus Conor’s birth date?", 'type': 'constraint', 'in_prompt': False, 'answer': 16}
+{'statement': "Birthdays of Andy, Blake, Conor, Danny, and Emma are on or between 11th and 15th of a month. No two people's birthdays are on the same date. We know that Emma was born 2 days before Andy, and Blake was born 2 days before Danny. Emma’s birthday is before Blake’s birthday, the number of days between Danny’s birthday and Conor’s birthday is less than the number of days between Blake’s and Connor’s birthday, and Connor is born after Danny. What is Andy's birth date minus Blake’s birth date plus Conor’s birth date?", 'type': 'constraint', 'in_prompt': False, 'answer': 15}
 NOT repeated 
-problem(Andy_birth_date_minus_Blake_birth_date_plus_Conor_birth_date):-
+problem(Andy_birth_date_minus_Blake_birth_date_plus_Danny_birth_date):-
 % Birthdays of Andy, Blake, Conor, Danny, and Emma are on or between 11th and 15th of a month.
 Andy_birth_date #>= 11,
 Andy_birth_date #=< 15,
@@ -321,8 +321,8 @@ abs(Danny_birth_date - Conor_birth_date) #< abs(Blake_birth_date - Conor_birth_d
 Conor_birth_date #> Danny_birth_date,
 
 % Andy's birth date minus Blake’s birth date plus Conor’s birth date
-Andy_birth_date_minus_Blake_birth_date_plus_Conor_birth_date #= Andy_birth_date - Blake_birth_date + Conor_birth_date.
-prolog run result: 16 problem answer: 16
+Andy_birth_date_minus_Blake_birth_date_plus_Danny_birth_date #= Andy_birth_date - Blake_birth_date + Danny_birth_date.
+prolog run result: 15 problem answer: 15
 
 
 

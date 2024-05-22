@@ -230,7 +230,7 @@
         "answer": 10
     },
     "47": {
-        "statement": "Sarah has a chain of 5 magnetic beads, with the middle bead being the only one with a scratch. She plays a game where she rolls a dice to get a number, N. She then disconnects the magnetic beads at the Nth index, counting from 0 left to right, and adds a total of 4 beads to the two segments, one bead to the front and back of each of the two resulting segments. Sarah reverses the order of the two resulting segments (second segmnet added to the front of the first) before reconnecting them into a single chain. If she rolls 4, 4, 3, 2, in four rounds of playing this game, then what is the position of the scratched bead counting from 0 from left to right?",
+        "statement": "Sarah has a chain of 5 magnetic beads, with the middle bead being the only one with a scratch. She plays a game where she rolls a dice to get a number, N. She then disconnects the magnetic beads before the Nth index, counting from 0 left to right, and adds a total of 4 beads to the two segments, one bead to the front and back of each of the two resulting segments. Sarah reverses the order of the two resulting segments (second segmnet added to the front of the first) before reconnecting them into a single chain. If she rolls 4, 4, 3, 2, in four rounds of playing this game, then what is the position of the scratched bead counting from 0 from left to right?",
         "type": "Algorithmic Instructions",
         "answer": 19
     },

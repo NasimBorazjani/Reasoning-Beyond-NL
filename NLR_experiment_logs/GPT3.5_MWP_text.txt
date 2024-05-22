@@ -123,7 +123,8 @@ This equation is true for all values of X.
 Therefore, X can be any real number.
 
 The answer is /boxed/any real number.
-LLM asnwer could not be extractedActual asnwer: 10
+LLM asnwer could not be extracted
+Actual asnwer: 10
 25
 {'statement': 'Twelve of Anna’s friends want to pay an equal amount of money to buy her a violin. But 2 of her friends decided to not participate. Now each of her 10 friends have to pay X dollars more in order to buy her the violin. On the last day, one more of her friends decided not to contribute. Now if each of her 9 friends pay 2*X dollars more than the original amount each of the 12 friends agreed to contribute, then they would have $30 more than the pierce of the violin. How much is X?', 'type': 'mwp', 'in_prompt': False, 'answer': 10}
 Let's denote the original amount each of the 12 friends agreed to contribute as A.
@@ -579,7 +580,7 @@ z = x = -2
 So, the current number of birds in the garden is x + y + z = -2 + (-3) + (-2) = -7.
 
 The answer is /boxed/-7.
-LLM asnwer extracted: 7
+LLM asnwer extracted:-7
 Actual asnwer: 29
 35
 {'statement': '4 friends (A, B, C, and D) go on a vacation for a day. They agree to each pay 10% of their income to cover the hotel rate for their stay. However, after checking in to the hotel, they were informed that they received a $20 discount on the rate; they decided to split this $20 equally between themselves. We know that C’s contribution before the discount was equal to the sum of A’s and B’s contributions before the discount. C’s contribution after the discount is equal to A’s and D’s contribution to the hotel price after the discount. The sum of A’s and D’s contributions before the discount is twice B’s contribution after the discount. The sum of B and D’s contributions before the discount is equal to the sum of A’s and C’s contributions after the discount. What is the sum of these 4 friend’s incomes?', 'type': 'mwp', 'in_prompt': False, 'answer': 2000}

@@ -1,0 +1,598 @@
+1
+{'statement': 'Sarah has 13 red cubes, 18 red spheres, 15 blue cubes, and some blue spheres in her bag. We know that the number of blue spheres is equal to the number of red cubes plus 1/5th of the number of blue cubes. What’s the total number of objects in Sarah’s bag?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 1, 'ID of problem in NLR dataset': None, 'answer': 62}
+Let's denote the number of blue spheres as b.
+
+From the problem, we know that:
+
+1) The number of red cubes is 13.
+2) The number of red spheres is 18.
+3) The number of blue cubes is 15.
+4) The number of blue spheres is equal to the number of red cubes plus 1/5th of the number of blue cubes. So, b = 13 + 1/5 * 15 = 13 + 3 = 16.
+
+The total number of objects in Sarah’s bag is the sum of the number of red cubes, red spheres, blue cubes, and blue spheres, which is 13 + 18 + 15 + 16 = 62.
+
+The answer is /boxed/62.
+Correct LLM asnwer: 62
+
+
+2
+{'statement': 'Sarah has 21 red cubes, 17 red spheres, some blue cubes, and some blue spheres in her bag. We know that the number of blue spheres is 6 less than the total number of cubes in the bag. And The total number of spheres is 1 more than the number of red objects. What’s the total number of objects in Sarah’s bag?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 2, 'ID of problem in NLR dataset': None, 'answer': 67}
+Let's denote the number of blue cubes as BC and the number of blue spheres as BS.
+
+From the problem, we have the following equations:
+
+1) The number of blue spheres is 6 less than the total number of cubes in the bag. So, BS = BC + 21 - 6 = BC + 15.
+2) The total number of spheres is 1 more than the number of red objects. So, BS + 17 = 21 + 17 + 1 = 39.
+
+Substitute BS = BC + 15 into equation 2), we get BC + 15 + 17 = 39. Solving this equation, we get BC = 7.
+
+Substitute BC = 7 into equation 1), we get BS = 7 + 15 = 22.
+
+So, the total number of objects in Sarah’s bag is 21 (red cubes) + 17 (red spheres) + 7 (blue cubes) + 22 (blue spheres) = 67.
+
+The answer is /boxed/67.
+Correct LLM asnwer: 67
+
+
+3
+{'statement': 'Sarah has 35 red cubes, some red spheres, some blue cubes, and some blue spheres in her bag. We know that the number of red objects is 2 more than double the number of blue cubes in her bag. And the total number of blue objects is 6 less than triple of the number of red spheres. Also the total number of spheres is 6 less than the number of blue cubes. What’s the total number of objects in Sarah’s bag?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 3, 'ID of problem in NLR dataset': None, 'answer': 73}
+Let's denote the number of objects as follows:
+
+- Red cubes = Rc = 35
+- Red spheres = Rs
+- Blue cubes = Bc
+- Blue spheres = Bs
+
+From the problem, we have the following equations:
+
+1. The number of red objects is 2 more than double the number of blue cubes. So, Rc + Rs = 2 * Bc + 2
+2. The total number of blue objects is 6 less than triple of the number of red spheres. So, Bc + Bs = 3 * Rs - 6
+3. The total number of spheres is 6 less than the number of blue cubes. So, Rs + Bs = Bc - 6
+
+Now, we can substitute Rc = 35 into equation 1:
+
+35 + Rs = 2 * Bc + 2
+=> Rs = 2 * Bc - 33
+
+Substitute Rs = 2 * Bc - 33 into equation 2:
+
+Bc + Bs = 3 * (2 * Bc - 33) - 6
+=> Bc + Bs = 6 * Bc - 99 - 6
+=> Bs = 5 * Bc - 105
+
+Substitute Bs = 5 * Bc - 105 into equation 3:
+
+2 * Bc - 33 + 5 * Bc - 105 = Bc - 6
+=> 6 * Bc - 138 = Bc - 6
+=> 5 * Bc = 132
+=> Bc = 132 / 5 = 26.4
+
+Substitute Bc = 26.4 into Rs = 2 * Bc - 33 and Bs = 5 * Bc - 105, we get Rs = 19.8 and Bs = 27.
+
+So, the total number of objects in Sarah’s bag is Rc + Rs + Bc + Bs = 35 + 19.8 + 26.4 + 27 = 108.2.
+
+The answer is /boxed/108.2.
+LLM asnwer extracted: 108.2
+Actual asnwer: 73
+4
+{'statement': 'Sarah has some red cubes, red spheres, blue cubes, and blue spheres in her bag. We know the total number of blue objects is 1 and half times the number of red objects. The number of blue spheres is 4 less than half the total number of red objects, and the number of red spheres is 6 less than half the total number of blue objects. And the number of blue cubes is 2 less than 3 times the number of red cubes. What’s the total number of objects in Sarah’s bag?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 4, 'ID of problem in NLR dataset': 23, 'answer': 120}
+Let's denote the number of each type of object as follows:
+
+- Red cubes = Rc
+- Red spheres = Rs
+- Blue cubes = Bc
+- Blue spheres = Bs
+
+From the problem, we have the following equations:
+
+1. The total number of blue objects is 1 and half times the number of red objects. So, Bc + Bs = 1.5 * (Rc + Rs)
+2. The number of blue spheres is 4 less than half the total number of red objects. So, Bs = 0.5 * (Rc + Rs) - 4
+3. The number of red spheres is 6 less than half the total number of blue objects. So, Rs = 0.5 * (Bc + Bs) - 6
+4. The number of blue cubes is 2 less than 3 times the number of red cubes. So, Bc = 3 * Rc - 2
+
+Now, we can substitute equations 2, 3, and 4 into equation 1:
+
+3 * Rc - 2 + 0.5 * (Rc + Rs) - 4 = 1.5 * (Rc + Rs)
+Combine like terms:
+3.5 * Rc - 2 - 4 = 1.5 * Rc + 1.5 * Rs
+Subtract 1.5 * Rc from both sides:
+2 * Rc - 6 = 1.5 * Rs
+Multiply all terms by 2 to get rid of the fractions:
+4 * Rc - 12 = 3 * Rs
+Divide all terms by 3:
+4/3 * Rc - 4 = Rs
+
+Substitute Rs = 4/3 * Rc - 4 into equation 3:
+
+4/3 * Rc - 4 = 0.5 * (3 * Rc - 2 + 0.5 * (Rc + 4/3 * Rc - 4)) - 6
+Simplify the equation:
+4/3 * Rc - 4 = 0.5 * (3.5 * Rc - 2) - 6
+Multiply all terms by 2 to get rid of the fractions:
+8/3 * Rc - 8 = 3.5 * Rc - 4 - 12
+Combine like terms:
+8/3 * Rc - 8 = 3.5 * Rc - 16
+Subtract 3.5 * Rc from both sides:
+8/3 * Rc - 3.5 * Rc = -16 + 8
+Combine like terms:
+-1.5/3 * Rc = -8
+Multiply all terms by -1:
+1.5/3 * Rc = 8
+Divide all terms by 1.5/3:
+Rc = 8 * 3/1.5 = 16
+
+Substitute Rc = 16 into equations 2, 3, and 4 to find Rs, Bs, and Bc:
+
+Rs = 4/3 * 16 - 4 = 16
+Bs = 0.5 * (16 + 16) - 4 = 12
+Bc = 3 * 16 - 2 = 46
+
+So, the total number of objects in Sarah’s bag is Rc + Rs + Bc + Bs = 16 + 16 + 12 + 46 = 90.
+
+The answer is /boxed/90.
+LLM asnwer extracted: 90
+Actual asnwer: 120
+5
+{'statement': 'There are 3 trees (“X”, “Y”, “Z”) in a garden, with 16 birds on tree Z, 24 birds in tree Y, and an unknown number of birds in tree X. The birds in tree X tell other birds that if 9 birds from tree Z come to our tree, then the new population of our tree would be equal to the population of birds in Y. What is the sum of the number of birds in the garden?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 1, 'ID of problem in NLR dataset': None, 'answer': 55}
+Let's denote the number of birds in tree X as x.
+
+From the problem, we know that:
+
+1) The number of birds in tree Z is 16.
+2) The number of birds in tree Y is 24.
+3) If 9 birds from tree Z come to tree X, then the new population of tree X would be equal to the population of birds in Y. So, x + 9 = 24.
+
+From equation (3), we can solve for x: x = 24 - 9 = 15.
+
+So, the number of birds in tree X is 15.
+
+The sum of the number of birds in the garden is x + Y + Z = 15 + 24 + 16 = 55.
+
+The answer is /boxed/55.
+Correct LLM asnwer: 55
+
+
+6
+{'statement': 'There are 3 trees (“X”, “Y”, “Z”) in a garden, with 11 birds on tree Z and some birds in the other two trees. The birds in tree X tell the other birds in the garden that if 3 birds from Y come to our tree, then our population would be twice the population of birds in Y. Birds in tree Y suggest another move: if 2 brids from tree X come to our tree, then our population would be more than the population of birds on tree X by 1 bird. What is the sum of the number of birds in the garden?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 2, 'ID of problem in NLR dataset': None, 'answer': 38}
+Let's denote the number of birds on each tree as follows: X = x, Y = y, and Z = z. 
+
+From the problem, we know that z = 11.
+
+We also have the following conditions:
+
+1) If 3 birds from Y come to X, then the population of birds in X would be twice the population of birds in Y. So, x + 3 = 2 * (y - 3).
+2) If 2 birds from X come to Y, then the population of birds in Y would be more than the population of birds on X by 1 bird. So, y + 2 = x - 2 + 1.
+
+Solving these two equations simultaneously, we get x = 7 and y = 5.
+
+So, the sum of the number of birds in the garden is x + y + z = 7 + 5 + 11 = 23.
+
+The answer is /boxed/23.
+LLM asnwer extracted: 23
+Actual asnwer: 38
+7
+{'statement': 'There are 3 trees (“X”, “Y”, “Z”) in a garden, and there are some birds in each tree. The birds in tree X tell the other birds in the garden that if 2 birds from Y and 1 bird from Z come to our tree, then our population would be double the population of birds in Y. Birds in Z think that after the move the population of X would be equal to their current population. Birds in Z propose another move, they tell other birds if 1 bird from X and 3 birds from Y come to our tree, then our population would be double the population of X. What’s the current number of all the birds in the garden?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 3, 'ID of problem in NLR dataset': 34, 'answer': 29}
+Let's denote the number of birds in each tree as follows: X = x, Y = y, Z = z. 
+
+From the problem, we have the following equations:
+
+1) The birds in tree X tell the other birds in the garden that if 2 birds from Y and 1 bird from Z come to their tree, then their population would be double the population of birds in Y. So, x + 2 + 1 = 2 * (y - 2) => x + 3 = 2y - 4 => x = 2y - 7.
+
+2) Birds in Z think that after the move the population of X would be equal to their current population. So, x + 3 = z => z = x + 3 = 2y - 4.
+
+3) Birds in Z propose another move, they tell other birds if 1 bird from X and 3 birds from Y come to their tree, then their population would be double the population of X. So, z + 1 + 3 = 2 * (x - 1) => z + 4 = 2x - 2 => z = 2x - 6.
+
+Now we have two equations for z: z = 2y - 4 and z = 2x - 6. Setting these two equal to each other, we get 2y - 4 = 2x - 6 => y = x - 1.
+
+Substitute y = x - 1 into x = 2y - 7, we get x = 2 * (x - 1) - 7 => x = 2x - 2 - 7 => x = 9.
+
+Substitute x = 9 into y = x - 1, we get y = 8.
+
+Substitute x = 9 into z = 2x - 6, we get z = 12.
+
+So, the current number of all the birds in the garden is x + y + z = 9 + 8 + 12 = 29.
+
+The answer is /boxed/29.
+Correct LLM asnwer: 29
+
+
+8
+{'statement': 'There are 4 trees (“A”, “B”, “C”, “D”) in a garden, and there are some birds in each tree. The birds in tree D tell the other birds in the garden that if 1 bird from C and 1 bird from A come to our tree, then our population would be half the population of birds in A. Birds in A and C think that after this move, the sum of their population would be equal to the population of birds in B. The birds do not do this move, but birds in B propose another move, and tell other birds that if 5 birds from C and 5 birds from D come to our tree, then our population would be twice the current population of tree A. Birds in C think that after this move, there would be 2 more birds in their tree relative to the number of birds in tree D after the 5 birds left tree D. What is the sum of the number of birds in the garden?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 4, 'ID of problem in NLR dataset': None, 'answer': 47}
+Let's denote the number of birds in each tree as follows: A = a, B = b, C = c, and D = d. 
+
+From the problem, we have the following equations:
+
+1) The birds in tree D tell the other birds in the garden that if 1 bird from C and 1 bird from A come to our tree, then our population would be half the population of birds in A. So, d + 2 = a/2
+2) Birds in A and C think that after this move, the sum of their population would be equal to the population of birds in B. So, a - 1 + c - 1 = b
+3) Birds in B propose another move, and tell other birds that if 5 birds from C and 5 birds from D come to our tree, then our population would be twice the current population of tree A. So, b + 10 = 2a
+4) Birds in C think that after this move, there would be 2 more birds in their tree relative to the number of birds in tree D after the 5 birds left tree D. So, c - 5 = d - 5 + 2
+
+Solving these equations, we get a = 20, b = 36, c = 24, and d = 18.
+
+So, the sum of the number of birds in the garden is a + b + c + d = 20 + 36 + 24 + 18 = 98.
+
+The answer is /boxed/98.
+LLM asnwer extracted: 98
+Actual asnwer: 47
+9
+{'statement': 'Brad has a box of candy. There are only 13 kit-kats, 20 M&Ms, 15 gummy bears, and some Lindt chocolates in his box. He knows that all of the candies but 36 of them are M&Ms. What is the number of Lindt chocolates in his box?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 1, 'ID of problem in NLR dataset': None, 'answer': 8}
+Let's denote the number of Lindt chocolates as L.
+
+From the problem, we know that there are 13 kit-kats, 20 M&Ms, and 15 gummy bears in the box. So, the total number of these candies is 13 + 20 + 15 = 48.
+
+We also know that all of the candies but 36 of them are M&Ms. So, the total number of candies in the box is 36 + the number of M&Ms = 36 + 20 = 56.
+
+Therefore, the number of Lindt chocolates in the box is the total number of candies minus the number of kit-kats, M&Ms, and gummy bears, which is 56 - 48 = 8.
+
+The answer is /boxed/8.
+Correct LLM asnwer: 8
+
+
+10
+{'statement': 'Brad has a box of candy. There are only 31 kit-kats, 25 M&Ms, some gummy bears, and some Lindt chocolates in his box. He knows that all of the candies but 50 of them are kit-kats. And all of the candies in his bag but 59 of them are Lindt chocolates. What is the sum of the number of gummy bears and Lindt chocolates in his bag?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 2, 'ID of problem in NLR dataset': None, 'answer': 25}
+Let's denote the number of gummy bears as G and the number of Lindt chocolates as L.
+
+From the problem, we know that:
+
+1) All of the candies but 50 of them are kit-kats. So, the total number of candies is 31 (kit-kats) + 50 = 81.
+2) All of the candies in his bag but 59 of them are Lindt chocolates. So, the total number of candies is L (Lindt chocolates) + 59 = 81.
+
+From equation (2), we can solve for L: L = 81 - 59 = 22.
+
+The number of gummy bears is the total number of candies minus the number of kit-kats, M&Ms, and Lindt chocolates: G = 81 - 31 (kit-kats) - 25 (M&Ms) - 22 (Lindt chocolates) = 3.
+
+So, the sum of the number of gummy bears and Lindt chocolates in his bag is G + L = 3 + 22 = 25.
+
+The answer is /boxed/25.
+Correct LLM asnwer: 25
+
+
+11
+{'statement': 'Brad has a box of candy. There are only 12 kit-kats, some M&Ms, some gummy bears, and some Lindt chocolates in his box. He knows that all of the candies but 42 of them are M&Ms. All but 51 of them are gummy bears, and all but 63 of the candies are Lindt chocolates. What is the sum of the number of M7Ms and Lindt chocolates in his box?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 3, 'ID of problem in NLR dataset': None, 'answer': 39}
+Let's denote the total number of candies in the box as C, the number of M&Ms as M, the number of gummy bears as G, and the number of Lindt chocolates as L.
+
+From the problem, we know that:
+
+1) C = 12 + M + G + L (total number of candies)
+2) C - M = 42 (all of the candies but 42 of them are M&Ms)
+3) C - G = 51 (all but 51 of them are gummy bears)
+4) C - L = 63 (all but 63 of the candies are Lindt chocolates)
+
+From equation 2), we can express M in terms of C: M = C - 42.
+
+Substitute M = C - 42 into equation 1), we get C = 12 + C - 42 + G + L. Simplifying this equation, we get G + L = 30.
+
+From equation 3), we can express G in terms of C: G = C - 51.
+
+Substitute G = C - 51 into the equation G + L = 30, we get L = 81 - C.
+
+From equation 4), we can express L in terms of C: L = C - 63.
+
+Setting L = 81 - C equal to L = C - 63, we get C = 72.
+
+Substitute C = 72 into M = C - 42 and L = C - 63, we get M = 30 and L = 9.
+
+So, the sum of the number of M&Ms and Lindt chocolates in his box is M + L = 30 + 9 = 39.
+
+The answer is /boxed/39.
+Correct LLM asnwer: 39
+
+
+12
+{'statement': 'Brad has a box of candy. There are only kit-kats, M&Ms, gummy bears, and Lindt chocolates in his box. He knows that all of the candies but 43 of them are kit-kats. All but 35 of them are Lindt chocolates, all but 39 of them are M&Ms, and all but 27 of them are gummy bears. What is the sum of the number of kit kats and gummy bears in his box?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 4, 'ID of problem in NLR dataset': 30, 'answer': 26}
+Let's denote the number of each type of candy as follows:
+
+- Kit-kats = K
+- M&Ms = M
+- Gummy bears = G
+- Lindt chocolates = L
+
+From the problem, we have the following equations:
+
+1. All of the candies but 43 of them are kit-kats. So, K = total number of candies - 43
+2. All but 35 of them are Lindt chocolates. So, L = total number of candies - 35
+3. All but 39 of them are M&Ms. So, M = total number of candies - 39
+4. All but 27 of them are gummy bears. So, G = total number of candies - 27
+
+Since the total number of candies is the sum of the number of each type of candy, we can write:
+
+total number of candies = K + M + G + L
+
+Substitute equations 1, 2, 3, and 4 into this equation, we get:
+
+total number of candies = (total number of candies - 43) + (total number of candies - 35) + (total number of candies - 39) + (total number of candies - 27)
+
+Combine like terms:
+
+4 * total number of candies = total number of candies + 141
+
+Subtract total number of candies from both sides:
+
+3 * total number of candies = 141
+
+Divide both sides by 3:
+
+total number of candies = 47
+
+So, the sum of the number of kit kats and gummy bears in his box is K + G = (total number of candies - 43) + (total number of candies - 27) = 47 - 43 + 47 - 27 = 24.
+
+The answer is /boxed/24.
+LLM asnwer extracted: 26
+Actual asnwer: 26
+
+
+13
+{'statement': 'There are 4 brothers, John who is 3, Blake who is 20, Sam, and Frank who is 5. In three years, Sam will be twice as old as John. What is the sum of the 4 brother’s ages in 5 years?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 1, 'ID of problem in NLR dataset': None, 'answer': 57}
+Let's denote the current ages of the brothers as follows:
+
+- John's age = 3
+- Blake's age = 20
+- Sam's age = s
+- Frank's age = 5
+
+From the problem, we know that in three years, Sam will be twice as old as John. So, we have the equation:
+
+s + 3 = 2 * (3 + 3)
+
+Solving this equation, we get s = 9.
+
+So, the current ages of the brothers are:
+
+- John's age = 3
+- Blake's age = 20
+- Sam's age = 9
+- Frank's age = 5
+
+In 5 years, their ages will be:
+
+- John's age = 3 + 5 = 8
+- Blake's age = 20 + 5 = 25
+- Sam's age = 9 + 5 = 14
+- Frank's age = 5 + 5 = 10
+
+The sum of their ages in 5 years will be 8 + 25 + 14 + 10 = 57.
+
+The answer is /boxed/57.
+Correct LLM asnwer: 57
+
+
+14
+{'statement': "There are 4 brothers, John who is 15, Blake, Sam, and Frank who is 16. We don't know how old Blake and Sam are, but we know that in three years, Sam will be 3 times as old as Blake. In five years, John's age would be twice Blake's age. What is the sum of the 4 brother’s ages right now?", 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 2, 'ID of problem in NLR dataset': None, 'answer': 57}
+Let's denote the current ages of Blake and Sam as B and S respectively.
+
+From the problem, we have the following equations:
+
+1) In three years, Sam will be 3 times as old as Blake. So, S + 3 = 3 * (B + 3)
+2) In five years, John's age would be twice Blake's age. So, 15 + 5 = 2 * (B + 5)
+
+Solving these equations, we get B = 10 and S = 33.
+
+So, the sum of the 4 brother’s ages right now is 15 (John) + 10 (Blake) + 33 (Sam) + 16 (Frank) = 74.
+
+The answer is /boxed/74.
+LLM asnwer extracted: 74
+Actual asnwer: 57
+15
+{'statement': "There are 4 brothers, John, Blake, Sam who is 15, and Frank. In four years, Sam’s age will be equal to Frank's current age minus Blake's current age. In eight years, John's age would be twice Blake's age, and John would be 9 years older than Frank’s current age. What is the sum of the 4 brother’s ages right now?", 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 3, 'ID of problem in NLR dataset': None, 'answer': 90}
+Let's denote the current ages of the brothers as follows:
+
+- John's age = J
+- Blake's age = B
+- Sam's age = S = 15 (given in the problem)
+- Frank's age = F
+
+From the problem, we have the following equations:
+
+1. In four years, Sam’s age will be equal to Frank's current age minus Blake's current age. So, S + 4 = F - B
+2. In eight years, John's age would be twice Blake's age. So, J + 8 = 2 * (B + 8)
+3. In eight years, John would be 9 years older than Frank’s current age. So, J + 8 = F + 9
+
+Now, we can solve these equations step by step:
+
+From equation 1, we get F = B + S + 4 = B + 15 + 4 = B + 19.
+
+Substitute F = B + 19 into equation 3, we get J + 8 = B + 19 + 9, which simplifies to J = B + 20.
+
+Substitute J = B + 20 into equation 2, we get B + 20 + 8 = 2 * (B + 8), which simplifies to B = 16.
+
+Substitute B = 16 into J = B + 20, we get J = 36.
+
+Substitute B = 16 into F = B + 19, we get F = 35.
+
+So, the current ages of the brothers are J = 36, B = 16, S = 15, and F = 35.
+
+The sum of the 4 brother’s ages right now is J + B + S + F = 36 + 16 + 15 + 35 = 102.
+
+The answer is /boxed/102.
+LLM asnwer extracted: 102
+Actual asnwer: 90
+16
+{'statement': "There are 4 brothers, John, Blake, Sam, and Frank. In three years, Sam will be twice as old as John, and Blake’s age will be equal to the age difference between Sam and Frank. In eight years, John's age would be twice Blake's age, and John would be 2 years younger than Frank’s current age. Also, the sum of Sam’s and Blake’s ages is 5 years less than the sum of John’s and Frank’s ages. What is the sum of the 4 brother’s ages right now?", 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 4, 'ID of problem in NLR dataset': 29, 'answer': 63}
+Let's denote the current ages of the brothers as follows:
+
+- John's age = J
+- Blake's age = B
+- Sam's age = S
+- Frank's age = F
+
+From the problem, we have the following equations:
+
+1. In three years, Sam will be twice as old as John. So, S + 3 = 2 * (J + 3)
+2. In three years, Blake’s age will be equal to the age difference between Sam and Frank. So, B + 3 = |S + 3 - F - 3| = |S - F|
+3. In eight years, John's age would be twice Blake's age. So, J + 8 = 2 * (B + 8)
+4. In eight years, John would be 2 years younger than Frank’s current age. So, J + 8 = F - 2
+5. The sum of Sam’s and Blake’s ages is 5 years less than the sum of John’s and Frank’s ages. So, S + B = J + F - 5
+
+Now, we can solve these equations step by step:
+
+From equation 1, we get S = 2J + 3 - 3 = 2J
+From equation 3, we get J = 2B + 8 - 8 = 2B
+From equation 4, we get J = F - 2 - 8 = F - 10
+From equation 5, we get S = J + F - B - 5
+
+Substitute S = 2J and J = 2B into equation 5, we get 2J = 2B + F - B - 5
+=> J = F - 5
+
+Substitute J = F - 10 into J = F - 5, we get F - 10 = F - 5
+=> F = 15
+
+Substitute F = 15 into J = F - 10, we get J = 5
+Substitute J = 5 into S = 2J, we get S = 10
+Substitute J = 5 into J = 2B, we get B = 2.5
+
+So, the current ages of the brothers are John = 5, Blake = 2.5, Sam = 10, Frank = 15.
+
+The sum of the 4 brother’s ages right now is 5 + 2.5 + 10 + 15 = 32.5.
+
+The answer is /boxed/32.5.
+LLM asnwer extracted: 32.5
+Actual asnwer: 63
+17
+{'statement': 'Alex has 16 kilos of potatoes, 28 kilos of apples, and some onions for a total weight of 50 kg. By how many kilos are potatoes heavier than onions?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 1, 'ID of problem in NLR dataset': None, 'answer': 10}
+Let's denote the weight of the onions as O.
+
+From the problem, we know that the total weight of the potatoes, apples, and onions is 50 kg. So, we have the equation:
+
+16 (potatoes) + 28 (apples) + O (onions) = 50
+
+Solving this equation for O, we get:
+
+O = 50 - 16 - 28 = 6
+
+So, the weight of the onions is 6 kg.
+
+The weight of the potatoes is 16 kg, so the potatoes are 16 - 6 = 10 kg heavier than the onions.
+
+The answer is /boxed/10.
+Correct LLM asnwer: 10
+
+
+18
+{'statement': 'Alex has some potatoes, some apples, and 22 kg of onions for a total weight of 98 kg. The weight of onions is equal to the weight of potatoes divided by 1/16 of the weight of apples. By how many kilos are potatoes heavier than apples?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 2, 'ID of problem in NLR dataset': None, 'answer': 12}
+Let's denote the weight of potatoes as P, the weight of apples as A, and the weight of onions as O.
+
+From the problem, we know that:
+
+1) P + A + O = 98 kg (total weight)
+2) O = P / (A/16) (the weight of onions is equal to the weight of potatoes divided by 1/16 of the weight of apples)
+
+We also know that O = 22 kg, so we can substitute this into equation 2) to get:
+
+22 = P / (A/16)
+=> P = 22 * (A/16)
+=> P = 1.375A
+
+Substitute P = 1.375A and O = 22 into equation 1), we get:
+
+1.375A + A + 22 = 98
+=> 2.375A = 76
+=> A = 76 / 2.375
+=> A = 32 kg
+
+Substitute A = 32 into P = 1.375A, we get:
+
+P = 1.375 * 32
+=> P = 44 kg
+
+So, the potatoes are 44 - 32 = 12 kg heavier than the apples.
+
+The answer is /boxed/12.
+Correct LLM asnwer: 12
+
+
+19
+{'statement': 'Alex has some potatoes, apples and onions for a total weight of 44 kg. The sum of the weight of potatoes and onions is 20 kg less than the weight of apples, and onions are equal to the weight of potatoes divided by 1/16 of the weight of apples. By how many kilos are apples heavier than potatoes?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 3, 'ID of problem in NLR dataset': 28, 'answer': 24}
+Let's denote the weight of potatoes, apples, and onions as P, A, and O respectively.
+
+From the problem, we have the following equations:
+
+1) P + A + O = 44 (total weight)
+2) P + O = A - 20 (sum of the weight of potatoes and onions is 20 kg less than the weight of apples)
+3) O = P / (A/16) = P * 16/A (onions are equal to the weight of potatoes divided by 1/16 of the weight of apples)
+
+We can substitute equation 2) into equation 1) to get:
+
+A - 20 + A = 44
+2A = 64
+A = 32
+
+Substitute A = 32 into equation 3) to get:
+
+O = P * 16/32 = P/2
+
+Substitute A = 32 and O = P/2 into equation 2) to get:
+
+P + P/2 = 32 - 20
+3P/2 = 12
+P = 8
+
+So, the weight of apples is 32 kg and the weight of potatoes is 8 kg. 
+
+Therefore, apples are 32 - 8 = 24 kg heavier than potatoes.
+
+The answer is /boxed/24.
+Correct LLM asnwer: 24
+
+
+20
+{'statement': 'Alex has some potatoes, apples, bananas, and onions for a total weight of 160 kg. The sum of the weight of potatoes and onions is 25 kg more than the weight of apples, and weight of onions are equal to the weight of potatoes divided by 1/10 of the weight of apples. Weight of bananas is 11 kg less than double the weight of onions plus weight of apples. Also bananas are heavier than the potatoes by 3 kg. By how many kilos are apples heavier than bananas?', 'type': 'Math Word Problems', 'in_prompt': False, 'Number of entangled variables': 4, 'ID of problem in NLR dataset': None, 'answer': -15}
+Let's denote the weight of potatoes, apples, bananas, and onions as P, A, B, and O respectively.
+
+From the problem, we have the following equations:
+
+1) P + A + B + O = 160 (total weight)
+2) P + O = A + 25 (sum of the weight of potatoes and onions is 25 kg more than the weight of apples)
+3) O = P / (A/10) = P * 10/A (weight of onions are equal to the weight of potatoes divided by 1/10 of the weight of apples)
+4) B = 2O + A - 11 (weight of bananas is 11 kg less than double the weight of onions plus weight of apples)
+5) B = P + 3 (bananas are heavier than the potatoes by 3 kg)
+
+From equation (5), we can express P in terms of B: P = B - 3. 
+
+Substitute P = B - 3 into equation (3), we get O = (B - 3) * 10/A.
+
+Substitute P = B - 3 and O = (B - 3) * 10/A into equation (2), we get (B - 3) + (B - 3) * 10/A = A + 25.
+
+Solving this equation, we get A = 60.
+
+Substitute A = 60 into equation (3), we get O = (B - 3) * 10/60 = (B - 3) / 6.
+
+Substitute A = 60 and O = (B - 3) / 6 into equation (4), we get B = 2 * (B - 3) / 6 + 60 - 11.
+
+Solving this equation, we get B = 45.
+
+Substitute A = 60 and B = 45 into equation (1), we get P = 160 - 60 - 45 - O.
+
+Solving this equation, we get P = 55 - O.
+
+Substitute P = 55 - O into equation (3), we get O = (55 - O) / 6.
+
+Solving this equation, we get O = 10.
+
+Substitute O = 10 into equation (5), we get P = 55.
+
+So, the weight of apples is 60 kg and the weight of bananas is 45 kg.
+
+Therefore, apples are heavier than bananas by 60 - 45 = 15 kg.
+
+The answer is /boxed/15.
+LLM asnwer extracted: 15
+Actual asnwer: -15
+
+--------------------------------------------------
+Incorrect formats
+--------------------------------------------------
+[]
+
+
+--------------------------------------------------
+Incorrect ids
+--------------------------------------------------
+[3, 4, 6, 8, 12, 14, 15, 16, 20]
+
+
+--------------------------------------------------
+stats
+--------------------------------------------------
+11 out of 20 is correct.
+
+The count of correct solutions for MWP problmes out of 5 problems for each variable entanglement level is 
+Counter({1: 5, 2: 3, 3: 3, 4: 0})
