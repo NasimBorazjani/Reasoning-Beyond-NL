@@ -52,13 +52,13 @@ NLR_problems_var_entanglement = {
 }
 
 
-"""import json
-for item in NLR_problems.values():
+import json
+for item in NLR_problems_var_entanglement.values():
     item.pop('in_prompt', None)
 
 # Writing the modified dictionary to a new JSON file
-with open('NLR_dataset.json', 'w') as json_file:
-    json.dump(NLR_problems, json_file, indent=4)"""
+with open('NLR_dataset_var_entanglement.json', 'w') as json_file:
+    json.dump(NLR_problems_var_entanglement, json_file, indent=4)
 
 def get_problems(problem_type):
     if problem_type == "AI":

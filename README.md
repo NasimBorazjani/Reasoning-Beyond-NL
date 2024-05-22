@@ -34,6 +34,7 @@ To reproduce these results and evaluate the models on the GSM8k dataset, using o
 ```
 python inference_prolog_multitry_gsm8k.py [-h] your_openai_api_key {GPT4,GPT3.5} 
 ```
+Where you can choose the command line arguments between the options provided encodes in {}.
 
 ## Navigate Dataset
 
@@ -84,7 +85,7 @@ Models prompted with Chain of Thought examples in text achieve the following per
 
 | Model name         | Math Word problems | Constraint Satisfaction | Algorithmic Instructions |
 | ------------------ |---------------- | -------------- |-------------- |
-| GPT4       |     0%         |     0%      |  0%    |
+| GPT4       |     12.5%         |     8.3%      |  8.3%    |
 | GPT3.5     |     0%         |      0%     |   0%    |
 
 To reproduce these results and evaluate the models' end to end performance on the NLR dataset, run:
@@ -92,6 +93,36 @@ To reproduce these results and evaluate the models' end to end performance on th
 ```
 python inference_text_nlr.py [-h] your_openai_api_key {GPT4,GPT3.5} {MWP,CS,AI} 
 ```
+
+
+## NLR Dataset with NLR Dataset with Variable Entanglement Variations
+
+GPT4 prompted with our Prolog in-context learning examples, using our neurosymbolic inference approach, achieve the following performance on the subset of the NLR dataset with variable entanglement variations:
+
+| Model name         |  Problem Category | 0/1 Entangled Variable | 2  Entangled Variables | 3  Entangled Variables | 4  Entangled Variables |
+| ------------------ |---------------- | -------------- |-------------- |
+| GPT4 + Prolog      |     Math Word Problems    |  100% |   100%  | 100% |   100% |
+| GPT4 + Prolog      |     Algorithmic Instructions  |  100% |   80%  | 100% |   80% |
+
+To reproduce these results and evaluate the models on the NLR dataset, using our neurosymbolic Prolog augmented approach, run:
+
+```
+python inference_prolog_multitry_nlr_var_entanglement.py [-h] your_openai_api_key GPT4 {MWP,AI} 
+```
+
+Models prompted with Chain of Thought examples in text achieve the following performance the subset of the NLR dataset with variable entanglement variations:
+
+| Model name         |  Problem Category | 0/1 Entangled Variable | 2  Entangled Variables | 3  Entangled Variables | 4  Entangled Variables |
+| ------------------ |---------------- | -------------- |-------------- |
+| GPT4      |     Math Word Problems    |  100% |   60%  | 60% |   0% |
+| GPT4    |     Algorithmic Instructions  |  60% |   20%  | 20% |   0% |
+
+To reproduce these results and evaluate the models' end to end performance on the NLR dataset, run:
+
+```
+python inference_text_nlr_var_entanglement.py [-h] your_openai_api_key GPT4 {MWP,AI} 
+```
+
 
 
 ## License

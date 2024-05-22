@@ -55,9 +55,9 @@
         "answer": 0
     },
     "12": {
-        "statement": "Birthdays of Andy, Blake, Conor, Danny, and Emma are on or between 11th and 15th of a month. No two people's birthdays are on the same date. We know that Emma was born 2 days before Andy, and Blake was born 2 days before Danny. Emma\u2019s birthday is before Blake\u2019s birthday, the number of days between Danny\u2019s birthday and Conor\u2019s birthday is less than the number of days between Blake\u2019s and Connor\u2019s birthday, and Connor is born after Danny. What is Andy's birth date minus Blake\u2019s birth date plus Conor\u2019s birth date?",
+        "statement": "Birthdays of Andy, Blake, Conor, Danny, and Emma are on or between 11th and 15th of a month. No two people's birthdays are on the same date. We know that Emma was born 2 days before Andy, and Blake was born 2 days before Danny. Emma\u2019s birthday is before Blake\u2019s birthday, the number of days between Danny\u2019s birthday and Conor\u2019s birthday is less than the number of days between Blake\u2019s and Connor\u2019s birthday, and Connor is born after Danny. What is Andy's birth date minus Blake\u2019s birth date plus Danny\u2019s birth date?",
         "type": "Constraint Satisfaction",
-        "answer": 16
+        "answer": 15
     },
     "13": {
         "statement": "We have a 4x4 grid of single digit numbers bigger than 0. We know that the numbers in a row must be bigger than or equal to the next number, starting from left to right or right to left. Similarly numbers in a column must be bigger than or equal to the next number, starting from top down or down up. However, the number in the two diagonals must be strictly increasing or decreasing. Below is the current state of the board. If a grid is marked as X, then the number in that position is masked, and it\u2019s our task to determine those numbers.\n\nX 2 2 4\nX X X 6\nX X 7 8\nX 5 9 X\n\nWhat is the sum of all the numbers in the board after determining all the numbers in the X positions?",
